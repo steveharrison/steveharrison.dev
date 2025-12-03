@@ -4,11 +4,29 @@ description: 'An emerging trend that I think is as exciting as AI and crypto is 
 pubDate: 'Oct 04 2024'
 ---
 
+import BookmarkCard from '../../components/BookmarkCard.astro';
+
 An emerging trend that I think is as exciting as AI and crypto is [local-first development](https://localfirstweb.dev). The general idea is that apps should be able to work offline, support realtime collaboration easily (e.g. editing the same document in Google Docs) when online, and that users should be able to own their data if they want to access it / your company goes out of business. There's a whole community of researchers and developers working on it now. A popular app built around this philosophy is the note-taking app [Obsidian](http://obsidian.md), where all your notes are stored as Markdown files in a folder on your computer. The Obsidian CEO published a post, [File Over App](https://stephango.com/file-over-app), that talks about the benefits of this approach in more detail.
 
 I recommend reading Martin Kleppmann's 2019 paper, [You own your data, in spite of the cloud](https://www.inkandswitch.com/local-first/)—it's long but a great read!
 
 You can see a whole list of services emerging built around this philosophy, such as [Turso](http://turso.tech), [WatermelonDB](http://watermelondb.dev), and [Pocketbase](http://pocketbase.io)—and there's a much longer list over at the [local-first development website](https://localfirstweb.dev). Some of these integrate with existing Back Ends such as Supabase:
+
+<BookmarkCard
+  url="https://supabase.com/blog/react-native-offline-first-watermelon-db"
+  title="Offline-first React Native Apps with Expo, WatermelonDB, and Supabase"
+  description="Store your data locally and sync it with Postgres using WatermelonDB!"
+  thumbnail="__GHOST_URL__/content/images/thumbnail/expo-watermelondb-supabase.jpg"
+  publisher="Supabase"
+/>
+
+<BookmarkCard
+  url="https://supabase.com/blog/local-first-expo-legend-state"
+  title="Local-first Realtime Apps with Expo and Legend-State"
+  description="Build local-first realtime web and mobile apps with Expo, Legend-State, and Supabase."
+  thumbnail="__GHOST_URL__/content/images/thumbnail/local-first-expo-legend_state-thumb.png"
+  publisher="Supabase"
+/>
 
 ### InstantDB
 

@@ -6,6 +6,8 @@ Anthropic has released updates, including a "comput'
 pubDate: 'Oct 28 2024'
 ---
 
+import BookmarkCard from '../../components/BookmarkCard.astro';
+
 It's been a while since I did a tech roundup! A lot has been announced in the way of AI—let's dive in.
 
 Anthropic has [released updates](https://www.anthropic.com/news/3-5-models-and-computer-use), including a "computer use" mode that will control your computer with AI, allowing you to automate cumbersome tasks such as filling data into a webpage that's already stored in a document somewhere:
@@ -18,17 +20,24 @@ I enjoyed this anecdote from the [Ars Technica article](https://arstechnica.com/
 
 Someone got it to order lunch for them:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Successfully got Claude to order me lunch all by himself!<br><br>Notes after 8 hours of using the new model:<br><br>• Anthropic really does not want you to do this - anything involving logging into accounts and especially making purchases is RLHF'd away more intensely than usual. In fact my… <a href="https://t.co/ueo8kvZUPF">pic.twitter.com/ueo8kvZUPF</a></p>— near (@nearcyan) <a href="https://twitter.com/nearcyan/status/1848875226043703762?ref_src=twsrc%5Etfw">October 22, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Successfully got Claude to order me lunch all by himself!<br /><br />Notes after 8 hours of using the new model:<br /><br />• Anthropic really does not want you to do this - anything involving logging into accounts and especially making purchases is RLHF'd away more intensely than usual. In fact my… <a href="https://t.co/ueo8kvZUPF">pic.twitter.com/ueo8kvZUPF</a></p>— near (@nearcyan) <a href="https://twitter.com/nearcyan/status/1848875226043703762?ref_src=twsrc%5Etfw">October 22, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 XAI released an API and people are already building things with it, such as this AI-enhanced scraper:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Introducing Grok-2 web crawler 🕸️<br><br>It crawls any website with <a href="https://twitter.com/xai?ref_src=twsrc%5Etfw">@xai</a>'s new Grok-2 model and <a href="https://twitter.com/firecrawl_dev?ref_src=twsrc%5Etfw">@firecrawl_dev</a><br><br>Just give it a URL and a goal then it will navigate + return the requested data in a structured format<br><br>Take a look: <a href="https://t.co/irY4bnt3qs">pic.twitter.com/irY4bnt3qs</a></p>— Nicolas Camara (@nickscamara_) <a href="https://twitter.com/nickscamara_/status/1848448992608133348?ref_src=twsrc%5Etfw">October 21, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Introducing Grok-2 web crawler 🕸️<br /><br />It crawls any website with <a href="https://twitter.com/xai?ref_src=twsrc%5Etfw">@xai</a>'s new Grok-2 model and <a href="https://twitter.com/firecrawl_dev?ref_src=twsrc%5Etfw">@firecrawl_dev</a><br /><br />Just give it a URL and a goal then it will navigate + return the requested data in a structured format<br /><br />Take a look: <a href="https://t.co/irY4bnt3qs">pic.twitter.com/irY4bnt3qs</a></p>— Nicolas Camara (@nickscamara_) <a href="https://twitter.com/nickscamara_/status/1848448992608133348?ref_src=twsrc%5Etfw">October 21, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Runway are doing some really interesting stuff to automate motion-capture for filmmaking. Gone are the days of having to place dots on Andy Serkis in order to track him for Gollum in Lord of the Rings. This tech allows you to record videos of people and then map their facial expressions to 3D models:
 
-![](https://runwayml.com/icon.png?354f8c2b5139d556)
+<BookmarkCard
+  url="https://runwayml.com/research/introducing-act-one"
+  title="Runway Research | Introducing Act-One"
+  description="At Runway, our mission is to build expressive and controllable tools for artists that can open new avenues for creative expression. Today, we’re excited to release Act-One, a new state-of-the-art tool for generating expressive character performances inside Gen-3 Alpha."
+  thumbnail="https://d3phaj0sisr2ct.cloudfront.net/site/content/images/act-one-card.jpg"
+  icon="https://runwayml.com/icon.png?354f8c2b5139d556"
+  publisher="Introducing Act-One"
+/>
 
 Midjourney has released an editor feature that allows you to upload a photo and then make edits using AI:
 
@@ -37,6 +46,13 @@ Midjourney has released an editor feature that allows you to upload a photo and 
 Perplexity has released features to search historical financial data and internal company data:
 
 <iframe width="100%" height="413" src="https://www.youtube.com/embed/qLYd6BJTgl0?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Perplexity CEO on 'Internal Knowledge' AI search, AI race and competition"></iframe>
+
+<BookmarkCard
+  url="https://news.ycombinator.com/item?id=41906949"
+  title="Perplexity AI’s new tool for researching the stock market | Hacker News"
+  thumbnail="https://news.ycombinator.com/y18.svg"
+  publisher="Hacker News"
+/>
 
 While OpenAI has yet to release Sora, they have collaborated with Toys 'R' Us for a commercial:
 
@@ -58,7 +74,7 @@ Hilariously, one of the OpenAI demo videos got copyrighted by a South Korean new
 
 Another competitor:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Closed AI won the left brain of AGI. We're here to make sure there's an open alternative for the right brain.<br><br>Mochi 1 sets a new SOTA for open-source video generation models. It is the strongest OSS model in the ecosystem. This will be a force for good, both for AI research and… <a href="https://t.co/1QORiG2Swr">https://t.co/1QORiG2Swr</a></p>— Paras Jain (@_parasj) <a href="https://twitter.com/_parasj/status/1848763942216044946?ref_src=twsrc%5Etfw">October 22, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Closed AI won the left brain of AGI. We're here to make sure there's an open alternative for the right brain.<br /><br />Mochi 1 sets a new SOTA for open-source video generation models. It is the strongest OSS model in the ecosystem. This will be a force for good, both for AI research and… <a href="https://t.co/1QORiG2Swr">https://t.co/1QORiG2Swr</a></p>— Paras Jain (@_parasj) <a href="https://twitter.com/_parasj/status/1848763942216044946?ref_src=twsrc%5Etfw">October 22, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 OpenAI now allows you to send text or audio to the API, and it will then give you responses back in either text, audio, or both:
@@ -78,17 +94,17 @@ I've been trying out Cursor and will document my experience in a separate post. 
 
 Another code generation tool is the talk of the town: [bolt.new](http://bolt.new):
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I'm not kidding around: go to bolt․new and type in:<br><br>"make a spotify clone"<br><br>I'm speechless. <a href="https://t.co/ntR6eggRtk">pic.twitter.com/ntR6eggRtk</a></p>— Tomek Sułkowski (@sulco) <a href="https://twitter.com/sulco/status/1848883749510959241?ref_src=twsrc%5Etfw">October 23, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I'm not kidding around: go to bolt․new and type in:<br /><br />"make a spotify clone"<br /><br />I'm speechless. <a href="https://t.co/ntR6eggRtk">pic.twitter.com/ntR6eggRtk</a></p>— Tomek Sułkowski (@sulco) <a href="https://twitter.com/sulco/status/1848883749510959241?ref_src=twsrc%5Etfw">October 23, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Moving onto general AI tools, I came across this tool that converts PDFs into flashcards for memorisation:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">we’re launching our rebrand of memo from pdf2anki on ProductHunt! <a href="https://t.co/OhK5qfZqwq">https://t.co/OhK5qfZqwq</a><br><br>my name is Jason - the co-founder of Memo (previously PDF2Anki) and a 21-year-old in medical student and builder from Hong Kong 🇭🇰<br><br>Memo is the smarter way to learn with flashcards. We… <a href="https://t.co/uymyNheosk">pic.twitter.com/uymyNheosk</a></p>— Jason (@thetechjason) <a href="https://twitter.com/thetechjason/status/1847962104348999745?ref_src=twsrc%5Etfw">October 20, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">we’re launching our rebrand of memo from pdf2anki on ProductHunt! <a href="https://t.co/OhK5qfZqwq">https://t.co/OhK5qfZqwq</a><br /><br />my name is Jason - the co-founder of Memo (previously PDF2Anki) and a 21-year-old in medical student and builder from Hong Kong 🇭🇰<br /><br />Memo is the smarter way to learn with flashcards. We… <a href="https://t.co/uymyNheosk">pic.twitter.com/uymyNheosk</a></p>— Jason (@thetechjason) <a href="https://twitter.com/thetechjason/status/1847962104348999745?ref_src=twsrc%5Etfw">October 20, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 People are using AI tools to come up with a comic idea and then feed it to another AI to generate the image:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Flux 1.1 does pretty decent political cartoons, so I wired up a glif workflow that let's Gemini Pro 1.5 write the cartoon and then passes it on the Flux the cartoonist to render<br><br>"EU regulations" <a href="https://t.co/ynT17RHRox">pic.twitter.com/ynT17RHRox</a></p>— fabian (@fabianstelzer) <a href="https://twitter.com/fabianstelzer/status/1846503078213693668?ref_src=twsrc%5Etfw">October 16, 2024</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Flux 1.1 does pretty decent political cartoons, so I wired up a glif workflow that let's Gemini Pro 1.5 write the cartoon and then passes it on the Flux the cartoonist to render<br /><br />"EU regulations" <a href="https://t.co/ynT17RHRox">pic.twitter.com/ynT17RHRox</a></p>— fabian (@fabianstelzer) <a href="https://twitter.com/fabianstelzer/status/1846503078213693668?ref_src=twsrc%5Etfw">October 16, 2024</a></blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 I'll leave you with this video from The Wall Street Journal showing how NVIDIA used their own chips and super accurate lighting in architectural renderings to design their Silicon Valley HQ:

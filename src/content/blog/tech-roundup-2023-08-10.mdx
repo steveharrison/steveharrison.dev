@@ -6,9 +6,11 @@ description: 'An AI-generated deep fake has been making the rounds—I think it'
 pubDate: 'Aug 11 2023'
 ---
 
+import BookmarkCard from '../../components/BookmarkCard.astro';
+
 An AI-generated deep fake has been making the rounds—I think it's pretty convincing:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">[NEW] - Joshua Avatar 2.0 🤖✨. Both of these video clips were 100% AI-generated, featuring my own avatar and voice clone. 🎙️🎥<br><br>We&#39;ve made massive enhancements to our life-style avatar&#39;s video quality and fine-tuned our voice technology to mimic my unique accent and speech… <a href="https://t.co/9EgxRA69dg">pic.twitter.com/9EgxRA69dg</a></p>&mdash; Joshua Xu (@joshua_xu_) <a href="https://twitter.com/joshua_xu_/status/1689019874667024384?ref_src=twsrc%5Etfw">August 8, 2023</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">[NEW] - Joshua Avatar 2.0 🤖✨. Both of these video clips were 100% AI-generated, featuring my own avatar and voice clone. 🎙️🎥<br /><br />We&#39;ve made massive enhancements to our life-style avatar&#39;s video quality and fine-tuned our voice technology to mimic my unique accent and speech… <a href="https://t.co/9EgxRA69dg">pic.twitter.com/9EgxRA69dg</a></p>&mdash; Joshua Xu (@joshua_xu_) <a href="https://twitter.com/joshua_xu_/status/1689019874667024384?ref_src=twsrc%5Etfw">August 8, 2023</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Researchers have published a paper on guessing passwords with AI by listening to the sounds made by your keyboard over a Zoom call.
@@ -19,15 +21,36 @@ Researchers have published a paper on guessing passwords with AI by listening to
 
 > The study is not the first to show that sound can identify keystrokes, but the team says their study uses the most advanced methods and has achieved the highest accuracy so far.
 
-![](https://interestingengineering.com/icons/android-icon-192x192.png?v=14)
+<BookmarkCard
+  url="https://interestingengineering.com/innovation/how-your-keyboard-sounds-can-expose-your-data-to-ai-hackers"
+  title="How your keyboard sounds can expose your data to AI hackers"
+  description="Researchers have developed a system that can guess passwords by listening to the sound of typing on online meetings and video calls."
+  thumbnail="https://dnd2oi6izkvoi.cloudfront.net/2023/08/09/image/jpeg/c8jZb03sC0yEsNlYnMlFJeMltKpfvzUaK8QYL3ps.jpg"
+  icon="https://interestingengineering.com/icons/android-icon-192x192.png?v=14"
+  publisher="Interesting Engineering"
+/>
 
 A new AI model generates 3D textured meshes based on a single "unposed" photo:
 
-![](https://guochengqian.github.io/dragon.png)
+<BookmarkCard
+  url="https://guochengqian.github.io/project/magic123/"
+  title="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors"
+  description="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors, 2023."
+  thumbnail="https://guochengqian.github.io/project/magic123/assets/images/pull.jpg"
+  icon="https://guochengqian.github.io/dragon.png"
+  publisher="Magic123: One Image to High-Quality 3D Object Generation Using Both 2D and 3D Diffusion Priors"
+/>
 
 Google has announced NotebookLM, an AI-powered notebook where you can feed in your own Google Docs and then get summaries, ask questions about the content, and generate ideas based on the content (for example: "Generate a script for a short video on this topic" or “What questions would potential investors ask?”).
 
-![](https://blog.google/static/blogv2/images/apple-touch-icon.png)
+<BookmarkCard
+  url="https://blog.google/technology/ai/notebooklm-google-ai/"
+  title="Introducing NotebookLM"
+  description="We’re rolling out NotebookLM, an experimental offering from Google Labs to summarize information, complex ideas and brainstorm new connections."
+  thumbnail="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Labs_IO_social_share.width-1300.jpg"
+  icon="https://blog.google/static/blogv2/images/apple-touch-icon.png"
+  publisher="Google"
+/>
 
 It appears journalists still don't understand the "shitposting" culture on X and that they might want to take posts with a grain of salt: someone wrote an entire Insider article about a joke X post:
 
@@ -40,13 +63,27 @@ That, or they're just trying to cash in on some of the engagement too. 😏
 
 Here's a video on how F1 use AWS:
 
-![](https://technative.io/wp-content/uploads/2017/03/q3Nchk1T14472.jpg)
+<BookmarkCard
+  url="https://technative.io/formula-1-transforming-fan-engagement-with-cloud/"
+  title="Formula 1: Transforming Fan Engagement with Cloud - TechNative"
+  description="Data-driven insights with F1 and AWS At the recent AWS Summit in London we caught up with esteemed former engineer at Ferrari and Williams, Rob Smedley, to discuss the growing utilization of data in Formula 1, and how it’s changing the fan experience. We also spent some time with AWS’s Neil Ashton…"
+  thumbnail="https://technative.io/wp-content/uploads/2023/08/pexels-dimitrije-djekanovic-13857977.jpg"
+  icon="https://technative.io/wp-content/uploads/2017/03/q3Nchk1T14472.jpg"
+  publisher="TechNative"
+/>
 
 ### All it takes is one misplaced tracking pixel
 
 I was researching Backblaze, a cloud internet backup service, and found this interesting article on a data breach that occurred:
 
-![](https://www.theregister.com/design_picker/13249a2e80709c7ff2e57dd3d49801cd534f2094/graphics/favicons/apple-touch-icon.png)
+<BookmarkCard
+  url="https://www.theregister.com/2021/03/23/backblaze_facebook_tracker/"
+  title="Backblaze on the back foot after ‘inadvertently’ beaming customer data to Facebook"
+  description="Backup company says tracking code now removed, but what info was sent?"
+  thumbnail="https://regmedia.co.uk/2018/06/05/shutterstock_631896641.jpg"
+  icon="https://www.theregister.com/design_picker/13249a2e80709c7ff2e57dd3d49801cd534f2094/graphics/favicons/apple-touch-icon.png"
+  publisher="The Register"
+/>
 
 It's a great reminder that you can have end-to-end encrypted services but at some stage, the data has to be decrypted to show to the user, and if there's a bug in the Front End of your app where the data is visible, bam! In this case, they added some JavaScript code using Google Tag Manager, commonly used to add advertising / analytics tracking code by marketing teams, but didn't restrict the URL pattern to only target their public pages. Personally, it would seem like a good idea to not even have Google Tag Manager on the authenticated section of your site for precisely this reason.
 
@@ -54,7 +91,14 @@ It's a great reminder that you can have end-to-end encrypted services but at som
 
 Have you ever wondered how reliable SSDs are at scale? Well fear not, here's a study of 1.4 million SSDs by researcher Prof. Bianca Schroeder and NetApp:
 
-![](https://www.zdnet.com/a/fly/bundles/zdnetcore/images/logos/zdnet-logo-yellow.png)
+<BookmarkCard
+  url="https://www.zdnet.com/article/ssd-reliability-in-the-enterprise/"
+  title="SSD reliability in the enterprise: This survey yields a few surprises"
+  description="Solid state drives (SSDs) have remade the storage industry in the last decade. They’re costly, fast, and power efficient, but just how reliable are they? A new study of almost 1.4 million SSDs offers some surprising answers."
+  thumbnail="https://www.zdnet.com/a/img/resize/31d3cb38126c55a71b7e114b15409c62e4013962/2020/02/25/2fbe9aae-0291-42ba-a9ea-885a9c105e80/ifferent-data-storage-devices.jpg?auto=webp&fit=crop&height=675&width=1200"
+  icon="https://www.zdnet.com/a/fly/bundles/zdnetcore/images/logos/zdnet-logo-yellow.png"
+  publisher="ZDNET"
+/>
 
 An interesting finding: drives with less usage experienced higher replacement rates.
 
@@ -74,7 +118,14 @@ While I was looking at new JavaScript proposals on GitHub, I noticed they mentio
 
 [SerenityOS](https://serenityos.org) is a hobby Unix-like OS created in 2018 by Andreas Kling. He went as far as to write his own web browser from scratch!
 
-![](https://www.theregister.com/favicon.ico)
+<BookmarkCard
+  url="https://www.theregister.com/AMP/2022/03/31/serenityos/"
+  title="SerenityOS: Remarkable project with its own JS-capable web browser"
+  description="Lead dev of modest ground-up Unix-like OS quit job to work on it"
+  thumbnail="https://regmedia.co.uk/2022/03/31/serenity_os_screenshot.jpg"
+  icon="https://www.theregister.com/favicon.ico"
+  publisher="The Register"
+/>
 
 ### ch CSS unit
 
@@ -82,7 +133,13 @@ At a recent SydCSS meetup, I discovered the `ch` CSS unit which refers to the wi
 
 You can read more about it here:
 
-![](https://meyerweb.com/favicon.ico)
+<BookmarkCard
+  url="https://meyerweb.com/eric/thoughts/2018/06/28/what-is-the-css-ch-unit/"
+  title="What is the CSS ‘ch’ Unit?"
+  description="Is ‘1ch’ in CSS the width of one character? Well… yes and no. Mostly no."
+  thumbnail="https://meyerweb.com/ui/i/hamonshu/fb-og-image.png"
+  icon="https://meyerweb.com/favicon.ico"
+/>
 
 ### Repeating JavaScript RegExp capture group names
 

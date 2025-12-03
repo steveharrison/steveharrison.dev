@@ -4,12 +4,23 @@ description: 'Apple''s CloudKit framework offers a secure way to store app data 
 pubDate: 'Sep 13 2024'
 ---
 
+import BookmarkCard from '../../components/BookmarkCard.astro';
+
 Apple's [CloudKit](https://developer.apple.com/documentation/cloudkit) framework offers a secure way to store app data and make it available to all of a user's Apple devices, tied to their Apple account. I was looking into it recently, and I noticed that they also have the ability to use it on the web. Enter [CloudKit JS](https://developer.apple.com/documentation/cloudkitjs). You can access CloudKit data on the client-side using a client token (covered below), or also directly server-side using a private server token. I found the whole experience quite confusing, so this post will show you all the steps you need to get started with CloudKit on iOS and web in 2024!
 
 I've created a GitHub repository with two examples of a simple task list app that connects to CloudKit to read / write tasks:
 
 - Vanilla HTML + JavaScript page
 - Modern Next.js app using React, TypeScript, Tailwind CSS, & shadcn
+
+<BookmarkCard
+  url="https://github.com/steveharrison/cloudkitjs-examples"
+  title="GitHub - steveharrison/cloudkitjs-examples"
+  description="Contribute to steveharrison/cloudkitjs-examples development by creating an account on GitHub."
+  thumbnail="__GHOST_URL__/content/images/thumbnail/cloudkitjs-examples"
+  icon="__GHOST_URL__/content/images/icon/pinned-octocat-093da3e6fa40.svg"
+  publisher="GitHub"
+/>
 
 I recommend you check out this repo as I'll reference it later.
 
