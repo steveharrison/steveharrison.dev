@@ -24,7 +24,7 @@ const posts = (await getCollection('blog'))
 				<ul>
 					{posts.map((post) => (
 						<li>
-							<a href={`/blog/${post.id}/`}>
+							<a href={`/${post.id}/`}>
 								<h3>{post.data.title}</h3>
 								<p class="date">
 									<FormattedDate date={post.data.pubDate} />
@@ -34,7 +34,7 @@ const posts = (await getCollection('blog'))
 						</li>
 					))}
 				</ul>
-				<a href="/blog" class="view-all">View all articles →</a>
+				<a href="/articles" class="view-all">View all articles →</a>
 			</section>
 
 			<section class="portfolio">
