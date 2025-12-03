@@ -2,7 +2,13 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
 <!doctype html>
@@ -13,37 +19,269 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>Cutting through complexity</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="recent-posts">
+				<h2>Recent Articles</h2>
+				<ul>
+					{posts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<h3>{post.data.title}</h3>
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+								<p class="description">{post.data.description}</p>
+							</a>
+						</li>
+					))}
+				</ul>
+				<a href="/blog" class="view-all">View all articles →</a>
+			</section>
+
+			<section class="portfolio">
+				<h2>Portfolio</h2>
+				<div class="projects">
+					<div class="project">
+						<div class="project-image">
+							<img src="/blog-placeholder-1.jpg" alt="Project 1" />
+						</div>
+						<div class="project-details">
+							<h3>Enterprise Platform Modernization</h3>
+							<p class="company">TechCorp Inc. (2022-2024)</p>
+							<p>Led the migration of a monolithic application to microservices architecture, improving scalability by 300% and reducing deployment time from days to hours.</p>
+							<ul class="tech-stack">
+								<li>Node.js</li>
+								<li>Kubernetes</li>
+								<li>PostgreSQL</li>
+								<li>React</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="project">
+						<div class="project-image">
+							<img src="/blog-placeholder-2.jpg" alt="Project 2" />
+						</div>
+						<div class="project-details">
+							<h3>Real-time Analytics Dashboard</h3>
+							<p class="company">DataFlow Systems (2021-2022)</p>
+							<p>Designed and built a real-time analytics platform processing millions of events per day, with sub-second query performance and interactive visualizations.</p>
+							<ul class="tech-stack">
+								<li>Python</li>
+								<li>Apache Kafka</li>
+								<li>Redis</li>
+								<li>Vue.js</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="project">
+						<div class="project-image">
+							<img src="/blog-placeholder-3.jpg" alt="Project 3" />
+						</div>
+						<div class="project-details">
+							<h3>Cloud Infrastructure Automation</h3>
+							<p class="company">CloudScale Solutions (2020-2021)</p>
+							<p>Developed infrastructure-as-code tooling that automated deployment of complex cloud environments, reducing setup time from weeks to minutes.</p>
+							<ul class="tech-stack">
+								<li>Terraform</li>
+								<li>AWS</li>
+								<li>Go</li>
+								<li>GitHub Actions</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1em;
+		max-width: 60ch;
+	}
+
+	.hero {
+		margin-bottom: 3em;
+	}
+
+	h1 {
+		font-size: 2.5em;
+		font-weight: 700;
+		line-height: 1.2;
+		margin-bottom: 0.5em;
+	}
+
+	.bio {
+		font-size: 1.1em;
+		line-height: 1.6;
+		color: rgb(var(--gray-dark));
+	}
+
+	section {
+		margin-bottom: 3em;
+	}
+
+	h2 {
+		font-size: 1.8em;
+		font-weight: 600;
+		margin-bottom: 1em;
+		border-bottom: 2px solid rgb(var(--accent));
+		padding-bottom: 0.3em;
+	}
+
+	.recent-posts ul {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5em;
+	}
+
+	.recent-posts li {
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 8px;
+		padding: 1.25em;
+		transition: all 0.2s ease;
+	}
+
+	.recent-posts li:hover {
+		border-color: rgb(var(--accent));
+		box-shadow: 0 4px 12px rgba(var(--black), 10%);
+		transform: translateY(-2px);
+	}
+
+	.recent-posts a {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.recent-posts h3 {
+		margin: 0 0 0.5em 0;
+		color: rgb(var(--accent));
+		font-size: 1.3em;
+	}
+
+	.recent-posts .date {
+		font-size: 0.9em;
+		color: rgb(var(--gray));
+		margin: 0 0 0.5em 0;
+	}
+
+	.recent-posts .description {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		line-height: 1.5;
+	}
+
+	.view-all {
+		display: inline-block;
+		margin-top: 1em;
+		color: rgb(var(--accent));
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.view-all:hover {
+		text-decoration: underline;
+	}
+
+	.projects {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5em;
+	}
+
+	.project {
+		display: grid;
+		grid-template-columns: 300px 1fr;
+		gap: 2em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 8px;
+		padding: 1.5em;
+		transition: all 0.2s ease;
+	}
+
+	.project:hover {
+		border-color: rgb(var(--accent));
+		box-shadow: 0 4px 12px rgba(var(--black), 10%);
+	}
+
+	.project-image {
+		width: 100%;
+		height: 200px;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.project-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.project-details h3 {
+		margin: 0 0 0.5em 0;
+		font-size: 1.4em;
+		color: rgb(var(--black));
+	}
+
+	.company {
+		font-size: 0.9em;
+		color: rgb(var(--gray));
+		margin: 0 0 1em 0;
+		font-style: italic;
+	}
+
+	.project-details > p:not(.company) {
+		line-height: 1.6;
+		color: rgb(var(--gray-dark));
+		margin-bottom: 1em;
+	}
+
+	.tech-stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.tech-stack li {
+		background: rgb(var(--accent));
+		color: white;
+		padding: 0.3em 0.8em;
+		border-radius: 4px;
+		font-size: 0.85em;
+		font-weight: 500;
+	}
+
+	@media (max-width: 900px) {
+		.project {
+			grid-template-columns: 1fr;
+		}
+
+		.project-image {
+			height: 250px;
+		}
+	}
+
+	@media (max-width: 600px) {
+		h1 {
+			font-size: 2em;
+		}
+
+		h2 {
+			font-size: 1.5em;
+		}
+
+		.bio {
+			font-size: 1em;
+		}
+	}
+</style>
