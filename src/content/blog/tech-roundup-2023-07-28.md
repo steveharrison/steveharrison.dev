@@ -1,0 +1,65 @@
+---
+title: 'Tech roundup - Friday 28 July 2023'
+description: 'The Line
+
+NEOM is a new urban area planned by the Kingdom of Saudi Arabia to be built in its northwestern Tabuk Province. The site is north of the Red Sea,'
+pubDate: 'Jul 28 2023'
+---
+
+### The Line
+
+NEOM is a new urban area planned by the Kingdom of Saudi Arabia to be built in its northwestern Tabuk Province. The site is north of the Red Sea, east of Egypt across the Gulf of Aqaba and south of Jordan. The total planned area of NEOM is 26,500 km². In January 2021, the project unveiled plans for The Line, a linear city 170 kilometres long and 200 metres wide within the NEOM area. A new 45-minute-long documentary about The Line has been released by the Discovery Channel. It marks the first time the majority of architects connected to the project have spoken about it in public.
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/oamD9QoTH9M?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="THE LINE: Saudi Arabia's City of the Future in NEOM"></iframe>
+
+### Twitter is now X
+
+Twitter rebranded to X this week, and in true Elon style, he crowdsourced the logo via Twitter. The company has also taken over the @X Twitter username which was previously the account of a photographer, Gene X. Huang. He has been moved to @x12345678998765.
+
+Esther Crawford, a former product manager at Twitter who went viral after posting a photo of herself in a sleeping bag at the office shortly after Elon acquired Twitter, has [written a great essay](https://twitter.com/i/web/status/1684291048682684416) on her experience working at Twitter. It's a great insight into how inefficient Twitter was previously and the pros/cons of how Elon is operating it now.
+
+### Worldcoin
+
+Digital identity project Worldcoin launched their WLD crypto token on Monday, which soared 60% on the first day of trading. Sam Altman, CEO of OpenAI is one of the founders: he's said he isn't sure whether the project will succeed, but it's "worth a shot".
+
+The creator of Ethereum, Vitalik Buterin, has [published his thoughts](https://vitalik.eth.limo/general/2023/07/24/biometric.html) on Worldcoin and similar "proof of personhood" projects. The goal with proof of personhood is essentially to create a list of public keys with the guarantee that each key is controlled by a unique human. That key can then be used instead of existing verification methods such as CAPTCHAs and credit cards (the latter was Elon Musk's strategy to deal with bots on X—requiring a valid, unique credit card number significantly increases the cost of spam attacks as you typically have to go through bank verification in order to get one).
+
+Meanwhile, the MIT Technology Review has another take from 2022 on Worldcoin:
+
+![](https://www.technologyreview.com/2022/04/06/1048981/worldcoin-cryptocurrency-biometrics-web3/static/media/favicon.1cfcdb44.ico)
+
+### AI-powered web design
+
+Wix has added generative AI to their WYSIWYG web design tool:
+
+![](https://www.wix.com/favicon.ico)
+
+### A new browser experience
+
+[Arc](https://arc.net/), by the Browser Company of New York, is a new Chromium-based web browser focusing on a great user experience. It organises tabs, favourites, and workspaces in a panel on the left (as opposed to at the top, like in most web browsers) and allows you to easily create split screens with different webpages. There was previously a waitlist to try it, but it's now available to everyone. I've started using it today and will let you know how I go! I'm using it to write this newsletter. 🙂
+
+![First Look: Arc Browser – The Sweet Setup](https://thesweetsetup.com/wp-content/uploads/2022/08/Arc-Browser-First-Look-7.png)
+
+![](https://arc.net/favicon.png)
+
+## Dev
+
+### What's new in Chrome DevTools 
+
+You can now view the specificity of a CSS selector by hovering over it:
+
+I've published a short YouTube video on it:
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/93t-h4Fpowk?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Viewing CSS specificity in DevTools (new in Chrome 115!)"></iframe>
+
+If you need a refresher on how specificity is calculated, check out [this mdn page](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity).
+
+You can now override HTTP response headers, which is handy to bypass CORS errors:
+
+To see all the new things in Chrome DevTools, check out this video by their developer team:
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/e8tl_yp5BQg?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="What’s new in DevTools: Network, Console, Wasm (Chrome 113-115)"></iframe>
+
+---
+
+Alright, that's a wrap—talk to you next week!

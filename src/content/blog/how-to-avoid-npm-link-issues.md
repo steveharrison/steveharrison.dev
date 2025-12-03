@@ -1,0 +1,39 @@
+---
+title: 'How to avoid npm link issues'
+description: 'When using component libraries, you''ll often need to use npm link in order to test changes to the component library in an app that uses the component libra'
+pubDate: 'Oct 09 2025'
+---
+
+When using component libraries, you'll often need to use `npm link` in order to test changes to the component library in an app that uses the component library locally.
+
+Let's say you're working on a dashboard in a `company-portal` project and you're using a Button component from your company's component library, `@my-org/component-library`. It turns out you need an outline button variant that hasn't been created yet in the component library.
+
+In the component library, you run `npm link`. Then in `company-portal`, you run `npm link @my-org/component-library`.
+
+When it all goes smoothly, you can run local dev servers in the `company-portal` and `@my-org/component-library` projects and any new changes you make to the Button will reflect across in `company-portal`. Then, when you're satisfied with your component library changes, you can release a new NPM package, run `npm unlink` in `company-portal`, and then install the published package.
+
+However, oftentimes it does not go smoothly. Here are some scenarios I've run into and how to avoid them:
+
+1. **Make sure the Node versions are the same in both Terminal windows.**
+
+If you use a tool such as `nvm` to switch between different versions of Node, it can be easy to accidentally be running, say, Node 20 in one Terminal window and Node 22 in the other window, particularly if the default version in new windows is different from the version your project uses.
+
+Needless to say, `npm link` only works within the current Node environment, so if you try to `npm link @my-org/component-library` in a different Node environment, you'll get an error saying that it can't find it.
+
+One way to make it harder for these kinds of accidents to happen is to use a `.npmrc` file to automatically set the version of Node for the project and to use the same Node version across all your projects.
+
+1. **Check that the symlink has actually been created.**
+
+Look in `node_modules` and check that the symlink is valid. This will let you know whether the linking process succeeded or not. Sometimes I'll find that this still has the installed package, which is a top culprit for your component library changes not appearing. Symlinks are displayed differently in different editors. I find that Finder (say that faster! 😉) in macOS displays them very clearly like so:
+
+My favourite editor, [Nova](https://nova.app/), displays:
+
+Visual Studio Code displays a little arrow icon to the right, but then shows the contents of the symlinked folder right below, so pay attention to whether the arrow is there or not:
+
+1. **Check that the file you're trying to import actually exists.**
+
+In some cases, the build process may not be working as intended in your component library, so even though the symlink is working, the files that `company-portal` are importing are not there. So double-check that you're running a dev server that generates the correct build files, or make sure you've run an `npm build` command in the component library and that all assets such as JS, CSS, and image files are present in the expected `dist` folder structure.
+
+1. **Ditch the dev servers and create production builds in both projects.**
+
+Sometimes, I've run into dev mode quirks and caching issues, so if all else is failing, stop the dev servers and do a full production build in both projects (e.g. if `company-portal` is a Next.js app, `npm run build && npm run start`) to see if the same error occurs. Remember to do the component library build first. 🙂

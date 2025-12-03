@@ -1,0 +1,65 @@
+---
+title: 'AI meets typography, grifting from crypto -> AI, and copying startups in your country'
+description: 'AI
+
+OpenAI will host its first developer conference on 6 November. And startups in incubator Y Combinator''s program have presented their ideas:
+
+5 neat AI '
+pubDate: 'Sep 08 2023'
+---
+
+### AI
+
+OpenAI will host its first developer conference on 6 November. And startups in incubator Y Combinator's program have presented their ideas:
+
+![](https://techcrunch.com/wp-content/themes/techcrunch-2017/images/favicon.png)
+
+The AI image generation tool Midjourney has always struggled when it comes to typography. Some former Google Brain researches aim to fix this with their new tool, [Ideogram](https://venturebeat.com/ai/watch-out-midjourney-ideogram-launches-ai-image-generator-with-impressive-typography/?utm_source=tldrdesign):
+
+> Meet the new AI Coffee Shop boss.
+>
+> It can track how productive baristas are and how much time customers spend in the shop.
+>
+> We're headed into wild times. [pic.twitter.com/tygyCrWQ2T](https://t.co/tygyCrWQ2T)
+>
+> — Rowan Cheung (@rowancheung) [August 31, 2023](https://twitter.com/rowancheung/status/1697204841813070261?ref_src=twsrc%5Etfw)
+
+Call of Duty, a popular first-person shooter game, has partnered with AI company Modulate to [start analysing](https://www.theverge.com/2023/8/30/23852652/call-of-duty-activision-modulate-toxmod-artificial-intelligence-voice-moderation) in-game voice chats for content moderation:
+
+> Modulate’s press release doesn’t include too many details about how exactly ToxMod works. [Its website](https://www.modulate.ai/tox-mod) notes that the tool “triages voice chat to flag bad behavior, analyzes the nuances of each conversation to determine toxicity, and enables moderators to quickly respond to each incident by supplying relevant and accurate context.” The company’s CEO said in a [recent interview](https://venturebeat.com/games/modulate-raises-30m-to-detoxify-voice-chat-in-games-with-ai/) that the tool aims to go beyond mere transcription; it takes factors like a player’s emotions and volume into context as well in order to differentiate harmful statements from playful ones.
+
+Globalstar, a satellite network operator [has purchased](https://techcrunch.com/2023/09/01/apple-backed-globalstar-inks-64m-launch-contract-with-spacex/) $64 million worth of launches from SpaceX. Apple backs Globalstar and uses them to provide its Emergency SOS feature.
+
+### Finance
+
+A YouTuber lost $60K in crypto after [accidentally revealing](https://decrypt.co/154522/youtuber-loses-60k-worth-crypto-after-showing-seed-phrase-stream) his seed phrases (essentially your crypto password) during a livestream.
+
+The neobank Up has [launched](https://www.smartcompany.com.au/climate-change/up-seabin-recycled-debit-card/) a new debit card that is made from 82% recycled materials in a partnership with Seabin.
+
+This gem on startups pivoting from crypto to AI:
+
+> The move from crypto to artificial intelligence fueled the markets this year, but some are questioning how much of it is real. A company that wasn’t doing well renamed itself to “Applied Blockchain”, but a little too late. Luckily for them, ChatGPT came out a few months later. To boost their stock price, they renamed themselves “Applied Digital” and mentioned AI a few times in their earnings call, getting a hyped 450% increase in the public markets. While dollars are flowing in quickly to all things AI, it is yet to be seen whether these companies can even last.
+
+![](https://www.institutionalinvestor.com/apple-touch-icon.png)
+
+UBS also seems to be doing OK for themselves:
+
+[‘Deal of the century’: how UBS’s rescue of Credit Suisse proved a boon](https://email.news-alerts.ft.com/c/eJxEkU2O3DoMhE9j79ggJepvocUA7zXQ6yQHkChqxkDbntjqNHL7YCYJsiPAQuGrKilDX_fjZ970ed51DD3mllElsJs1k0_WMcbgZl3Lcr-1HIKJIZgOkSoBkyDUWhVISrfIbIsP81sOmIwSGULnjHoKRoisZQnOB19pXrJBYzEhISNivBTHvYqx0XARijwxfkBBuesxzksfF9nX-Z7fxnif7MtkrpO5Pp_PP5_JXGXfhm7j4yrB2uIE0EUEjtFDTdF-QqYUfHEhTfZ66uuq27i1yf5XsQX1zoJlH4BMqSDYEUJQZsPSKst8X85xa9l58YrBpS6lV7SIkVKsbX4_9vaQkV8eY___o7D5yOfQH3p5K8exnPt2WXViXPUzzKHfH_rbEbX2mgJU9RZYjIFiTYFksReOLkVtf-XavujWvi7rv30wzuMo21lkLPt2a9kyRwmmgTBW4G48RK4RqProiShQkflx6vHtsbTMJEVbROilBmAuHmLyCBS1R2J2zfVfAQAA__8UQKJO) Record $29bn quarterly profit linked to the takeover triggers fierce political debate in Switzerland[NeoSeed.io](https://www.neoseed.io/) is an interesting website for listing startup ideas that have succeeded  in other countries to replicate in your own country.
+
+Meanwhile the state of tipping in the US:
+
+### Dev
+
+> its 2023 and you can now train your editor to read the docs and write code for you [pic.twitter.com/GqLsTcVRcX](https://t.co/GqLsTcVRcX)
+>
+> — Chris Sev (@chris__sev) [September 6, 2023](https://twitter.com/chris__sev/status/1699257585336287693?ref_src=twsrc%5Etfw)
+
+> An open source visual editor for React 🤯[https://t.co/CGFOAVK7dw](https://t.co/CGFOAVK7dw)
+>
+> The [@reactjs](https://twitter.com/reactjs?ref_src=twsrc%5Etfw) ecosystem is… unstoppable. [pic.twitter.com/jDgj0NwE45](https://t.co/jDgj0NwE45)
+>
+> — Guillermo Rauch (@rauchg) [September 5, 2023](https://twitter.com/rauchg/status/1699106822698025103?ref_src=twsrc%5Etfw)
+
+---
+
+I'll be taking a break from the newsletter and podcast for the next three weeks while I'm on holidays. Have a great weekend and I'll see you when I get back!

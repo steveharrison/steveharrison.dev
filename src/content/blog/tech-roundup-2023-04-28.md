@@ -1,0 +1,35 @@
+---
+title: 'Tech roundup - Fri 28 April 2023'
+description: 'Happy Friyay!
+
+Adobe has released Firefly, a generative AI tool that allows you to create graphic designs from text prompts, convert pencil sketches into s'
+pubDate: 'Apr 28 2023'
+---
+
+Happy Friyay!
+
+Adobe has released [Firefly](https://digitalsynopsis.com/design/adobe-firefly-creative-generative-ai/), a generative AI tool that allows you to create graphic designs from text prompts, convert pencil sketches into stylised vectors, and even generate a variety of textures that would suit a 3D model, and more. Check out the examples on the [product page](https://www.adobe.com/sensei/generative-ai/firefly.html).
+
+I've also started using an AI text to speech tool called [Speechify](https://share.speechify.com/mzuI6wK), which allows you to read web pages, PDFs, and even text in images aloud in a variety of high quality voices. I ended up listening to a bunch of web articles that I hadn't got around to reading while doing chores / on the bus. I was previously using Apple's text to speech accessibility feature in iOS, but the voice quality was lower and the user experience was irritating. Speechify allows you to adjust the playback speed if you're into speed listening (I'm not 😂, but found 1.2x useful) and the UX is very slick. They also have Snoop Dogg, Gweneth Paltrow, and David Attenborough-style voices which are pretty entertaining! My goal is to finish making my way through Stephen Wolfram's [detailed explanation](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/) of how ChatGPT works: great detail but very dense!
+
+Last Friday, Suno AI released [Bark](https://github.com/suno-ai/bark), a text to voice model that apparently is better than the VALL-E model that Microsoft [announced in January](https://arstechnica.com/information-technology/2023/01/microsofts-new-ai-can-simulate-anyones-voice-with-3-seconds-of-audio/). Unlike the Microsoft model, you can actually [play around with Bark](https://huggingface.co/spaces/suno/bark) using their provided voices. It also allows you to add cues like `uh` and `[laughs]`, and preserves the ambient noise in the environment from the recording. VALL-E and Bark have the ability to be trained on your voice, but neither have released this to prevent misuse. Speaking of misuse of AI audio, I was pondering how this is going to impact audio and video evidence going forward, especially in trials, so did a bit of research. A lot of AI voice cloning tools are now adding inaudible watermarks to recordings generated with their tools. However, while being able to technically distinguish AI-generated audio can help in the justice system, it doesn't prevent other types of misuse: scammers are already using AI voices [to sound like relatives in need of financial aid](https://fortune.com/2023/03/05/scammers-ai-voice-cloning-tricking-victims-sound-like-relatives-needing-money/), so this tech definitely opens up Pandora's box.
+
+Some interesting other startups to follow in this space are [Resemble.ai](https://www.resemble.ai) and [ElevenLabs](https://beta.elevenlabs.io). I tried cloning my voice using the research preview of Resemble.ai, and I'm pretty impressed! They mention that it only works well with US voices so far, and you can tell that in the recording, but I still think it's captured some of the tones in my voice!
+
+![audio-thumbnail]()
+
+AI Steve0:00/0:131×Humane, an AI startup founded by ex-Apple employees, [demoed a wearable device](https://www.theverge.com/2023/4/21/23692368/humane-ted-talk-imran-chaudhri-wearable-screenless-device-voice-commands-projected-screen) that allows you to project onto your hand and also do [live translation using your own voice]([https://twitter.com/raywongy/status/1649306669921234948?s=61&t=I_fTtfX5ny6rixUqOLGTRA](https://twitter.com/raywongy/status/1649306669921234948?s=61&t=I_fTtfX5ny6rixUqOLGTRA)). Super cool!
+
+Considering we're only around a month away from Apple's anticipated AR/VR headset, I decided to start looking into AR iOS development. I created a new Xcode project with the AR SceneKit template, which comes with an example 3D fighter jet model, and was able to play around with it on my iPhone with no code changes!
+
+I've read online that you can export 3D models from [Blender](https://www.blender.org/) (an open source 3D creation app), convert them into Apple's .scn format, and then use as objects in the AR scene, so my next goal is to get a basic cube exported from Blender working in the demo AR app. I'll keep you posted how I go!
+
+Everyone says you need to find a co-founder, but check out [this video of a 'solopreneur' making over $1M/year with no employees](https://www.youtube.com/watch?v=v6IF-lVuvbs)! 😀
+
+Do you remember how everyone was complaining, including the Kardashians, about Instagram prioritising videos to compete with TikTok? Well it seems that it's paid off, because [Meta said in their earnings call](https://techcrunch.com/2023/04/26/meta-says-time-spent-on-instagram-grew-24-thanks-to-tiktok-style-ai-reel-recommendations/) that time spent on Instagram grew 24% since they introduced Reels.
+
+Britain's antitrust regular has blocked Microsoft's $69B acquisition of gaming company Activision Blizzard (they make Call of Duty)—will be interesting to see what happens from here.
+
+Finally, for the guys out there who have always wondered what we'd look like with abs... wonder no more! There is now an [AI abs generator](https://www.tinderglowup.com) that you can train on headshots of yourself and you'll get back a selection of images featuring a muscular, shirtless AI version of you. 😀 💪 Watch an entertaining video of their pitch to VCs [here](https://youtu.be/mRy-iCcLHl4).
+
+Have a great weekend!

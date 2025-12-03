@@ -1,0 +1,98 @@
+---
+title: 'Tech roundup - Fri 21 July 2023'
+description: 'AI
+
+The AI artist community keeps coming up with amazing images generated in Midjourney. Check out the cover image above (you can view the whole series her'
+pubDate: 'Jul 21 2023'
+heroImage: '__GHOST_URL__/content/images/2023/07/3.png'
+---
+
+## AI
+
+The AI artist community keeps coming up with amazing images generated in Midjourney. Check out the cover image above (you can view the whole series [here](https://discord.com/channels/662267976984297473/1126759908126236732/1126759908126236732)) and these 3D text effects:
+
+Meta has released [Llama 2](https://ai.meta.com/llama/), their open-source large language model. The release includes model weights and starting code for pretrained and fine-tuned Llama language models ranging from 7B to 70B parameters.
+
+Apple is reportedly looking at generative AI according to this [article by Reuters](https://www.reuters.com/technology/apple-tests-generative-ai-tools-rival-openais-chatgpt-bloomberg-news-2023-07-19/):
+
+> The iPhone maker has built its own framework, known as "Ajax", to create large language models (LLMs) and is also testing a chatbot that some engineers call "Apple GPT", the report said, citing people with knowledge of the matter.
+
+Stability AI has released [Stable Doodle](https://techcrunch.com/2023/07/13/stability-ai-releases-stable-doodle-a-sketch-to-image-tool/), which turns sketches into images:
+
+![Stable Doodle](https://techcrunch.com/wp-content/uploads/2023/07/imgonline-com-ua-twotoone-VgOccXiK2k1l.jpg?w=730&crop=1)
+
+Elon Musk has unveiled his new AI company: [xAI](https://x.ai), whose goal is to "understand the true nature of the universe". Employees have previously worked at DeepMind, OpenAI, Google Research, Microsoft Research, Tesla, and the University of Toronto.
+
+## Social media
+
+Usage of Threads has dropped since the big launch. They have also now [introduced rate limiting](https://mashable.com/article/threads-rate-limiting) to counter spam attacks. Remember when everyone was complaining about Twitter doing it? Speaking of rate limits, Elon Musk increased it on Twitter by 50% for verified users after someone complained that he'd been capped after spending over 9h on Twitter one day. While a great example of listening to your customers and continuously iterating a product, I think the more important point here is should you be spending 9h / day on Twitter?! (I don't think so!)
+
+> Incredible [pic.twitter.com/uppf8O1OD2](https://t.co/uppf8O1OD2)
+>
+> — Austen Allred (@Austen) [July 16, 2023](https://twitter.com/Austen/status/1680411888453292032?ref_src=twsrc%5Etfw)
+
+Twitter is now [sharing ad revenue](https://techcrunch.com/2023/07/13/twitter-starts-sharing-ad-revenue-with-verified-creators/) with creators. Writer Brian Krassenstein, who has about 750,000 followers, posted that Twitter had paid him $24,305. Creator payouts are calculated based on revenue from ads shown in tweet replies. As Farzad Mesbahi tweeted, “The more haters you have in your replies the more money you’ll make on Twitter.” Musk replied, “Poetic justice.”
+
+## Crypto
+
+A judge [ruled](https://news.bitcoin.com/ripples-chief-legal-officer-breaks-down-ruling-in-sec-lawsuit-says-as-a-matter-of-law-xrp-is-not-a-security/) that the cryptocurrency Ripple (XRP) is not a security, except for direct XRP sales to institutions. According to Ripple Labs' chief legal officer, Stuart Alderoty:
+
+> A huge win today — as a matter of law — [XRP](https://markets.bitcoin.com/crypto/XRP) is not a security. Also a matter of law — sales on exchanges are not securities. Sales by executives are not securities. Other [XRP](https://markets.bitcoin.com/crypto/XRP) distributions — to developers, to charities, to employees are not securities.
+
+XRP surged 70% as soon as the news broke; Coinbase shares climbed past US$100 for the first time since May 2022; and Ethereum broke past US$2000 for the first time this year.
+
+Alex Mashinsky, the founder of the bankrupt crypto firm Celsius, [was arrested](https://www.nytimes.com/2023/07/13/business/celsius-cryptocurrency-founder-arrested.html) in New York last Thursday. The charges against him include wire fraud, commodities fraud and manipulation of securities prices.
+
+Binance [has integrated](https://unchainedcrypto.com/binance-integrates-bitcoin-lightning-network/?utm_source=substack&utm_medium=email) the [Bitcoin Lightning Network](https://lightning.network), a Layer 2 protocol built on Bitcoin that reduces fees and congestion on the network by enabling micropayment channels and conducting transactions off-chain. Binance users will now be able to deposit or withdraw Bitcoin on the Lightning Network.
+
+### TV opening titles rendered using blockchain
+
+One of the crypto projects that I have been interested in is [The Render Network](https://rendernetwork.com), which includes names such as J. J. Abrams (the director of two of the recent Star Wars films), Brendan Eich (the creator of JavaScript, co-founder of Firefox, and CEO of the crypto-focused browser Brave), and Mike Winkelmann (the crypto artist Beeple).
+
+> The Render Network is the first decentralized GPU rendering platform, empowering artists to scale GPU rendering work on-demand to high performance GPU Nodes around the world. Through a blockchain marketplace for idle GPU compute, the network provides artists the ability to scale next generation rendering work at fractions of the cost and at orders of magnitude increases in speed when compared to the centralized GPU cloud.
+
+An example of The Render Network being used for real-world projects is [this spotlight piece](https://medium.com/render-token/artist-spotlight-raoul-marks-btn-monday-june-26th-2023-3f9ad27a196c) on artist Raoul Marks, who is from Perth and has won two Emmys. He's a director at [Antibody](https://antibody.tv), a studio that specialises in opening title sequences for TV shows. They've done the opening titles for [The Crown](https://www.youtube.com/watch?v=yJdrrrIT8hQ), [The Night Manager](https://www.youtube.com/watch?v=kr36GYPfKss), and countless other TV shows:
+
+They're now using the Render Network in their pipeline, and have used it to produce the [opening credits for Westworld Season 4](https://youtu.be/Ho5BNbLzg0Y), Apple's new series [Silo](https://youtu.be/bBMajXwi6Cs?t=79), and the [trailer](https://www.youtube.com/watch?v=ckI_m8bbXfw) for Playstation game MARATHON. Pretty cool! A great example of useful crypto tech.
+
+---
+
+This is what happens when political correctness ends up in website forms:
+
+It also appears that the cycle has started again of recruiters looking for developers with years of experience in a brand-new technology. Someone [shared](https://twitter.com/codedvil/status/1680923689204719616) this job posting on Upwork:
+
+I remember when Node.js was a few years old there would be job descriptions all the time looking for "10 years of Node.js experience". Yeah, good luck with that! 😂
+
+### Microsoft is still Microsoft
+
+I'm no fan of Microsoft, but given the fact that they've switched to Chromium as the rendering engine for Edge, I was willing to give them another chance. I downloaded Edge to test something for work but instead of being greeted with an app that I could open immediately (like most other browsers in 2023), I was greeted with this:
+
+Sometimes people—or organisations—just don't change! The browser experience is terrible too, by the way: 10/10 would not recommend. 😂
+
+A Twitter influencer, Sahil Bloom, recently [posted](https://twitter.com/SahilBloom/status/1681306307712921603) about Bill Gates: 
+
+I [replied](https://twitter.com/stevenaharrison/status/1681308117387337789):
+
+## Dev
+
+Addy Osmani [wrote a nice piece](https://twitter.com/Austen/status/1680411888453292032) about how software is a vehicle for delivering value to people. I like this, since so many people argue over and spend countless hours on tooling, losing focus on what the end goal actually is.
+
+### Removing animations in Playwright
+
+When testing, especially when doing screenshot comparison, animations can cause inconsistencies between test runs, so it's easier and more performant to disable them. A great way to do this is to emulate the `prefers-reduced-motion` CSS media rule in Playwright. This approach also encourages you to make sure your UI and third-party libraries support `prefers-reduced-motion` for accessibility—win win!
+
+### CSS Nesting
+
+I've made a YouTube Short talking about how CSS Nesting is now available natively in Chrome, Safari, and Edge—no need to use [Sass](https://sass-lang.com)! Firefox is also supporting it in version 114, due to be released in August.
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/ouOGsZ0WWMc?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="CSS Nesting"></iframe>
+
+### Triplex
+
+[Triplex](https://triplex.dev) is an editor that enables you to edit React Three.js Fiber components visually, with changes saved straight back to code, and modifying your source code syncs back to the editor.
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/fgyPh2SWbKU?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Triplex public alpha release"></iframe>
+
+---
+
+All right, that's a wrap—have a great weekend!

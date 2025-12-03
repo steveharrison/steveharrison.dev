@@ -1,0 +1,55 @@
+---
+title: 'Local-first development & InstantDB'
+description: 'An emerging trend that I think is as exciting as AI and crypto is local-first development. The general idea is that apps should be able to work offline, su'
+pubDate: 'Oct 04 2024'
+---
+
+An emerging trend that I think is as exciting as AI and crypto is [local-first development](https://localfirstweb.dev). The general idea is that apps should be able to work offline, support realtime collaboration easily (e.g. editing the same document in Google Docs) when online, and that users should be able to own their data if they want to access it / your company goes out of business. There's a whole community of researchers and developers working on it now. A popular app built around this philosophy is the note-taking app [Obsidian](http://obsidian.md), where all your notes are stored as Markdown files in a folder on your computer. The Obsidian CEO published a post, [File Over App](https://stephango.com/file-over-app), that talks about the benefits of this approach in more detail.
+
+I recommend reading Martin Kleppmann's 2019 paper, [You own your data, in spite of the cloud](https://www.inkandswitch.com/local-first/)—it's long but a great read!
+
+You can see a whole list of services emerging built around this philosophy, such as [Turso](http://turso.tech), [WatermelonDB](http://watermelondb.dev), and [Pocketbase](http://pocketbase.io)—and there's a much longer list over at the [local-first development website](https://localfirstweb.dev). Some of these integrate with existing Back Ends such as Supabase:
+
+### InstantDB
+
+One such tool that is backed by the co-founder of Firebase, James Tamplin, and Y Combinator founder Paul Graham, is [InstantDB](https://www.instantdb.com). It's a Supabase-style product, but has React wrappers that can hook your state right into the DB without any other layers in between.
+
+You obtain a reference to the database with your unique client ID:
+
+```javascript
+const db = init<Schema>({ appId: APP_ID })
+```
+
+And then in your React components, you can read data like so:
+
+```javascript
+ const { isLoading, error, data } = db.useQuery({ todos: {} })
+```
+
+There's no need to reach for a state-management library—you can just replace `useState` hooks with `useQuery` hooks. It's ridiculously simple—the way it should be!
+
+Other CRUD operations are also simple:
+
+```javascript
+function addTodo(text: string) { db.transact( tx.todos[id()].update({ text, done: false, createdAt: Date.now(), }) )
+} function deleteTodo(todo: Todo) { db.transact(tx.todos[todo.id].delete())
+} function toggleDone(todo: Todo) { db.transact(tx.todos[todo.id].update({ done: !todo.done }))
+} function deleteCompleted(todos: Todo[]) { const completed = todos.filter((todo) => todo.done) const txs = completed.map((todo) => tx.todos[todo.id].delete()) db.transact(txs)
+} function toggleAll(todos: Todo[]) { const newVal = !todos.every((todo) => todo.done) db.transact(todos.map((todo) => tx.todos[todo.id].update({ done: newVal })))
+}
+```
+
+However, there are many other features that platforms like Firebase and Supabase offer like auth and file storage—InstantDB is adding all of these too! You can integrate with Clerk and Google OAuth, and Storage is in beta:
+
+```tsx
+async function upload(files: FileList) { const file = files[0]; // use the file's current name as the path await db.storage.upload(file.name, file); // or, give the file a custom name await db.storage.upload('demo.png', file); // or, put it in the `images` subdirectory await db.storage.upload('images/demo.png', file); // or, put it in a subdirectory for the current user, // and restrict access to this file via Storage permissions await db.storage.upload(`${currentUser.id}/demo.png`, file);
+} return <input type="file" onChange={(e) => upload(e.target.files)} />;
+```
+
+They also have an SDK for React Native and Vanilla JS, and an admin UI to inspect your database like Supabase.
+
+I recommend reading [this 2021 essay](https://www.instantdb.com/essays/db_browser) by one of the founders outlining their philosophy.
+
+Head over to their website and check out some of the [examples](https://www.instantdb.com/examples#). You can also sign up and get a [simple todo app](https://www.instantdb.com/docs) working for free.
+
+It will be really exciting to see where this goes!

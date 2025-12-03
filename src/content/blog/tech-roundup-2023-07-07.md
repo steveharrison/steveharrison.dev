@@ -1,0 +1,88 @@
+---
+title: 'Tech roundup - Fri 7 July 2023'
+description: 'Well the big talk of the week: Meta has launched Threads, their Instagram Twitter competitor and it passed 2 million users in the first 2 hours! I''ve playe'
+pubDate: 'Jul 07 2023'
+heroImage: '__GHOST_URL__/content/images/2023/07/7c1f87b9-eb00-48c8-92e4-3c3f77e30581_humane-names-first-device-humane-ai-pin.jpg.webp'
+---
+
+Well the big talk of the week: Meta has launched Threads, their Instagram Twitter competitor and it passed 2 million users in the first 2 hours! I've played around with it on the first day: the UI is nicely done and leveraging your Instagram network is a pretty cool way for it to grow. Only time will tell whether it becomes a Twitter rival or the next Google+, but it's a good start! You can follow me at `steve_harrison`.
+
+![](https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=192)
+
+Humane, the AI startup founded by ex-Apple designers, has put out a press release about their first product to launch: the [AI Pin](https://hu.ma.ne/media/humane-names-first-device-humane-ai-pin). TechCrunch covers it [here](https://techcrunch.com/2023/06/30/secretive-hardware-startup-humanes-first-product-is-the-ai-pin/).
+
+![](https://hu.ma.ne/favicon/humane-fav-228.png)
+
+A new startup, [Kaedim](https://80.lv/articles/kaedim-a-cool-ai-for-turning-2d-images-into-3d-models), promises to turn your 2D images into 3D models and auto-generate textures for a fee. You can download the resulting 3D models in popular formats such as obj, fbx, glb, and gltf.
+
+[AudioPen](https://techcrunch.com/2023/07/03/audio-pen-is-a-great-web-app-for-converting-your-voice-into-text-notes/?tpcc=tcplustwitter) is a new AI startup that will convert your voice notes into text notes.
+
+Midjourney has released a new [panning feature](https://www.creativebloq.com/news/midjourney-panning).
+
+Check out this [cool example](https://twitter.com/javilopen/status/1675641442654380033?s=61&t=1pO0kSdBalUa4oOB1wae6w) of using generative AI to scale up imagery:
+
+Google has [updated its privacy policy](https://www.theverge.com/2023/7/5/23784257/google-ai-bard-privacy-policy-train-web-scraping) to disclose that they may train their AI services on public data scraped from the web.
+
+The protests on Reddit seem to have been [successfully squashed](https://www.theverge.com/23779477/reddit-protest-blackouts-crushed), and StackOverflow has [joined](https://www.zdnet.com/article/stack-overflow-joins-reddit-and-twitter-in-charging-ai-companies-for-training-data/) Twitter and Reddit in planning to charge for API access in response to AI startups using these services for training AI models. Elon Musk has mentioned that they had to bring up new servers at Twitter to handle the increased load from AI startups.
+
+The CEO of Stability AI has [said in an interview](https://decrypt.co/147191/no-human-programmers-five-years-ai-stability-ceo) that "There will be no programmers in five years". The company wants to get involved with AI projects in a whole range of sectors, from building models for protein folding, DNA analysis, and chemical reactions to language models and audio-visual data processing.
+
+Tesla has [exceeded](https://techcrunch.com/2023/07/02/tesla-delivers-record-evs-amid-federal-tax-credits-price-cuts/) earnings estimates.
+
+### CSS animation composition
+
+There's a new CSS feature for when you have multiple animations affecting the same element:
+
+![](https://developer.chrome.com/images/meta/apple-touch-icon.png)
+
+### Component library options in 2023
+
+I was curious about the available options for Front End component libraries these days. It turns out there's a lot now! [Here's a list](https://github.com/anubhavsrivastava/awesome-ui-component-library) of some of the options. In addition to the usual suspects like [MUI](https://mui.com), [Ant Design](https://ant.design), and [Tailwind](https://tailwindcss.com), a lot of Big Tech companies now have their own component libraries online. Some of them include:
+
+- Uber - [https://baseweb.design](https://baseweb.design/)
+- Adobe - [https://react-spectrum.adobe.com/react-spectrum](https://react-spectrum.adobe.com/react-spectrum/index.html)
+- GitHub - [https://primer.style/design](https://primer.style/design/)
+- Palantir - [https://blueprintjs.com](https://blueprintjs.com/docs/#)
+- IBM - [https://carbondesignsystem.com](https://carbondesignsystem.com/components/tree-view/usage/)
+
+[GOVUK](https://govuk-react.github.io/govuk-react) also have a React component library for their design system.
+
+One component library that I'll be checking out more is [Mantine](https://mantine.dev), which is built on the Emotion CSS-in-JS library. I also thought that Adobe's [React Spectrum](https://react-spectrum.adobe.com/react-spectrum) had some really nice controls and clean markup.
+
+The award for the most uninspiring design system has got to go to IBM with their [Carbon Design System](https://carbondesignsystem.com/), where they somehow found a way to bring a dull Enterprise aesthetic to the web.
+
+### Crypto
+
+The Solana co-founder has [proposed](https://decrypt.co/147100/solana-co-founder-says-ethereum-could-be-layer-2-sol) that Ethereum could become a layer-2 for Solana. I'll believe it when I see it.
+
+## Dev
+
+### Testing sliders in Playwright
+
+When testing UIs with Playwright, sometimes you might want to interact with a slider like [this one](https://mui.com/material-ui/react-slider/) from Google's Material UI library:
+
+Some of the [suggestions](https://github.com/microsoft/playwright/issues/20032#issuecomment-1379006314) involve complex logic to determine the width of the slider and what coordinates to click at, but if you don't need to set the slider to a precise value, there are some easier ways.
+
+The first method is to simply click the slider. I read that Playwright will click an element in the centre by default; however when I tried this it clicked it around 37ºC:
+
+`await page.locator('.MuiSlider-marked').click();`
+
+This sufficed for my use-case as I just wanted something non-zero for testing.
+
+Another approach is to take advantage of MUI's in-built keyboard accessibility and move the slider that way:
+
+```
+await page.locator('.MuiSlider-thumb').click();
+for (let i = 0; i < 10; i++) { await page.keyboard.press('ArrowRight');
+}
+```
+
+---
+
+I'll leave you with this:
+
+> Be careful everyone. I had my laptop open with my pitch deck for my AI startup pulled up and someone broke my window and dropped in a term sheet. [pic.twitter.com/KWZ3upDNmC](https://t.co/KWZ3upDNmC)
+>
+> — Roshan Patel (@roshanpateI) [July 5, 2023](https://twitter.com/roshanpateI/status/1676635938158510098?ref_src=twsrc%5Etfw)
+
+Have a great weekend!

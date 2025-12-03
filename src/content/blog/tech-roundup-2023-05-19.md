@@ -1,0 +1,76 @@
+---
+title: 'Tech roundup - Fri 19 May 2023'
+description: '
+This week, Apple rolled out Tap to Pay in Australia, with Westpac and Tyro Payments the first payment platforms to offer this feature to business customer'
+pubDate: 'May 19 2023'
+---
+
+This week, Apple rolled out [Tap to Pay](https://www.apple.com/au/newsroom/2023/05/apple-introduces-tap-to-pay-on-iphone-in-australia/) in Australia, with Westpac and Tyro Payments the first payment platforms to offer this feature to business customers. 
+
+Apple also [previewed](https://www.macrumors.com/2023/05/16/apple-previews-ios-17-accessibility-features/) new iOS 17 accessibility features that include the ability to clone your own voice, aimed at people with early ALS who may lose their voice:
+
+> Users simply need to read along with a randomized set of text prompts to record 15 minutes of audio on an ‌iPhone‌ or ‌iPad‌. The feature uses on-device machine learning to keep users' information secure and private, and integrates with Live Speech so users can speak with their Personal Voice.
+
+Cool! Excited to now have Apple in the AI voice cloning arena. I really like the mention of on-device machine learning for security and privacy, something that a lot of the AI competition lacks. It will be exciting to see what other AI reveals Apple has in store for us at WWDC23.
+
+Last week, Apple also released Final Cut Pro and Logic Pro for iPad, which would have taken a massive amount of work, so congrats to the team and I think it's a huge win to bring these tools to more people and provide creatives more flexibility!
+
+![](https://www.apple.com/favicon.ico)
+
+Binance, the largest crypto exchange, [has disabled PayID deposits in Australia](https://twitter.com/Binance_AUS/status/1659018600496373760) "due to a decision by a third-party provider", Cuscal. This has been a very convenient way to onboard AUD to crypto (it's been my preferred option for a while), so will impact a lot of people in Australia.
+
+![](https://cdn.decrypt.co/wp-content/themes/decrypt-media/assets/images/favicon-32x32.png)
+
+Amazon [acquired Snackable.ai](https://nypost.com/2023/05/05/amazon-acquires-artificial-intelligence-firm-snackable-ai-to-boost-podcast-features/), a startup focused on putting "structure around your long video and audio instantly, automatically generating chapters, highlights, and more". They're planning to use the startup to improve their podcast experience in Amazon Music. Amazon wants to be a major AI player: Andy Jassy, Amazon's CEO, has previously stated “If you look at the really significant leading large language models, they take many years to build, and many billions of dollars to build. And there will be a small number of companies that want to invest that time and money, and we’ll be one of them at Amazon.”
+
+There's some cool stuff happening with AI-powered news readers. Instagram co-founder Kevin Systrom is now working on a news aggregator app with an [AI-powered feed](https://techcrunch.com/2023/03/07/the-tech-behind-artifact-the-newly-launched-news-aggregator-from-instagrams-co-founders/) called [Artifact](https://artifact.news/), and it looks really slick. My favourite feature so far is it can summarise any article into three bullet points (using OpenAI). I tried it out and it worked flawlessly! That being said, it did miss a lot of the nuance in a Bloomberg opinion piece, so it depends on the article how useful it will be. For simple articles though, it does a great job of extracting key points. Artifact also allows you to search across multiple publications, follow specific journalists, and add comments within the app to articles. I think it's nice to have a news product that is not tied to a social network and is focusing on [providing writers with direct relationships with their readers](https://techcrunch.com/2023/05/15/kevin-systrom-explains-why-artifact-wants-to-treat-writers-like-the-creators-they-are/), regardless of where they place their writing.
+
+[Curio](https://curio.io/), which provides news articles narrated, has [added](https://techcrunch.com/2023/05/17/audio-journalism-app-curio-can-now-create-personalized-episodes-using-ai/) AI features to create a custom audio episode based on a prompt such as "What are the latest developments in AI?" They use their existing library of publications, including the Wall Street Journal, Scientific American, and The Guardian, to train the model.
+
+[Anthropic](https://www.anthropic.com/), an AI company that targets the business market, [announced](https://www.anthropic.com/index/100k-context-windows) that their model Claude now has a 100K token limit, and demoed some cool capabilities like being able to load in a PDF of some API documentation and then ask how to do certain tasks. In contrast, ChatGPT's GPT-4 Plus has a 32K token limit, which means that you can load in more data to Claude (such as an entire book like The Great Gatsby) to query with prompts. You can [try Claude in Slack](https://www.anthropic.com/claude-in-slack).
+
+### AI tokens
+
+Speaking of tokens, what are tokens? [Here's](https://vaclavkosar.com/ml/Tokenization-in-Machine-Learning-Explained) a good rundown. In summary:
+
+> Tokenization is splitting the input data into a sequence of meaningful parts e.g. piece data like a word, image patch, document sentence.
+
+A word like "joyful" could be split into two tokens: "joy" and "ful". How input is tokenised differs between models.
+
+### Regulating AI
+
+This week, Sam Altman, the CEO of OpenAI, [testified](https://www.axios.com/2023/05/16/openai-ceo-sam-altman-artificial-intelligence-congress?utm_source=artifact) before Congress about all things AI and discussed regulation. An interesting fact is that he doesn't own any equity in OpenAI, meaning he won't stand to make any money directly from the company, and he claimed that he does it "[because he loves it](https://twitter.com/unusual_whales/status/1658664383717978112?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1658664383717978112%7Ctwgr%5E0e9d97fd2a236fc3cc71f4009f3aac383cd8c58c%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fofficechai.com%2Fstartups%2Fopenai-ceo-sam-altman-says-he-has-no-equity-in-the-startup-is-doing-it-because-he-loves-it%2F)".
+
+### Worldcoin
+
+Another project that Sam Altman is working on currently is [Worldcoin](https://worldcoin.org/), an Ethereum-based cryptocurrency designed to be a global identity and finance network. It has three parts:
+
+- World ID - A "world passport" designed to prove that you are a unique human, not a bot or AI, which could become more relevant in the future. You can get verified using a mobile phone number or an iris scan by one of their trusted partners using their Orb device. It would allow you to sign in to websites and apps without providing any personal data such as name, email, etc.
+- [Worldcoin](https://coinmarketcap.com/currencies/worldcoin-org/) - A utility and governance token (not listed on crypto exchanges yet).
+- [World App](https://worldcoin.org/blog/announcements/introducing-world-app) - A digital crypto wallet, already available for iOS and Android.
+
+Distinguishing humans from bots is a real pain point at the moment for companies such as Twitter, so this is an interesting solution while preserving privacy by not having to share your mobile number directly with the website.
+
+> Digital identity has been an open problem since the invention of the internet. Even today, [more than 50%](https://www.mckinsey.com/~/media/McKinsey/Business%20Functions/McKinsey%20Digital/Our%20Insights/Digital%20identification%20A%20key%20to%20inclusive%20growth/MGI-Digital-identification-Report.ashx) of the world’s population doesn’t have a verifiable legal ID. As we venture into the exciting new Age of Artificial Intelligence, solving proof of personhood is more important than ever—specifically to ensure democratic access and governance of these systems, fairly distribute the benefits generated and know who and what to trust online.
+
+I generally like the idea of verifying my identity with one trusted party and then being able to use this to sign in to other services without providing my details every time. I'd love to be able to use zero-knowledge proofs to not have to provide swathes of information like my driver's licence, mobile number, payslips, etc. to less trusted third-parties such as websites, mobile phone providers, and real estate agents. Whether Worldcoin is the best trusted party to do this and whether they can achieve mass adoption remains to be seen.
+
+An interesting detail that I noticed in their blog post:
+
+> The native iOS and Android apps are also engineered to maximize inclusivity. At around 18MB they’re 5x smaller than the industry average. They are localized to multiple languages and support most active smartphones in the world (98.2% of Androids and 94.5% of iPhones to be precise), including some more than 10 years old.
+
+Specifically focusing on including people with old devices is a rare thing in the development world, it's a nice touch!
+
+They also mention using World ID as a way to provide Universal Basic Income in future and avoid people claiming their handout twice. Sam Altman has stated in his essay "[Moore's Law for Everything](https://moores.samaltman.com/)" that AI could generate enough wealth to pay every adult in the U.S. $13.5K / year next decade, although [not everyone agrees on this take](https://www.cnbc.com/2021/03/30/openai-ceo-sam-altman-says-ai-could-pay-for-ubi-experts-disagree.html).
+
+There's definitely some interesting tech here, but it also has a dystopian feeling about it to me. Something to keep an eye (or should I say, iris) on.
+
+### SaaS or in-house?
+
+An interesting story from some internet sleuths recently: in 2021, [Coinbase incurred a $65M bill for Datadog](https://blog.pragmaticengineer.com/datadog-65m-year-customer-mystery/), a data analytics platform for cloud infrastructure. Apparently they looked at building their own analytics tools in 2022 to cut costs, but ended up staying with Datadog after they proposed a better deal. An engineer at Coinbase said that it would have taken a lot of effort + cost to build a similar experience in-house. An interesting read regarding costs and tooling!
+
+### Validating JSON data
+
+On the full stack development front, my co-worker used the [AJV](https://ajv.js.org/) JavaScript library this week in our Next.js API to make sure JSON in the request body was what we were expecting and return an error if not. AJV allows you to define JSON schemas and then validate data against them like so:
+
+Alright, that's a wrap, see you next week!

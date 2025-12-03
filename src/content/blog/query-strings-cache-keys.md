@@ -1,0 +1,19 @@
+---
+title: 'Query strings & cache keys'
+description: 'We were building a page that used query parameters to filter a list of items. I''ll use a generic example for this post: let''s say we have a Next.js SSR loc'
+pubDate: 'May 27 2024'
+---
+
+We were building a page that used query parameters to filter a list of items. I'll use a generic example for this post: let's say we have a Next.js SSR local news website where we have two views that display different lists of articles using a query string:  `?category=local-news` or `?category=international-news`. Our tester found a bug where you could enter the local news URL into the browser, and the page would display the international news list, and vice versa. But it wasn't consistently reproducible. Sometimes it would load the expected view. This was even in Incognito, so there wasn't any browser caching happening. And besides, a different query string should result in a different browser cache key, because this is a method that's often used for cache busting: if you have a reference to `.my-file.js` in Production, you can often change the reference to something like `.my-file.js?v=2` to make sure the browser is going to download it again.
+
+To make matters even stranger, we noticed that the bug happened more frequently in one environment compared to the other, despite the exact same code having been deployed to each.
+
+Then another dev noticed in DevTools that when the bug occurred, the document HTTP request had an `X-Cache: Hit from cloudfront` header, whereas when it worked as expected, there was an `X-Cache: Miss from cloudfront` header.
+
+It turns out that the bug was happening in AWS CloudFront: the "Cache key settings" were configured to "None", so it was completely ignoring the query string and would cache whichever page URL was loaded first. So if you loaded `?category=local-news` and nothing was cached yet on CloudFront, it would cache that version of the page. Then if someone else on a different computer went to `?category=international-news` , they would see the cached version of the page. We fixed the bug by changing "Cache key settings" to "All", so that now different query strings would get cached separately, which is what we expected.
+
+But what about the fact that the bug appeared at a different frequency in different environments? Turned out we had a different cache expiration time between the environments, so the one with the shortest cache expiry time would end up working as expected more often, because the bug only occurred when the page was cached.
+
+Although it ended up not being the culprit, it also turns out that [Next.js didn't include query strings in URL cache keys](https://github.com/vercel/next.js/issues/45026) until early 2023. So it's important to make sure all parts of your system are handling caching as you expect.
+
+Fun debugging!

@@ -1,0 +1,101 @@
+---
+title: 'Tech roundup - Fri 26 May 2023'
+description: 'Generative AI in Photoshop
+
+Photoshop has released some amazing new generative AI features this week! You can now select an area and generate new AI imager'
+pubDate: 'May 26 2023'
+heroImage: '__GHOST_URL__/content/images/2023/05/Sydney-Harbour-Bridge-Australia-Sydney-1.png'
+---
+
+### Generative AI in Photoshop
+
+Photoshop has released some amazing new generative AI features this week! You can now select an area and generate new AI imagery for that area with a text prompt. Three versions are generated and you can pick the best one. The tool can also remove objects by generating new background imagery. Photoshop previously had this ability with the Content-Aware Fill tool, but the new Generative AI tool is significantly better. In case you didn't notice, in the the cover photo for this post, I've removed the Sydney Opera House and a jetty in the foreground. Here's the original: 
+
+Using the Content-Aware Fill tool with default settings produced the below:
+
+While the Content-Aware Fill version is still impressive, it duplicated some content where the Opera House used to be, and a shadow in the water around the jetty remains, whereas the generative AI version is more unique and everything fits together better.
+
+Some more examples:
+
+All it took to generate these images was to make a selection using standard Photoshop selection tools like Rectangular Marquee and Polygonal Lasso around the rough area of content to remove and then select Generative Fill.
+
+So far, I've focused on removing objects: what about generating them? Here's the entrance to my co-working space:
+
+As you might guess, we don't have a vaulted ceiling or chandelier:
+
+Let's remove all the branding:
+
+Interestingly, I was getting the little notch in the hand sanitiser station getting repeated in the generated version when I tried to just remove just the "C" on the side, but when I selected a larger area vertically to get a bit more background to sample, two of the three versions didn't repeat the notch, and one of them matched the gradient perfectly.
+
+On the other hand, removing the branding from the wooden counter at the front was as simple as drawing a rough outline around it and a few clicks—that's the first result it came up with!
+
+OK, let's have some fun:
+
+Each alteration here was generated separately: I drew a selection around the area and then provided one of the following prompts for that area:
+
+- a big puddle
+- googly eyes
+- a duck sitting on the bench
+- a hole in the piping
+
+Can you imagine how easy it's going to be now to create "spot the difference" images?! 😀 🖼️ 👨🏻‍🎨
+
+Try it out yourself by [downloading Photoshop Beta](https://creativecloud.adobe.com/campaign/creative-cloud?workflow=route-to-path&route-path=/apps/beta-apps?) through the Creative Cloud app and check out these tweets for more examples:
+
+[https://twitter.com/Pinsky/status/1660973228641353730](https://twitter.com/Pinsky/status/1660973228641353730)
+
+[https://twitter.com/Jason/status/1661207297958514688](https://twitter.com/Jason/status/1661207297958514688)
+
+### More generative AI
+
+Another impressive example of generative AI: a new [paper](https://huggingface.co/papers/2305.10973) was published recently describing how you could re-orient subjects' faces in photos. Check out the video below!
+
+> Drag Your GAN: Interactive Point-based Manipulation on the Generative Image Manifold
+>
+> paper page: [https://t.co/Gjcm1smqfl](https://t.co/Gjcm1smqfl) [pic.twitter.com/XHQIiMdYOA](https://t.co/XHQIiMdYOA)
+>
+> — AK (@_akhaliq) [May 19, 2023](https://twitter.com/_akhaliq/status/1659424744490377217?ref_src=twsrc%5Etfw)
+
+### Also in AI
+
+ChatGPT has now released plugins and web browsing to paid subscribers. The web browsing model means you can get AI responses based on current events and live data, rather than only their dataset from 2021. I asked it to "give me three of the best AI headlines recently", and it produced the following:
+
+The NVIDIA news is only from the last day so shows ChatGPT is processing current information well. It also displays links to the news sources. In another query about what's been happening recently in AI, I learnt that "Spotify is exploring the use of AI for creating host-read podcast ads that sound like real people​", something I'd missed from my other news sources—cool!
+
+Maybe my next newsletter will generated with ChatGPT... 😉 🤖
+
+ChatGPT plugins are also very powerful, such as being able to generate a suggested itinerary for a trip with the Expedia plugin, or generate a flowchart from a text prompt with the Show Me plugin:
+
+### Google accessibility enhancements with AI
+
+Google has [announced](https://blog.google/outreach-initiatives/accessibility/global-accessibility-awareness-day-google-product-update/) some new accessibility features, including one that seems useful for a lot of us: Chrome will now check URLs for typos and display suggested websites below. They're also making wheelchair icons more prominent in Google Maps, and have released some improvements to their Lookout app for people with vision impairment, which uses AI to label objects in images and read scanned text aloud. Cool use-case for AI!
+
+### Some non-AI news
+
+Dyson have released their first robotic vacuum cleaner, the [Dyson 360 Vis Nav](https://www.dyson.com.au/products/vacuum-cleaners/robot/overview), which looks very stylish in typical Dyson fashion:
+
+It will only set you back AUD$2,399.00, also in typical Dyson fashion. 😉
+
+Apple's policies seem to be relaxing for Web3 crypto apps, possibly as a result of the Epic Games lawsuit. [STEPN](https://stepn.com), the crypto fitness app, announced that they will now offer in-app payment options for their NFT sneakers, whereas previously these apps had to get their users to pay elsewhere.
+
+Sotheby's made $2.4M from auctioning off NFTs from the bankrupt crypto hedge fund 3AC, with some items such as Fidenza #725 and Autoglyph #187 selling for over 500K each.
+
+You can now edit messages in WhatsApp up until 15min after you've sent them.
+
+Instagram is apparently planning to release a Twitter competitor.
+
+In the crypto world, [Unciphered](https://www.unciphered.com), a company that specialises in recovering lost crypto, was able to break into a [Trezor T](https://trezor.io/trezor-model-t) hardware wallet using specialised equipment and extract the seed phrase. They claim the exploit cannot be fixed with a firmware update and would require a recall. A press representative for Trezor [said](https://www.coindesk.com/tech/2023/05/24/crypto-security-firm-unciphered-claims-ability-to-physically-hack-trezor-t-wallet/) that it looked like an "RDP downgrade attack", which Trezor mentioned on their blog in early 2020, and that if a Trezor device is protected by a strong passphrase, the RDP downgrade is useless.
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/50eiA-75NMY?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Unciphered BREAKS the Trezor T!!! - NO Crypto is SAFE in This Wallet!"></iframe>
+
+[Ledger](https://www.ledger.com), a rival crypto hardware wallet maker, [have delayed](https://www.coindesk.com/business/2023/05/23/crypto-wallet-provider-ledger-postpones-release-of-key-recovery-service-after-public-criticism/) their proposed Ledger Recover service due to public backlash. The opt-in service would allow users to store encrypted copies of their seed phrases with three custodians and require KYC verification. Critics pointed out that Ledger had previously said that Ledger wallet private keys would never leave a device, and objected to the fact that Ledger's code is not open-source so there is no way of publicly auditing it. In response, the Ledger CEO Pascal Gauthier said that they will open-source more parts of the Ledger codebase before releasing Ledger Recover.
+
+### Development
+
+You may have heard of [Markdown](https://en.wikipedia.org/wiki/Markdown), a syntax for basic document formatting developed by [John Gruber](https://en.wikipedia.org/wiki/John_Gruber) and [Aaron Swartz](https://en.wikipedia.org/wiki/Aaron_Swartz) in 2004. Well some people think there's an opening for a new React JSX-based syntax for document formatting, and have released [MDXJS](https://mdxjs.com/), which they're calling "markdown for the component era".
+
+I came across [EmergeTools](https://www.emergetools.com/) this week, who analyse iOS bundles and suggest ways to improve performance. They [tweet regularly](https://twitter.com/emergetools) about analysing different popular apps such as Airbnb's iOS app, and it's well worth a look if you're interested in iOS development / app bundle sizes:
+
+[https://twitter.com/emergetools/status/1610700661984739328?s=20](https://twitter.com/emergetools/status/1610700661984739328?s=20)
+
+Alright, that's a wrap—have a great weekend and play around with Photoshop Beta! 🖌️ 🎉

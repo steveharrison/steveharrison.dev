@@ -1,0 +1,68 @@
+---
+title: 'Tech roundup - Fri 12 May 2023'
+description: 'Happy Friday!
+
+Wendy''s is partnering with Google to create an ordering chatbot for their drive-thrus, and I know for certain the first thing I''m going to s'
+pubDate: 'May 12 2023'
+---
+
+Happy Friday!
+
+Wendy's is partnering with Google to [create an ordering chatbot](https://www.theverge.com/2023/5/9/23716825/wendys-ai-drive-thru-google-llm) for their drive-thrus, and I know for certain the first thing I'm going to say to it: "[Good evening Wendy!](https://www.youtube.com/watch?v=-cnVyvELhDA)"
+
+Shopify have [abandoned](https://techcrunch.com/2023/05/08/shopify-sells-6-river-systems-to-new-owner/) their push into the logistics business by selling 6 River Systems along with layoffs of 20% of their staff. They [purchased](https://techcrunch.com/2019/09/09/shopify-buys-warehouse-automation-tech-developer-6-river-systems-for-450-million/) 6 River Systems in 2019 for $450M.
+
+All eyes were on Google this Wednesday as they held their annual developer conference I/O in Mountain View, California. Highlights include:
+
+- Bard (Google's ChatGPT competitor) is now public: [https://bard.google.com/](https://bard.google.com/). On the roadmap is adding support for other languages and other forms of input like images and audio.
+- PaLM 2, a new language model that powers Bard.
+- [MusicLM](https://techcrunch.com/2023/05/10/google-makes-its-text-to-music-ai-public/), a text-to-music AI tool where you can provide a prompt like "soulful jazz for a dinner party" and it will generate songs for you. You can listen to some examples on their [research page](https://google-research.github.io/seanet/musiclm/examples/).
+- [Universal Translator](https://techcrunch.com/2023/05/10/universal-translator-dubs-and-lip-syncs-speakers-but-google-warns-against-misuse/), where you can dub videos in a different language using AI. The translated version is made to sound like the original voice and the video is edited so the lips match the translated version (!!)
+
+Google are also working on adding AI to their existing products: you'll be able to generate AI responses to [search results](https://www.theverge.com/2023/5/10/23717120/google-search-ai-results-generated-experience-io), convert text messages you're writing into different writing styles like "Excited", "Chill", or "Shakespeare", and use AI to extract/remove elements from photos. For example, you can reposition or remove items, and improve the colour of the sky without affecting the rest of the photo:
+
+Google Maps is getting [Immersive View](https://techcrunch.com/2023/05/10/google-maps-new-immersive-view-for-routes-feature/), where you can view digital models of cities including traffic simulations, bike lanes, complex intersections, and parking based on billions of Street View and aerial images.
+
+GitHub Copilot finally has a competitor, [Duet AI for Google Cloud](https://cloud.google.com/blog/products/application-modernization/introducing-duet-ai-for-google-cloud). What I think is most exciting about this is having a new UI for cloud platforms. Currently you have to wade through UIs like AWS Console and massive amounts of documentation to use these platforms: AI text prompts are an interesting solution to simplify this, where you can write "Help me deploy my app on cloud run" then see relevant documentation and CLI commands surfaced by the AI without leaving your IDE.
+
+### Is the future screenless?
+
+In a [previous post](__GHOST_URL__/tech-roundup-2023-04-28/), I linked to a few clips of a pocket-sized wearable that was recently demoed in a TED talk by [Humane](https://hu.ma.ne/), a secretive startup founded by ex-Apple employees Imran Chaudhri and Bethany Bongiorno who worked on the development of the iPad. The full talk is now available on YouTube, and it's worth a watch! While big tech companies like Meta and Apple are betting big on AR/VR devices that you strap onto your head, physically separating you from the world around you, Humane is taking a different approach of trying to make technology invisible and integrated seamlessly into our lives. Its wearable device can translate live from your pocket in an AI-generated voice that sounds like you (they have partnered with OpenAI), project a user interface onto your hand for receiving a call, and take videos from your pocket so you can be more present in a moment while also recording it. It reminds me of [Golden Krishna](https://www.goldenkrishna.com/)'s book, [The Best Interface is No Interface](https://www.amazon.com.au/Best-Interface-No-brilliant-technology/dp/0133890333?&_encoding=UTF8&tag=steveharrison-22&linkCode=ur2&linkId=c0fb2c1718effecf3d27c7e308774265&camp=247&creative=1211). I'm really excited to see what they develop with this philosophy. 
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/gMsQO5u7-NQ?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="The Disappearing Computer: An Exclusive Preview of Humane’s Screenless Tech | Imran Chaudhri | TED"></iframe>
+
+### An AI that can read your mind?
+
+Researchers have developed a model that they claim excels in behavioural and neural data, and "can decode activity from the visual cortex of the mouse brain to reconstruct a viewed video". They've [published a paper about it in Nature](https://www.nature.com/articles/s41586-023-06031-6). This is definitely getting into freaky territory!
+
+![](https://cebra.ai/static/img/overview.png)
+
+### GPT while controlling your data
+
+One of the major drawbacks with tools such as OpenAI is privacy and data security. Entering work information into ChatGPT leaks IP to OpenAI, who could use that data for training or any way they like. Companies such as JPMorgan and Amazon have banned employees from using ChatGPT, and the list is growing.
+
+[privateGPT](https://github.com/imartinez/privateGPT) is a new project that addresses this concern by proving a GPT model that you can run locally without an internet connection. You provide it `.txt` files with your dataset to ingest and then ask it questions via the command line. It takes around 20-30 seconds for a response, which is slower than ChatGPT and Bard, but without the data security concerns and free!
+
+### Open-source AI
+
+Also at Google, a [leaked internal document](https://www.semianalysis.com/p/google-we-have-no-moat-and-neither) from an AI researcher suggests that neither Google nor OpenAI have a moat, and open-source AI is quickly catching up. Meta’s LLaMA model that was leaked at the beginning of March has helped the open-source community improve quickly, in a matter of days in some cases, to the point where "the barrier to entry for training and experimentation has dropped from the total output of a major research organization to one person, an evening, and a beefy laptop". I'd encourage you to read the whole article: it's an interesting take on the 2023 AI arms race.
+
+### Multimodal AI
+
+Meanwhile, over at Meta, they've released [ImageBind](https://imagebind.metademolab.com/), where you can generate AI output from a range of different media (multimodal AI). For example, you can provide an audio clip of some running water and an image of some apples, and the AI will return an image of a bowl of apples under a running tap:
+
+### What I've been reading
+
+Over the last few days, I've been really enjoying reading content from [David Heinemeier Hansson](https://dhh.dk/), the creator of Ruby on Rails and co-founder of Basecamp, an online project management tool. If that wasn't enough, he's also won a class in Le Mans, the 24h endurance car race in France, and written the business book [REWORK](https://www.amazon.com.au/ReWork-Change-Way-Work-Forever/dp/1785043021/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=&_encoding=UTF8&tag=steveharrison-22&linkCode=ur2&linkId=95eb55fa410858ce6f28ce0269dd7e50&camp=247&creative=1211) with Jason Fried.
+
+The cool thing about Basecamp is that they resisted the standard Silicon Valley approach of raising as much money as possible, and instead focused on creating a sustainable, profitable business. (I know, how radical! 😂) It's paid off: he commissioned a [Pagani Zonda HH](https://www.autoblog.com/2010/09/07/pagani-zonda-hh-commissioner-revealed-as-30-year-old-chicago-sof/) and apparently "bought a vacation home in Italy just so he could drive the thing". Jeff Bezos is also an investor.
+
+Having read REWORK over a decade ago, I rediscovered him the other day when devs on Twitter were discussing his recent [post on programming types](https://world.hey.com/dhh/programming-types-and-mindsets-5b8490bc) and how "TypeScript sucked out much of the joy I had writing JavaScript". This is something that I can relate to: I personally feel like I've spent more time debugging TypeScript errors than I've ever lost due to errors that would have been caught in a type-safe environment.
+
+One of my favourite posts is [his take](https://m.signalvnoise.com/reconsider/) on how the startup scene has gotten crazy with people chasing unicorn status rather than building things that actually add value to society:
+
+> Part of the problem seems to be that nobody these days is content to merely put their dent in the universe. No, they have to fucking **own** the universe. It’s not enough to be in the market, they have to **dominate** it. It’s not enough to serve customers, they have to **capture** them.
+
+He's not afraid to speak his mind, which makes his content all the more fun to read! You can read his tech takes on his [blog](https://world.hey.com/dhh) and find out more about him on his [personal website](https://dhh.dk/). Also, while it takes a while to get through, his 3.5h [podcast episode](https://tim.blog/2016/10/27/david-heinemeier-hansson/) with Tim Ferris is a great listen!
+
+Well that's a wrap, again! Have a great weekend!

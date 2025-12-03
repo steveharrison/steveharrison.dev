@@ -1,0 +1,58 @@
+---
+title: 'Next.js 16''s Turbopack breaks npm link'
+description: 'Update: They''ve now updated the documentation. I''ve also edited this post to be less ranty.
+
+Next.js 16 makes Turbopack the default bundler now, which brea'
+pubDate: 'Nov 13 2025'
+---
+
+**Update:** They've now [updated the documentation](https://x.com/timneutkens/status/1988899567379644521). I've also edited this post to be less ranty.
+
+Next.js 16 makes Turbopack the default bundler now, which breaks `npm link` to directories outside your project directory. The fix is to tell Next.js to look for files in the parent directory to the local component library folder:
+
+```javascript
+import path from "path"; const nextConfig: NextConfig = { outputFileTracingRoot: path.join(__dirname, '../')
+}; export default nextConfig;
+```
+
+next.config.ts
+
+This is assuming a folder structure like so:
+
+```
+MyCompany/ component-library (being npm linked into my-project) my-project next.config.ts
+```
+
+Alternatively, if you want to switch back to Webpack, you can pass `--webpack` in as an option like so:
+
+```
+next dev --webpack
+```
+
+I'm surprised that Vercel doesn't think the `outputFileTracingRoot` option even warrants a mention on the [Turbopack page's "Known Gaps" section](https://nextjs.org/docs/app/api-reference/turbopack#known-gaps-with-webpack) or the [Next.js 16 page](https://nextjs.org/blog/next-16). I would have thought using `npm link` and having component libraries in other repos locally would be common enough to at least get a paragraph.
+
+---
+
+How did I come across this error? I `npm link`ed our component library locally to do some debugging and started getting the following errors:
+
+```
+./app/layout.tsx:1:1
+Module not found: Can't resolve '@myorg/component-library/header'
+> 1 | import { Header } from "@myorg/component-library/header";
+```
+
+I went through my usual [npm link debugging checklist](__GHOST_URL__/how-to-avoid-npm-link-issues/), but alas, it was still having resolution issues. That's when I noticed `**▲ Next.js 16.0.1** (Turbopack)` in the console logs.
+
+Turbopack? I thought you had to pass the `--turbopack` flag for that, and I reverted this a few months ago because it had symlink issues. Then it dawned on me that Turbopack was now default (another team member had upgraded to the latest Next.js and I hadn't yet checked out what was new) and the symlink issues were probably the culprit.
+
+The next step was to see if I could get the symlink resolution working with Turbopack. I found [this GitHub issue](https://github.com/vercel/next.js/issues/64472) and tried the experimental config value. It still didn't work! Then I checked the logs:
+
+```
+ the --inspect option was detected, the Next.js router server should be inspected at 9230. ⚠ Invalid next.config.ts options detected: ⚠ Unrecognized key(s) in object: 'outputFileTracingRoot' at "experimental" ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config ⚠ `experimental.outputFileTracingRoot` has been moved to `outputFileTracingRoot`. Please update your next.config.ts file accordingly. ▲ Next.js 16.0.1 (Turbopack) - Local: http://localhost:3000 - Network: http://[redacted]:3000 - Environments: .env.local - Experiments (use with caution): ? outputFileTracingRoot (invalid experimental key)
+```
+
+Aha! That config value was no longer experimental. So I added the value to the root config rather than in the `experiemental` object, and voilà! The components got resolved.
+
+Just goes to show the importance of making incremental changes and verifying  everything is as expected after the change, and reading the logs. I tried the experimental config quickly yesterday and thought it didn't work, but didn't notice that the config value itself was invalid.
+
+And because [the answer with out-of-date config](https://github.com/vercel/next.js/issues/64472#issuecomment-2077483493) is locked now, I wasn't able to add a comment to correct the config or mention it's no longer an experimental flag. (Update: Vercel has added a comment now.)

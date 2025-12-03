@@ -1,0 +1,71 @@
+---
+title: 'Tech roundup - Fri 9 Jun 2023'
+description: 'Sydney F-Enders and SydCSS Presentations
+
+This week, I gave a presentation on Advanced Testing in Playwright at the Sydney F-Enders meetup on Tuesday and W'
+pubDate: 'Jun 09 2023'
+heroImage: '__GHOST_URL__/content/images/2023/06/Apple-WWDC23-event-photos-developers-watching-keynote_big.jpg.large_2x.jpg'
+---
+
+### Sydney F-Enders and SydCSS Presentations
+
+This week, I gave a presentation on *Advanced Testing in Playwright* at the Sydney F-Enders meetup on Tuesday and *What's new in CSS in 2023* at SydCSS on Thursday. [Here are my slides](https://github.com/steveharrison/presentations/tree/main).
+
+### WWDC23
+
+Well the big news of the week of course was the release of the Apple Vision Pro on Tuesday. Very exciting! So far, the reports of people trying it on have been [quite positive](https://techcrunch.com/2023/06/05/first-impressions-yes-apple-vision-pro-works-and-yes-its-good/). I'm personally excited to try it and think it will be fascinating to see the product evolve in the public spotlight as Apple refines it and finds the right market.
+
+I love the focus on AR: it reminds me of how the AirPods Max's ambient mode sounds so similar to not having them on yet there is a complete barrier between your ears and the outside world. I've dismissed VR headsets before due to the low screen quality, so focusing on making an amazing screen seems like a good play to make something people actually want to spend time using.
+
+An interesting comment I read on Twitter is that the front-facing display (it displays an AR version of your eyes so it's more natural when other people are interacting with you) is something that could have only been created at Apple: at Meta, where everyone is focused on metrics, no-one would approve investing that much on a "nice human touch" like that! We'll see whether it pays off.
+
+Apple also [recently acquired Mira](https://techcrunch.com/2023/06/06/apple-acquires-mira-a-startup-building-lightweight-ar-hardware/), a startup building lightweight AR hardware.
+
+I think some of my other favourite things from WWDC:
+
+- 15" MacBook Air — I love my 13" MBA but it's great to have an option with more screen real estate that is still in a thin, light form factor.
+- Autofill email codes similar to SMS authentication codes.
+- Tap phones to share contact details or start a SharePlay session to listen to music together. (Remember sharing Apple earbuds? 😀)
+- Widgets are back on Mac and iOS!
+
+Here are [Apple's WWDC23 highlights](https://www.apple.com/au/newsroom/2023/06/wwdc23-highlights/).
+
+For gamers, Apple released a new [game porting toolkit](https://twitter.com/isaacmarovitz/status/1666209780031971341?s=61&t=8jCHKQp3UTaL1p37cjBjUg).
+
+And the best WWDC joke goes to:
+
+Not everyone [got it](https://twitter.com/lachlanjc/status/1666511075569975297?s=61&t=8jCHKQp3UTaL1p37cjBjUg). 🤣
+
+### Edit using text in Premiere Pro thanks to AI
+
+This is seriously cool! You can transcribe interviews using AI and then re-arrange the text to generate a rough cut!
+
+<iframe width="100%" height="413" src="https://www.youtube.com/embed/Y_QxSET-dO4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Text-Based Editing in Premiere Pro"></iframe>
+
+### Relative colours in CSS
+
+Here's a cool new CSS colour feature: creating a variation of an existing colour.
+
+Read more here in the [CSS Color Module Level 5](https://www.w3.org/TR/css-color-5/#relative-colors) spec.
+
+### CSS Scopes
+
+[Here's a nice overview](https://fullystacked.net/posts/scope-in-css/) of the new scoping features coming to CSS.
+
+### Anchor positioning in CSS
+
+When building tooltips, there's a common edge-case where if the tooltip is always anchored to the left of an element, it could appear off-screen. To solve this issue, we've relied on JavaScript popup libraries that calculate the bounds of the screen and then right-align the tooltip if the tooltip would appear off-screen.
+
+Now, we can do this natively in CSS with the new :anchor property! We simply specify default and fallback positioning:
+
+### SEC vs crypto
+
+It's been a big week for crypto: the SEC have [sued Binance](https://www.sec.gov/news/press-release/2023-101) and [Coinbase](https://www.sec.gov/news/press-release/2023-102), the two largest crypto exchanges for allegedly violating securities laws. This follows a long running dispute between the SEC and the crypto community on what constitutes a security. Coinbase and other crypto exchanges maintain that they have never listed securities. Now it looks like it will be settled by the courts (this could take years). It's frustrating for the crypto community considering prominent crypto exchanges such as Coinbase and Kraken have openly called for clearer regulations.
+
+Binance lawyers allege that SEC Chair Gary Gensler offered to serve as an informal advisor for Binance in 2019. An [interesting video](https://www.youtube.com/watch?v=2D3SbYzzJLc) of Gary Gensler talking about crypto in 2019 has also been making the rounds, in which he praised the Algorand team. Now, Algorand is one of six cryptos that the SEC is now claiming are securities in a similar lawsuit filed against crypto exchange Bittrex in April.
+
+Powerledger, a Perth-based Aussie blockchain startup that "develops software solutions for the tracking, tracing and trading of renewable energy" is also one of the crypto tokens included in the Coinbase lawsuit.
+
+Interestingly enough, Bitcoin has been absent from all these lawsuits, because it's proof-of-work. Gensler has stated that Bitcoin is a commodity but he thinks proof-of-stake tokens could be investment contracts that subject them to securities laws.
+
+Have a great weekend!

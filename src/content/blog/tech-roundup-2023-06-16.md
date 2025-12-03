@@ -1,0 +1,55 @@
+---
+title: 'Tech roundup - Fri 16 June 2023'
+description: 'NASA has released a new X-plane designed to reduce fuel consumption.
+
+Ford and GM have agreed to adopt Tesla’s EV charging connector (as opposed to the CCS'
+pubDate: 'Jun 16 2023'
+---
+
+NASA has released a [new X-plane](https://www.vox.com/recode/2023/2/2/23582152/nasa-x-plane-boeing-air-force-sustainable-aircraft) designed to reduce fuel consumption.
+
+Ford and GM have [agreed](https://apnews.com/article/tesla-connector-gm-ford-electric-vehicle-charging-a180cc55bbe3d7d7738a2690ca22ab0d) to adopt Tesla’s EV charging connector (as opposed to the CCS standard other manufacturers use), so customers will be able to use Tesla's charging stations starting next year. Tesla has the largest EV charging network in the US. This further cements Tesla's position as an infrastructure provider as well as a car manufacturer.
+
+YouTube has [lowered its threshold](https://techcrunch.com/2023/06/13/youtube-is-lowering-the-barrier-to-be-eligible-for-its-monetization-program/) for creators to earn ad revenue.
+
+### AI-generated QR codes
+
+QR codes have become increasingly popular over the last few years, and while brands such as Instagram and Snapchat have used QR codes with branding elements integrated, the graphics are still fairly plain. Recently though, people have been experimenting with using Stable Diffusion, a text-to-image model released in 2022, to generate more interesting QR codes that are still scannable. Here are some examples:
+
+You can view more examples in [this Twitter thread](https://twitter.com/rowancheung/status/1667921737600892929) and find out how to make them here:
+
+![](https://i0.wp.com/stable-diffusion-art.com/wp-content/uploads/2022/12/favicon-32x32-1.png?fit=32%2C32&ssl=1)
+
+### More AI news
+
+OpenAI [released](https://openai.com/blog/function-calling-and-other-api-updates) some improvements to their GPT models, including function calling which allows developers to more easily connect with external tools and APIs.
+
+Researchers have released a [paper](https://arxiv.org/abs//2306.07954) on ensuring consistency throughout AI-generated videos. Previously, these videos jumped around a lot.
+
+Mistral AI, a French startup based in Paris co-founded by former Meta and Google DeepMind AI engineers, is trying to take on OpenAI with a valuation [now worth $260M](https://news.ycombinator.com/item?id=36326706). They plan to release their first models for text-based generative AI in 2024.
+
+Meta released [MusicGen](https://huggingface.co/spaces/facebook/MusicGen), an AI music-generation tool similar to one previewed by Google earlier this year. I tried to get it to generate the theme from Succession in the style of Chopin but the result didn't sound anything like it... I take it that it has not had the benefit of a training in classical music? 🤔 🎹
+
+0:00/1×Generated music from the prompt "succession theme in the style of chopin"### WWDC23 news
+
+Apple released their first [official UI design kit for Figma](https://www.figma.com/community/file/1248375255495415511/Apple-Design-Resources-–-iOS-17-and-iPadOS-17).
+
+One of the sessions at WWDC23 was [What's new in CSS](https://developer.apple.com/videos/play/wwdc2023/10121/) and they covered some content different to the Google videos and my talk last week. Worth checking out! My favourite is `[margin-trim](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-trim)`, which can remove unwanted margins from children. For example, heading elements have top margins so they appear correctly in between blocks of text, but this can get in the way when using a heading element inside a container. `margin-trim` provides a nice way of removing these margins: 
+
+It's only supported in Safari Technology Preview but hopefully more browsers will adopt it soon!
+
+### The future of Ethereum
+
+Vitalik has released a detailed blog post: [The Three Transitions](https://vitalik.eth.limo/general/2023/06/09/three_transitions.html) that Ethereum needs to go through in order to achieve mass adoption. While there's a lot that goes over my head, it's an interesting read to understand the problems and complexity with building a useful cryptocurrency. The three technical transitions are:
+
+- ****The L2 scaling transition**** - everyone [moving to rollups](https://ethereum-magicians.org/t/a-rollup-centric-ethereum-roadmap/4698)
+- ****The wallet security transition**** - everyone moving to [smart contract wallets](https://vitalik.ca/general/2021/01/11/recovery.html)
+- ****The privacy transition**** - making sure privacy-preserving funds transfers are available, and making sure all of the *other* gadgets that are being developed (social recovery, identity, reputation) are privacy-preserving
+
+I enjoyed his version of the good/fast/cheap triangle:
+
+Some great points, because gas fees are currently a major disincentive for using Ethereum to pay for day-to-day things. Existing payment networks are really good for day-to-day purchases (i.e. buying something on your debit MasterCard has no transaction fee and happens within seconds), whereas with cryptocurrencies, you often have to pay a gas fee between a $1-$100 depending on how busy the network is. The transfers also typically take around 15min or so, much longer than you'll be willing to wait around at the cashier making sure your purchase has gone through. With large international money transfers, however, it's the exact opposite: existing payment networks like SWIFT charge $20-30 per transfer and it takes 1-3 business days. With crypto, if the network isn't busy, your transaction fee could be a lot less, and it arrives in minutes not days without any intermediaries. Solving these problems means that crypto would offer a better or comparable experience for both everyday transactions and large money transfers, which would greatly help mass adoption.
+
+You can read the whole article [here](https://vitalik.eth.limo/general/2023/06/09/three_transitions.html).
+
+Alright, that's a wrap, have a great weekend!
