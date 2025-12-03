@@ -16,13 +16,8 @@ OpenAI will host its first developer conference on 6 November. And startups in i
 
 The AI image generation tool Midjourney has always struggled when it comes to typography. Some former Google Brain researches aim to fix this with their new tool, [Ideogram](https://venturebeat.com/ai/watch-out-midjourney-ideogram-launches-ai-image-generator-with-impressive-typography/?utm_source=tldrdesign):
 
-> Meet the new AI Coffee Shop boss.
->
-> It can track how productive baristas are and how much time customers spend in the shop.
->
-> We're headed into wild times. [pic.twitter.com/tygyCrWQ2T](https://t.co/tygyCrWQ2T)
->
-> — Rowan Cheung (@rowancheung) [August 31, 2023](https://twitter.com/rowancheung/status/1697204841813070261?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Meet the new AI Coffee Shop boss.<br><br>It can track how productive baristas are and how much time customers spend in the shop.<br><br>We&#39;re headed into wild times. <a href="https://t.co/tygyCrWQ2T">pic.twitter.com/tygyCrWQ2T</a></p>&mdash; Rowan Cheung (@rowancheung) <a href="https://twitter.com/rowancheung/status/1697204841813070261?ref_src=twsrc%5Etfw">August 31, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Call of Duty, a popular first-person shooter game, has partnered with AI company Modulate to [start analysing](https://www.theverge.com/2023/8/30/23852652/call-of-duty-activision-modulate-toxmod-artificial-intelligence-voice-moderation) in-game voice chats for content moderation:
 
@@ -50,15 +45,11 @@ Meanwhile the state of tipping in the US:
 
 ### Dev
 
-> its 2023 and you can now train your editor to read the docs and write code for you [pic.twitter.com/GqLsTcVRcX](https://t.co/GqLsTcVRcX)
->
-> — Chris Sev (@chris__sev) [September 6, 2023](https://twitter.com/chris__sev/status/1699257585336287693?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">its 2023 and you can now train your editor to read the docs and write code for you <a href="https://t.co/GqLsTcVRcX">pic.twitter.com/GqLsTcVRcX</a></p>&mdash; Chris Sev (@chris__sev) <a href="https://twitter.com/chris__sev/status/1699257585336287693?ref_src=twsrc%5Etfw">September 6, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> An open source visual editor for React 🤯[https://t.co/CGFOAVK7dw](https://t.co/CGFOAVK7dw)
->
-> The [@reactjs](https://twitter.com/reactjs?ref_src=twsrc%5Etfw) ecosystem is… unstoppable. [pic.twitter.com/jDgj0NwE45](https://t.co/jDgj0NwE45)
->
-> — Guillermo Rauch (@rauchg) [September 5, 2023](https://twitter.com/rauchg/status/1699106822698025103?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">An open source visual editor for React 🤯<a href="https://t.co/CGFOAVK7dw">https://t.co/CGFOAVK7dw</a><br><br>The <a href="https://twitter.com/reactjs?ref_src=twsrc%5Etfw">@reactjs</a> ecosystem is… unstoppable. <a href="https://t.co/jDgj0NwE45">pic.twitter.com/jDgj0NwE45</a></p>&mdash; Guillermo Rauch (@rauchg) <a href="https://twitter.com/rauchg/status/1699106822698025103?ref_src=twsrc%5Etfw">September 5, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
 

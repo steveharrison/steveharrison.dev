@@ -18,29 +18,18 @@ Vercel have released an [online AI playground](https://sdk.vercel.ai) where you 
 
 Zaha Hadid Architects have trained an AI model to turn crumpled pieces of paper into architectural designs in the style of famous architects:
 
-> zaha hadid architects trained a generative model that renders architectural designs in the style of renowned architects ... from randomly crumpled pieces of paper.
->
-> this one is in the style of frank gehry:
->
-> 🧵👇 [pic.twitter.com/tS0uKMaAmC](https://t.co/tS0uKMaAmC)
->
-> — Siqi Chen (@blader) [June 19, 2023](https://twitter.com/blader/status/1670900940709429254?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">zaha hadid architects trained a generative model that renders architectural designs in the style of renowned architects ... from randomly crumpled pieces of paper.<br><br>this one is in the style of frank gehry:<br><br>🧵👇 <a href="https://t.co/tS0uKMaAmC">pic.twitter.com/tS0uKMaAmC</a></p>&mdash; Siqi Chen (@blader) <a href="https://twitter.com/blader/status/1670900940709429254?ref_src=twsrc%5Etfw">June 19, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 People have been using Midjourney to create common household items in the style of popular brands such as Lamborghini:
 
-> Lamborghini products, midjourney AI
->
-> 1. Outdoor BBQ Grill [pic.twitter.com/YYwOuV9L8V](https://t.co/YYwOuV9L8V)
->
-> — AK (@_akhaliq) [June 19, 2023](https://twitter.com/_akhaliq/status/1670832069038030873?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="nl" dir="ltr">Lamborghini products, midjourney AI<br><br>1. Outdoor BBQ Grill <a href="https://t.co/YYwOuV9L8V">pic.twitter.com/YYwOuV9L8V</a></p>&mdash; AK (@_akhaliq) <a href="https://twitter.com/_akhaliq/status/1670832069038030873?ref_src=twsrc%5Etfw">June 19, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 And here's a video using AI to generate a website landing page:
 
-> Played with [@Vercel](https://twitter.com/vercel?ref_src=twsrc%5Etfw) AI. 
->
-> Built this landing pages generator prototype with Next.js, Tailwind CSS and OpenAI API in ~30 minutes 🤯 [pic.twitter.com/X4I2QyNN2W](https://t.co/X4I2QyNN2W)
->
-> — Giuseppe (@giuseppegurgone) [June 21, 2023](https://twitter.com/giuseppegurgone/status/1671593661853728768?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Played with <a href="https://twitter.com/vercel?ref_src=twsrc%5Etfw">@Vercel</a> AI. <br><br>Built this landing pages generator prototype with Next.js, Tailwind CSS and OpenAI API in ~30 minutes 🤯 <a href="https://t.co/X4I2QyNN2W">pic.twitter.com/X4I2QyNN2W</a></p>&mdash; Giuseppe (@giuseppegurgone) <a href="https://twitter.com/giuseppegurgone/status/1671593661853728768?ref_src=twsrc%5Etfw">June 21, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### Security
 
@@ -64,19 +53,15 @@ It occured to me as I was dragging a map this week that the macOS dragging hand 
 
 Lots of stuff happening at Figma! They have recently acquired an AI design tools startup, [Diagram](https://t.co/quy4BQKyln); introduced a new [developer mode](https://www.figma.com/blog/introducing-dev-mode/); and added support for variables in designs:
 
-> Figma Variables lets GO. Been working on this for so long with our team over here at [@figma](https://twitter.com/figma?ref_src=twsrc%5Etfw), and I'm so excited to see it finally launch. 
->
-> AMA about variables! Happy to answer q's. [#Config2023](https://twitter.com/hashtag/Config2023?src=hash&ref_src=twsrc%5Etfw) [pic.twitter.com/N9EiZRROW9](https://t.co/N9EiZRROW9)
->
-> — Jacob Miller (@pwnies) [June 21, 2023](https://twitter.com/pwnies/status/1671552806078251008?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Figma Variables lets GO. Been working on this for so long with our team over here at <a href="https://twitter.com/figma?ref_src=twsrc%5Etfw">@figma</a>, and I&#39;m so excited to see it finally launch. <br><br>AMA about variables! Happy to answer q&#39;s. <a href="https://twitter.com/hashtag/Config2023?src=hash&amp;ref_src=twsrc%5Etfw">#Config2023</a> <a href="https://t.co/N9EiZRROW9">pic.twitter.com/N9EiZRROW9</a></p>&mdash; Jacob Miller (@pwnies) <a href="https://twitter.com/pwnies/status/1671552806078251008?ref_src=twsrc%5Etfw">June 21, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### Development
 
 Here's a CSS tip that I tweeted this week:
 
-> Quick [#CSS](https://twitter.com/hashtag/CSS?src=hash&ref_src=twsrc%5Etfw) snippet for truncating long text: [pic.twitter.com/XikVWyDgQr](https://t.co/XikVWyDgQr)
->
-> — Steve Harrison (@stevenaharrison) [June 21, 2023](https://twitter.com/stevenaharrison/status/1671404747365179392?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Quick <a href="https://twitter.com/hashtag/CSS?src=hash&amp;ref_src=twsrc%5Etfw">#CSS</a> snippet for truncating long text: <a href="https://t.co/XikVWyDgQr">pic.twitter.com/XikVWyDgQr</a></p>&mdash; Steve Harrison (@stevenaharrison) <a href="https://twitter.com/stevenaharrison/status/1671404747365179392?ref_src=twsrc%5Etfw">June 21, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Code snippet graphics like this are popular on Twitter and LinkedIn, and when I set out to create one, I found that there are a [myriad of tools](https://www.google.com/search?q=code+image+generator) out there to automate this. My favourite, which I used to generate the above, is [Carbon](https://carbon.now.sh/) from Vercel (man, do these guys ever stop?!): you simply enter the source code, select the language, choose styling options, and then download the image:
 

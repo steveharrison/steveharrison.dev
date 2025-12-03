@@ -31,13 +31,8 @@ An Israeli startup Alison [raised $5.1M](https://techcrunch.com/2023/05/01/ai-pl
 
 OpenAI released a ChatGPT plugin called [Code interpreter](https://openai.com/blog/chatgpt-plugins#code-interpreter), which can import datasets and generate visualisations. In the example below, someone uploaded a dataset of Netflix movies and TV shows, provided the prompt `Draw visuals to explain what content is available in different countries. Answer it in the form of a multiple pages PDF download. No explanation required. just go!`, and then got a PDF output with bar charts how many movies and TV shows Netflix has for each country.
 
-> GPT-4 is the new data scientist 🤯
->
-> With the new OpenAI code interpreter model, you just have to upload the data and provide instructions in simple english. 
->
-> The model does everything from cleaning data to generating insightful visualizations on autopilot!! [pic.twitter.com/EF8vveS7mY](https://t.co/EF8vveS7mY)
->
-> — Shubham Saboo (@Saboo_Shubham_) [May 1, 2023](https://twitter.com/Saboo_Shubham_/status/1653163644866252802?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">GPT-4 is the new data scientist 🤯<br><br>With the new OpenAI code interpreter model, you just have to upload the data and provide instructions in simple english. <br><br>The model does everything from cleaning data to generating insightful visualizations on autopilot!! <a href="https://t.co/EF8vveS7mY">pic.twitter.com/EF8vveS7mY</a></p>&mdash; Shubham Saboo (@Saboo_Shubham_) <a href="https://twitter.com/Saboo_Shubham_/status/1653163644866252802?ref_src=twsrc%5Etfw">May 1, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 In another example, Jason Calacanis uploaded a CSV of electric vehicle sales data and asked it `what are the three most interesting trends in this data`. ChatGPT then came up with three trends: `Electric Vehicle Adoption Over Time`, `Most Popular Electric Vehicle Makes and Models`, and `Distribution of Electric Vehicle Types`. He was able to ask it to filter out Tesla models and then ask specific questions about the dataset like `which states have had the most growth in 2021 and 2022`. You can check out the full conversation [here](https://sharegpt.com/c/eDY53YP). Pretty cool for speeding up reporting!
 
@@ -49,11 +44,8 @@ Last week I featured an [AI tool that gives you abs](https://www.tinderglowup.co
 
 There are lots of talks on AI regulation happening at the moment. Elon Musk [met with Chuck Schumer](https://www.reuters.com/world/us/elon-musk-meets-with-majority-leader-schumer-senate-office-aide-2023-04-26/) last week, and this Thursday, Joe Biden and his team [had a meeting](https://www.whitehouse.gov/briefing-room/statements-releases/2023/05/04/readout-of-white-house-meeting-with-ceos-on-advancing-responsible-artificial-intelligence-innovation/) that included Sundar Pichai (CEO of Google), Demis Hassabis (the founder of Google DeepMind), Sam Altman (CEO of OpenAI), and Satya Nadella (CEO of Microsoft).
 
-> Artificial Intelligence is one of the most powerful tools of our time, but to seize its opportunities, we must first mitigate its risks.
->  
-> Today, I dropped by a meeting with AI leaders to touch on the importance of innovating responsibly and protecting people's rights and safety. [pic.twitter.com/VEJjBrhCTW](https://t.co/VEJjBrhCTW)
->
-> — President Biden (@POTUS) [May 4, 2023](https://twitter.com/POTUS/status/1654237472065302528?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Artificial Intelligence is one of the most powerful tools of our time, but to seize its opportunities, we must first mitigate its risks.<br> <br>Today, I dropped by a meeting with AI leaders to touch on the importance of innovating responsibly and protecting people&#39;s rights and safety. <a href="https://t.co/VEJjBrhCTW">pic.twitter.com/VEJjBrhCTW</a></p>&mdash; President Biden (@POTUS) <a href="https://twitter.com/POTUS/status/1654237472065302528?ref_src=twsrc%5Etfw">May 4, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 The White House has also [invested $140M](https://www.theverge.com/2023/5/4/23710533/google-microsoft-openai-white-house-ethical-ai-artificial-intelligence) into new AI research facilities.
 

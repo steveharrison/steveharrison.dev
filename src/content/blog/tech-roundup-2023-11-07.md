@@ -38,34 +38,18 @@ Watch the whole keynote [here](https://www.youtube.com/watch?v=U9mJuUkhUzk&ab_ch
 
 [Javi Lopez](https://x.com/javilopen) has been posting some pretty impressive stuff on X. First, he used ChatGPT to create a web game, "Angry Pumpkins", that's inspired by Halloween and the popular iOS game Angry Birds.
 
-> Midjourney, DALL•E 3 and GPT-4 have opened a world of endless possibilities.
->
-> I just coded "Angry Pumpkins 🎃" (any resemblance is purely coincidental 😂) using GPT-4 for all the coding and Midjourney / DALLE for the graphics.
->
-> Here are the prompts and the process I followed: [pic.twitter.com/st3OEhVVtK](https://t.co/st3OEhVVtK)
->
-> — Javi Lopez ⛩️ (@javilopen) [October 31, 2023](https://twitter.com/javilopen/status/1719363262179938401?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Midjourney, DALL•E 3 and GPT-4 have opened a world of endless possibilities.<br><br>I just coded "Angry Pumpkins 🎃" (any resemblance is purely coincidental 😂) using GPT-4 for all the coding and Midjourney / DALLE for the graphics.<br><br>Here are the prompts and the process I followed: <a href="https://t.co/st3OEhVVtK">pic.twitter.com/st3OEhVVtK</a></p>— Javi Lopez ⛩️ (@javilopen) <a href="https://twitter.com/javilopen/status/1719363262179938401?ref_src=twsrc%5Etfw">October 31, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Go [give it a try](https://bestaiprompts.art/angry-pumpkins/index.html)! I think it's pretty impressive. Vercel CEO Guillermo Ranch also did an interview with Javier:
 
-> I was so blown away by [@javilopen](https://twitter.com/javilopen?ref_src=twsrc%5Etfw)'s Angry Birds replication with AI that I had to verify it myself 😁
->
-> What I learned:
-> ◆ The game was 100% written by AI. Every LOC
-> ◆ It only took 10-12 hours of total work
-> ◆ I saw the entire ChatGPT conversation. Over 400 messages exchanged.… [pic.twitter.com/8sXVAeevh2](https://t.co/8sXVAeevh2)
->
-> — Guillermo Rauch (@rauchg) [November 1, 2023](https://twitter.com/rauchg/status/1719806824206258264?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I was so blown away by <a href="https://twitter.com/javilopen?ref_src=twsrc%5Etfw">@javilopen</a>'s Angry Birds replication with AI that I had to verify it myself 😁<br><br>What I learned:<br>◆ The game was 100% written by AI. Every LOC<br>◆ It only took 10-12 hours of total work<br>◆ I saw the entire ChatGPT conversation. Over 400 messages exchanged.… <a href="https://t.co/8sXVAeevh2">pic.twitter.com/8sXVAeevh2</a></p>— Guillermo Rauch (@rauchg) <a href="https://twitter.com/rauchg/status/1719806824206258264?ref_src=twsrc%5Etfw">November 1, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 But that's not the only cool stuff that Javier has been posting:
 
-> ⚡ HUGE LEGO BUILDING
->
-> 100% AI generated.
->
-> Generative AI has a tough time generating large images with lots of fine details. But I think we're making headway. [pic.twitter.com/F7UUMxAFFU](https://t.co/F7UUMxAFFU)
->
-> — Javi Lopez ⛩️ (@javilopen) [November 6, 2023](https://twitter.com/javilopen/status/1721625654599262635?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">⚡ HUGE LEGO BUILDING<br><br>100% AI generated.<br><br>Generative AI has a tough time generating large images with lots of fine details. But I think we're making headway. <a href="https://t.co/F7UUMxAFFU">pic.twitter.com/F7UUMxAFFU</a></p>— Javi Lopez ⛩️ (@javilopen) <a href="https://twitter.com/javilopen/status/1721625654599262635?ref_src=twsrc%5Etfw">November 6, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 When you zoom in, it's obviously not perfect, but still quite neat!
 
@@ -75,13 +59,8 @@ Some other interesting AI stuff I've come across:
 
 ![](https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=192)
 
-> Ash is a pocket AI nature guide for kids inspired by Ash's Pokédex. It helps children connect with and learn about the biodiversity around them.
->
-> I absolutely adore the simplicity of Ash.
->
-> 🔗  [https://t.co/nsIHceu4Lc](https://t.co/nsIHceu4Lc) [pic.twitter.com/44pB2wiBuC](https://t.co/44pB2wiBuC)
->
-> — Valera Pieŭnioŭ 💙💛 (@mamkindesigner) [October 25, 2023](https://twitter.com/mamkindesigner/status/1717145092832837764?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ash is a pocket AI nature guide for kids inspired by Ash's Pokédex. It helps children connect with and learn about the biodiversity around them.<br><br>I absolutely adore the simplicity of Ash.<br><br>🔗  <a href="https://t.co/nsIHceu4Lc">https://t.co/nsIHceu4Lc</a> <a href="https://t.co/44pB2wiBuC">pic.twitter.com/44pB2wiBuC</a></p>— Valera Pieŭnioŭ 💙💛 (@mamkindesigner) <a href="https://twitter.com/mamkindesigner/status/1717145092832837764?ref_src=twsrc%5Etfw">October 25, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
 
@@ -89,15 +68,11 @@ Some other interesting AI stuff I've come across:
 
 ![](https://static.licdn.com/aero-v1/sc/h/al2o9zrvru7aqj8e1x2rzsrca)
 
-> 10 creative ads I've collected this week:
->
-> 1. Luxor Highlighters [pic.twitter.com/LfzEWL0QCf](https://t.co/LfzEWL0QCf)
->
-> — The Ad Professor (@The_AdProfessor) [October 27, 2023](https://twitter.com/The_AdProfessor/status/1717894559735460263?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">10 creative ads I've collected this week:<br><br>1. Luxor Highlighters <a href="https://t.co/LfzEWL0QCf">pic.twitter.com/LfzEWL0QCf</a></p>— The Ad Professor (@The_AdProfessor) <a href="https://twitter.com/The_AdProfessor/status/1717894559735460263?ref_src=twsrc%5Etfw">October 27, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> This is hilarious and also why startups should never hire MBA consultants who have never built a company before. [pic.twitter.com/MkBhUbfyw6](https://t.co/MkBhUbfyw6)
->
-> — Andrew Gazdecki (@agazdecki) [October 27, 2023](https://twitter.com/agazdecki/status/1717923906726826015?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This is hilarious and also why startups should never hire MBA consultants who have never built a company before. <a href="https://t.co/MkBhUbfyw6">pic.twitter.com/MkBhUbfyw6</a></p>— Andrew Gazdecki (@agazdecki) <a href="https://twitter.com/agazdecki/status/1717923906726826015?ref_src=twsrc%5Etfw">October 27, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
 
@@ -113,24 +88,13 @@ Some other interesting AI stuff I've come across:
 
 ![](https://daverupert.com/favicon.ico)
 
-> AI tool that uses your design system to create new components (along with all of the code) 👇 [pic.twitter.com/6GWN58rDUy](https://t.co/6GWN58rDUy)
->
-> — Ridd 🤿 (@ridd_design) [October 31, 2023](https://twitter.com/ridd_design/status/1719398949826777255?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">AI tool that uses your design system to create new components (along with all of the code) 👇 <a href="https://t.co/6GWN58rDUy">pic.twitter.com/6GWN58rDUy</a></p>— Ridd 🤿 (@ridd_design) <a href="https://twitter.com/ridd_design/status/1719398949826777255?ref_src=twsrc%5Etfw">October 31, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ![](https://www.gstatic.com/devrel-devsite/prod/v2969aa5c356a1994c35b6b6f94f2c6fc8c28faf9af75d026e0b265867da17793/web/images/favicon.png)
 
-> Something is cooking!
->
-> Earlier this month at my Awwwards talk the audience was amazed when I added Wiggle Bones to my demo
->
-> Here's a prototype featuring the technique in different objects. Will be sharing a live link very soon ;)
->
-> Done with [@threejs](https://twitter.com/threejs?ref_src=twsrc%5Etfw) and [@blender](https://twitter.com/Blender?ref_src=twsrc%5Etfw) as usual [pic.twitter.com/gekKbhZ0We](https://t.co/gekKbhZ0We)
->
-> — Xavier (Jack) (@KMkota0) [October 31, 2023](https://twitter.com/KMkota0/status/1719392775462940845?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Something is cooking!<br><br>Earlier this month at my Awwwards talk the audience was amazed when I added Wiggle Bones to my demo<br><br>Here's a prototype featuring the technique in different objects. Will be sharing a live link very soon ;)<br><br>Done with <a href="https://twitter.com/threejs?ref_src=twsrc%5Etfw">@threejs</a> and <a href="https://twitter.com/Blender?ref_src=twsrc%5Etfw">@blender</a> as usual <a href="https://t.co/gekKbhZ0We">pic.twitter.com/gekKbhZ0We</a></p>— Xavier (Jack) (@KMkota0) <a href="https://twitter.com/KMkota0/status/1719392775462940845?ref_src=twsrc%5Etfw">October 31, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> TIL you can turn any website into an editable canvas with just a simple command in the console:
->
-> document.designMode = 'on'[pic.twitter.com/LHyYD7Txcs](https://t.co/LHyYD7Txcs)
->
-> — Steven Tey (@steventey) [November 4, 2023](https://twitter.com/steventey/status/1720932891616756119?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">TIL you can turn any website into an editable canvas with just a simple command in the console:<br><br>document.designMode = 'on'<a href="https://t.co/LHyYD7Txcs">pic.twitter.com/LHyYD7Txcs</a></p>— Steven Tey (@steventey) <a href="https://twitter.com/steventey/status/1720932891616756119?ref_src=twsrc%5Etfw">November 4, 2023</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

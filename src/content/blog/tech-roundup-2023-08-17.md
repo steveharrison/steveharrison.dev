@@ -10,14 +10,8 @@ pubDate: 'Aug 18 2023'
 
 ![](https://www.theverge.com/icons/android_chrome_512x512.png)
 
-> 🔴 Finally! NVIDIA has finally made the code for Neuralangelo public!
->
-> It has the ability to transform any video into a highly detailed 3D environment, and it's a technology related to but DIFFERENT from NeRF.
->
-> 💡 Here's how it works:
-> It takes a 2D video as input, showing an… [pic.twitter.com/tS3dv7df61](https://t.co/tS3dv7df61)
->
-> — Javi Lopez ⛩️ (@javilopen) [August 14, 2023](https://twitter.com/javilopen/status/1691120893638950912?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">🔴 Finally! NVIDIA has finally made the code for Neuralangelo public!<br><br>It has the ability to transform any video into a highly detailed 3D environment, and it&#39;s a technology related to but DIFFERENT from NeRF.<br><br>💡 Here&#39;s how it works:<br>It takes a 2D video as input, showing an… <a href="https://t.co/tS3dv7df61">pic.twitter.com/tS3dv7df61</a></p>&mdash; Javi Lopez ⛩️ (@javilopen) <a href="https://twitter.com/javilopen/status/1691120893638950912?ref_src=twsrc%5Etfw">August 14, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ![](https://cdn-static-1.medium.com/_/fp/icons/Medium-Avatar-500x500.svg)
 
@@ -33,13 +27,8 @@ pubDate: 'Aug 18 2023'
 
 ### Design
 
-> Is it mere coincidence or the intuition of Apple's designer? 
->
-> This composition aligns remarkably well with the classic musical scale of octaves at a 2:1 ratio.
->
-> Steal this concept for your next design 😈 [pic.twitter.com/kYIZXbpYKs](https://t.co/kYIZXbpYKs)
->
-> — Vincent Le Moign (@webalys) [August 15, 2023](https://twitter.com/webalys/status/1691388380163051520?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Is it mere coincidence or the intuition of Apple&#39;s designer? <br><br>This composition aligns remarkably well with the classic musical scale of octaves at a 2:1 ratio.<br><br>Steal this concept for your next design 😈 <a href="https://t.co/kYIZXbpYKs">pic.twitter.com/kYIZXbpYKs</a></p>&mdash; Vincent Le Moign (@webalys) <a href="https://twitter.com/webalys/status/1691388380163051520?ref_src=twsrc%5Etfw">August 15, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### Other tech stuff
 

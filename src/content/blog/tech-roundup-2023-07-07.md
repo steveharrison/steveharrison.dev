@@ -81,8 +81,7 @@ for (let i = 0; i < 10; i++) { await page.keyboard.press('ArrowRight');
 
 I'll leave you with this:
 
-> Be careful everyone. I had my laptop open with my pitch deck for my AI startup pulled up and someone broke my window and dropped in a term sheet. [pic.twitter.com/KWZ3upDNmC](https://t.co/KWZ3upDNmC)
->
-> — Roshan Patel (@roshanpateI) [July 5, 2023](https://twitter.com/roshanpateI/status/1676635938158510098?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Be careful everyone. I had my laptop open with my pitch deck for my AI startup pulled up and someone broke my window and dropped in a term sheet. <a href="https://t.co/KWZ3upDNmC">pic.twitter.com/KWZ3upDNmC</a></p>&mdash; Roshan Patel (@roshanpateI) <a href="https://twitter.com/roshanpateI/status/1676635938158510098?ref_src=twsrc%5Etfw">July 5, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Have a great weekend!

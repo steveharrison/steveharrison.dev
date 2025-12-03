@@ -9,23 +9,18 @@ pubDate: 'Oct 01 2025'
 
 Meta was in the news recently for two failed live demos:
 
-> Mark Zuckerberg's Meta AI glasses demo failed in EPIC fashion today 🤣[pic.twitter.com/O0UFeoCar7](https://t.co/O0UFeoCar7)
->
-> — Chief Nerd (@TheChiefNerd) [September 18, 2025](https://twitter.com/TheChiefNerd/status/1968508600575221894?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Mark Zuckerberg's Meta AI glasses demo failed in EPIC fashion today 🤣<a href="https://t.co/O0UFeoCar7">pic.twitter.com/O0UFeoCar7</a></p>— Chief Nerd (@TheChiefNerd) <a href="https://twitter.com/TheChiefNerd/status/1968508600575221894?ref_src=twsrc%5Etfw">September 18, 2025</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> Meta AI's live demo failed for the entire minute 😢 [pic.twitter.com/du4roaW0ER](https://t.co/du4roaW0ER)
->
-> — near (@nearcyan) [September 18, 2025](https://twitter.com/nearcyan/status/1968468841786126476?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Meta AI's live demo failed for the entire minute 😢 <a href="https://t.co/du4roaW0ER">pic.twitter.com/du4roaW0ER</a></p>— near (@nearcyan) <a href="https://twitter.com/nearcyan/status/1968468841786126476?ref_src=twsrc%5Etfw">September 18, 2025</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 While there were a lot of people who [said](https://x.com/mrdbourke/status/1968506328613347797) they'd rather see a live demo than pre-recorded content such as Apple events nowadays, I disagree: I think most demos should be pre-recorded.
 
 Here's one of the reasons the Meta demos failed:
 
-> So here’s the story behind why yesterdays live [#metaconnect](https://twitter.com/hashtag/metaconnect?src=hash&ref_src=twsrc%5Etfw) demo failed - when the chef said “Hey Meta start Live AI” it activated everyone’s Meta AI in the room at once and effectively DDOS’d our servers 🤣 
->
-> That’s what we get for doing it live!
->
-> — Jake Steinerman (@jasteinerman) [September 19, 2025](https://twitter.com/jasteinerman/status/1968864479929634999?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">So here’s the story behind why yesterdays live <a href="https://twitter.com/hashtag/metaconnect?src=hash&amp;ref_src=twsrc%5Etfw">#metaconnect</a> demo failed - when the chef said “Hey Meta start Live AI” it activated everyone’s Meta AI in the room at once and effectively DDOS’d our servers 🤣 <br><br>That’s what we get for doing it live!</p>— Jake Steinerman (@jasteinerman) <a href="https://twitter.com/jasteinerman/status/1968864479929634999?ref_src=twsrc%5Etfw">September 19, 2025</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 There are many reasons why live demos can fail, such as:
 

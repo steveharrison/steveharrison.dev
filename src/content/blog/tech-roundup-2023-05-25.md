@@ -50,11 +50,8 @@ Try it out yourself by [downloading Photoshop Beta](https://creativecloud.adobe.
 
 Another impressive example of generative AI: a new [paper](https://huggingface.co/papers/2305.10973) was published recently describing how you could re-orient subjects' faces in photos. Check out the video below!
 
-> Drag Your GAN: Interactive Point-based Manipulation on the Generative Image Manifold
->
-> paper page: [https://t.co/Gjcm1smqfl](https://t.co/Gjcm1smqfl) [pic.twitter.com/XHQIiMdYOA](https://t.co/XHQIiMdYOA)
->
-> — AK (@_akhaliq) [May 19, 2023](https://twitter.com/_akhaliq/status/1659424744490377217?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Drag Your GAN: Interactive Point-based Manipulation on the Generative Image Manifold<br><br>paper page: <a href="https://t.co/Gjcm1smqfl">https://t.co/Gjcm1smqfl</a> <a href="https://t.co/XHQIiMdYOA">pic.twitter.com/XHQIiMdYOA</a></p>&mdash; AK (@_akhaliq) <a href="https://twitter.com/_akhaliq/status/1659424744490377217?ref_src=twsrc%5Etfw">May 19, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ### Also in AI
 

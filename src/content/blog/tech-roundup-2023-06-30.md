@@ -14,11 +14,8 @@ pubDate: 'Jun 30 2023'
 
 Toyota has released a generative AI tool for designing cars:
 
-> 1. Toyota Design AI
->
-> Toyota (yes that company lagging in EVs somehow cares about AI)  released generative AI for car design: [pic.twitter.com/W3ve7ppYEA](https://t.co/W3ve7ppYEA)
->
-> — Aakash Gupta 🚀 Product Growth Guy (@aakashg0) [June 27, 2023](https://twitter.com/aakashg0/status/1673555290162368513?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">1. Toyota Design AI<br><br>Toyota (yes that company lagging in EVs somehow cares about AI)  released generative AI for car design: <a href="https://t.co/W3ve7ppYEA">pic.twitter.com/W3ve7ppYEA</a></p>&mdash; Aakash Gupta 🚀 Product Growth Guy (@aakashg0) <a href="https://twitter.com/aakashg0/status/1673555290162368513?ref_src=twsrc%5Etfw">June 27, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Artists have also been sharing what they've been able to achieve with Midjourney: check out the below example!
 
@@ -58,19 +55,13 @@ The Biden administration had previously tried to make the Combined Charging Syst
 
 Sydney recently had a [drone show](https://secretsydney.com/drone-show-vivid-sydney/) as part of Vivid, which was the largest to date in the Southern Hemisphere. It looks like the Northern Hemisphere isn't slowing down either with this spectacular display in France:
 
-> Drones used in the Wine Festival celebrations illuminated the night.
-> France, Bordeaux[pic.twitter.com/wAAnUo4sk7](https://t.co/wAAnUo4sk7)
->
-> — Figen (@TheFigen_) [June 26, 2023](https://twitter.com/TheFigen_/status/1673302085629034502?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Drones used in the Wine Festival celebrations illuminated the night.<br>France, Bordeaux<a href="https://t.co/wAAnUo4sk7">pic.twitter.com/wAAnUo4sk7</a></p>&mdash; Figen (@TheFigen_) <a href="https://twitter.com/TheFigen_/status/1673302085629034502?ref_src=twsrc%5Etfw">June 26, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 And a social media app, Unicorn, is [shutting down](https://techcrunch.com/2023/06/26/irl-shut-down-fake-users/) after admitting that 95% of its users were fake! It had raised more than $200M in VC funding and had a valuation of $1.1B.
 
-> 1. Create 19 million fake users in db
-> 2. Raise $200M in VC funding
-> 3. ????
-> 4. PROFIT!!! [https://t.co/GiYKLfQiLK](https://t.co/GiYKLfQiLK)
->
-> — @levelsio (@levelsio) [June 27, 2023](https://twitter.com/levelsio/status/1673661990248611844?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">1. Create 19 million fake users in db<br>2. Raise $200M in VC funding<br>3. ????<br>4. PROFIT!!! <a href="https://t.co/GiYKLfQiLK">https://t.co/GiYKLfQiLK</a></p>&mdash; @levelsio (@levelsio) <a href="https://twitter.com/levelsio/status/1673661990248611844?ref_src=twsrc%5Etfw">June 27, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 My favourite is looking back at glamorous PR articles like this one:
 
@@ -89,8 +80,7 @@ A cool browser extension that I found out about this week is [StopTheMaddness](h
 
 Also, I finally figured out why Google branding looks the way it does:
 
-> It all makes sense now! [pic.twitter.com/HDSi0d8KlZ](https://t.co/HDSi0d8KlZ)
->
-> — Steve Harrison (@stevenaharrison) [June 28, 2023](https://twitter.com/stevenaharrison/status/1674023508047953920?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">It all makes sense now! <a href="https://t.co/HDSi0d8KlZ">pic.twitter.com/HDSi0d8KlZ</a></p>&mdash; Steve Harrison (@stevenaharrison) <a href="https://twitter.com/stevenaharrison/status/1674023508047953920?ref_src=twsrc%5Etfw">June 28, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Have a great weekend! 😀

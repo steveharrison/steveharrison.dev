@@ -14,29 +14,20 @@ Microsoft is [bringing](https://techcommunity.microsoft.com/t5/microsoft-365-blo
 
 There is now a reverse image lookup that uses facial recognition to find all images of a person publicly on the web:
 
-> Possibly the most disturbing AI website on the internet.
->
-> Upload a photo of a person, and AI will find ALL of the images of that person across the internet.
->
-> Here's what you need to know: [pic.twitter.com/oIEUXdY8CE](https://t.co/oIEUXdY8CE)
->
-> — Rowan Cheung (@rowancheung) [August 23, 2023](https://twitter.com/rowancheung/status/1694341766961418566?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Possibly the most disturbing AI website on the internet.<br><br>Upload a photo of a person, and AI will find ALL of the images of that person across the internet.<br><br>Here&#39;s what you need to know: <a href="https://t.co/oIEUXdY8CE">pic.twitter.com/oIEUXdY8CE</a></p>&mdash; Rowan Cheung (@rowancheung) <a href="https://twitter.com/rowancheung/status/1694341766961418566?ref_src=twsrc%5Etfw">August 23, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Parmigiano-Reggiano are now [putting edible microchips](https://www.wsj.com/world/europe/microchips-in-the-parmigiano-and-other-ways-europeans-are-fighting-fake-food-3c719f9c) into their cheese blocks to fight against knockoffs. The silicon chips, made by [p-Chip](https://p-chip.com/), use blockchain to allow the cheese to be traced all the way back to the producer of the milk. The market of European food products with EU protected status—also including Greek feta cheese, Champagne, and Italian Parma raw ham—is worth €80 billion annually. These products can be twice the price of similar non-protected products, so there is a huge market—estimated to be also around €80 billion—for knockoffs and incentive for the food producers to prove authenticity.
 
 Here is a thread of what developers have been coming up with for Apple's Vision Pro SDK:
 
-> Two months ago, Apple released Vision Pro’s SDK. Since then, the community has been cooking 🔥
->
-> I collected some of my favorite creations so far ⬇️
->
-> — Wenbo Tao (@tracy__henry) [August 22, 2023](https://twitter.com/tracy__henry/status/1693999486585242040?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Two months ago, Apple released Vision Pro’s SDK. Since then, the community has been cooking 🔥<br><br>I collected some of my favorite creations so far ⬇️</p>&mdash; Wenbo Tao (@tracy__henry) <a href="https://twitter.com/tracy__henry/status/1693999486585242040?ref_src=twsrc%5Etfw">August 22, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 My favourite is real-time subtitles:
 
-> Here's Navi in action on [#visionOS](https://twitter.com/hashtag/visionOS?src=hash&ref_src=twsrc%5Etfw)! It gives you subtitles for the real world, and can also translate what people are saying on the fly to your language. Obviously early in a lot of ways, but excited for how easy it is to develop for this platform. [pic.twitter.com/5Vga3FoJSI](https://t.co/5Vga3FoJSI)
->
-> — Jordi Bruin (@jordibruin) [August 6, 2023](https://twitter.com/jordibruin/status/1688275141719916544?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s Navi in action on <a href="https://twitter.com/hashtag/visionOS?src=hash&amp;ref_src=twsrc%5Etfw">#visionOS</a>! It gives you subtitles for the real world, and can also translate what people are saying on the fly to your language. Obviously early in a lot of ways, but excited for how easy it is to develop for this platform. <a href="https://t.co/5Vga3FoJSI">pic.twitter.com/5Vga3FoJSI</a></p>&mdash; Jordi Bruin (@jordibruin) <a href="https://twitter.com/jordibruin/status/1688275141719916544?ref_src=twsrc%5Etfw">August 6, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 For something a bit different, check out this luxury house that has been designed to resemble a yacht integrated into a hill in Greece:
 
@@ -44,27 +35,13 @@ For something a bit different, check out this luxury house that has been designe
 
 Real-time CGI is improving in leaps and bounds:
 
-> CGI is about to get easy 
->
-> This is simulon, a new iOS app that’s still in invite only mode 
->
-> The video below was made with a live in-camera preview and auto-exposure matching, no camera solve, no HDRI capture and no manual compositing setup.
->
-> 🔗 in next tweet [pic.twitter.com/pJYFFaRGbd](https://t.co/pJYFFaRGbd)
->
-> — Linus (●ᴗ●) (@LinusEkenstam) [August 22, 2023](https://twitter.com/LinusEkenstam/status/1694121273964589368?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">CGI is about to get easy <br><br>This is simulon, a new iOS app that’s still in invite only mode <br><br>The video below was made with a live in-camera preview and auto-exposure matching, no camera solve, no HDRI capture and no manual compositing setup.<br><br>🔗 in next tweet <a href="https://t.co/pJYFFaRGbd">pic.twitter.com/pJYFFaRGbd</a></p>&mdash; Linus (●ᴗ●) (@LinusEkenstam) <a href="https://twitter.com/LinusEkenstam/status/1694121273964589368?ref_src=twsrc%5Etfw">August 22, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Midjourney has released a feature that allows you to generate new AI content for a specific part of an image, allowing you to keep the bits you like while regenerating certain other areas of an AI-generated image:
 
-> 🔴 FINALLY! Midjourney releases its INPAINTING!
->
-> We've been WAITING for this for AGES. Now we can edit any area of our generations!
->
-> 💡 IMPORTANT: don't forget to enable the REMIX option to be able to use a text prompt!
->
-> 📽️ VIDEO TUTORIAL 👇[#midjourney](https://twitter.com/hashtag/midjourney?src=hash&ref_src=twsrc%5Etfw) [pic.twitter.com/d8GQ1gLth0](https://t.co/d8GQ1gLth0)
->
-> — Javi Lopez ⛩️ (@javilopen) [August 21, 2023](https://twitter.com/javilopen/status/1693730802670981166?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">🔴 FINALLY! Midjourney releases its INPAINTING!<br><br>We&#39;ve been WAITING for this for AGES. Now we can edit any area of our generations!<br><br>💡 IMPORTANT: don&#39;t forget to enable the REMIX option to be able to use a text prompt!<br><br>📽️ VIDEO TUTORIAL 👇<a href="https://twitter.com/hashtag/midjourney?src=hash&amp;ref_src=twsrc%5Etfw">#midjourney</a> <a href="https://t.co/d8GQ1gLth0">pic.twitter.com/d8GQ1gLth0</a></p>&mdash; Javi Lopez ⛩️ (@javilopen) <a href="https://twitter.com/javilopen/status/1693730802670981166?ref_src=twsrc%5Etfw">August 21, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 For example, this AI-generated image originally featured a dog but was able to be changed to a variety of cats while preserving the rest of the image:
 

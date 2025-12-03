@@ -23,17 +23,8 @@ And it has been revealed that Silicon Valley VCs, including Marc Andreessen and 
 
 I came across this interesting product strategy this week, where if you offer customers the ability to customise a product, they place much more value on it:
 
-> We used the "Ikea effect" to increase conversion by 82%.
->
-> Here's why and how.
->
-> The Ikea effect is a "cognitive bias in which consumers place a disproportionately high value on products they partially created".
->
-> We wanted to do 2 things in our product:
->
-> 1. Increase conversion… [pic.twitter.com/lO77xrpvND](https://t.co/lO77xrpvND)
->
-> — Mike Heap (@mike_heap_) [August 24, 2023](https://twitter.com/mike_heap_/status/1694632563178955008?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">We used the &quot;Ikea effect&quot; to increase conversion by 82%.<br><br>Here&#39;s why and how.<br><br>The Ikea effect is a &quot;cognitive bias in which consumers place a disproportionately high value on products they partially created&quot;.<br><br>We wanted to do 2 things in our product:<br><br>1. Increase conversion… <a href="https://t.co/lO77xrpvND">pic.twitter.com/lO77xrpvND</a></p>&mdash; Mike Heap (@mike_heap_) <a href="https://twitter.com/mike_heap_/status/1694632563178955008?ref_src=twsrc%5Etfw">August 24, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 It's always interesting to see how the government fights against malware. In this example, they hacked computers in order to *remove* malware:
 
@@ -51,15 +42,11 @@ I've previously covered watermarking AI-generated audio—here's what Google is 
 
 AI-assisted coding is rapidly advancing. Here are some examples users have shared of what you can do now using the AI-focused (and VSCode-based) IDE, [Cursor](https://www.cursor.so):
 
-> Now my AI just tells me what the bugs are in my code as I work. [pic.twitter.com/9oYVzViLBc](https://t.co/9oYVzViLBc)
->
-> — Mckay Wrigley (@mckaywrigley) [August 29, 2023](https://twitter.com/mckaywrigley/status/1696654304759947418?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Now my AI just tells me what the bugs are in my code as I work. <a href="https://t.co/9oYVzViLBc">pic.twitter.com/9oYVzViLBc</a></p>&mdash; Mckay Wrigley (@mckaywrigley) <a href="https://twitter.com/mckaywrigley/status/1696654304759947418?ref_src=twsrc%5Etfw">August 29, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> We’re at the point with AI + coding where you can just give the AI a URL to some docs and it will learn the library.
->
-> Insane. [pic.twitter.com/BQHvLs4TyG](https://t.co/BQHvLs4TyG)
->
-> — Mckay Wrigley (@mckaywrigley) [August 24, 2023](https://twitter.com/mckaywrigley/status/1694810691201605712?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">We’re at the point with AI + coding where you can just give the AI a URL to some docs and it will learn the library.<br><br>Insane. <a href="https://t.co/BQHvLs4TyG">pic.twitter.com/BQHvLs4TyG</a></p>&mdash; Mckay Wrigley (@mckaywrigley) <a href="https://twitter.com/mckaywrigley/status/1694810691201605712?ref_src=twsrc%5Etfw">August 24, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 AWS also now has AI coding tools:
 
@@ -67,23 +54,13 @@ AWS also now has AI coding tools:
 
 And developers are using Vercel's AI SDK to build some [really interesting products](https://twitter.com/steventey/status/1696232104395424163?s=12&t=oZJRyaxROrBeC4sT1iUY_g), such as AI chat for YouTube videos and Yelp.
 
-> Introducing Chat with YouTube, an AI-powered browser extension that lets you chat with YouTube videos! 🚀
->
-> This project shows how easy it is to build conversational browser extensions using 🤗 Inference Endpoints and [@Vercel](https://twitter.com/vercel?ref_src=twsrc%5Etfw)'s AI SDK.
->
-> + it's open source! [https://t.co/iF8c4la6bC](https://t.co/iF8c4la6bC) [pic.twitter.com/rpVa5pE0CB](https://t.co/rpVa5pE0CB)
->
-> — Xenova (@xenovacom) [August 15, 2023](https://twitter.com/xenovacom/status/1691578817012187537?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Introducing Chat with YouTube, an AI-powered browser extension that lets you chat with YouTube videos! 🚀<br><br>This project shows how easy it is to build conversational browser extensions using 🤗 Inference Endpoints and <a href="https://twitter.com/vercel?ref_src=twsrc%5Etfw">@Vercel</a>&#39;s AI SDK.<br><br>+ it&#39;s open source! <a href="https://t.co/iF8c4la6bC">https://t.co/iF8c4la6bC</a> <a href="https://t.co/rpVa5pE0CB">pic.twitter.com/rpVa5pE0CB</a></p>&mdash; Xenova (@xenovacom) <a href="https://twitter.com/xenovacom/status/1691578817012187537?ref_src=twsrc%5Etfw">August 15, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Although not AI-related (yet) (also a great example of X's user-submitted context), it's pretty amazing to see what robotic tools are available to surgeons these days:
 
-> A glimpse into the future of surgery.
->
-> This robot uses high precision and dexterity to peel an egg, puncture it, and stitch it back up using computer vision.
->
-> AI x Robotics is going to completely transform the world in the coming years.[pic.twitter.com/INnSuG8Rr4](https://t.co/INnSuG8Rr4)
->
-> — Rowan Cheung (@rowancheung) [August 29, 2023](https://twitter.com/rowancheung/status/1696480066908119082?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A glimpse into the future of surgery.<br><br>This robot uses high precision and dexterity to peel an egg, puncture it, and stitch it back up using computer vision.<br><br>AI x Robotics is going to completely transform the world in the coming years.<a href="https://t.co/INnSuG8Rr4">pic.twitter.com/INnSuG8Rr4</a></p>&mdash; Rowan Cheung (@rowancheung) <a href="https://twitter.com/rowancheung/status/1696480066908119082?ref_src=twsrc%5Etfw">August 29, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Dev
 

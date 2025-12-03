@@ -27,9 +27,8 @@ Elon Musk has unveiled his new AI company: [xAI](https://x.ai), whose goal is to
 
 Usage of Threads has dropped since the big launch. They have also now [introduced rate limiting](https://mashable.com/article/threads-rate-limiting) to counter spam attacks. Remember when everyone was complaining about Twitter doing it? Speaking of rate limits, Elon Musk increased it on Twitter by 50% for verified users after someone complained that he'd been capped after spending over 9h on Twitter one day. While a great example of listening to your customers and continuously iterating a product, I think the more important point here is should you be spending 9h / day on Twitter?! (I don't think so!)
 
-> Incredible [pic.twitter.com/uppf8O1OD2](https://t.co/uppf8O1OD2)
->
-> — Austen Allred (@Austen) [July 16, 2023](https://twitter.com/Austen/status/1680411888453292032?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Incredible <a href="https://t.co/uppf8O1OD2">pic.twitter.com/uppf8O1OD2</a></p>&mdash; Austen Allred (@Austen) <a href="https://twitter.com/Austen/status/1680411888453292032?ref_src=twsrc%5Etfw">July 16, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Twitter is now [sharing ad revenue](https://techcrunch.com/2023/07/13/twitter-starts-sharing-ad-revenue-with-verified-creators/) with creators. Writer Brian Krassenstein, who has about 750,000 followers, posted that Twitter had paid him $24,305. Creator payouts are calculated based on revenue from ads shown in tweet replies. As Farzad Mesbahi tweeted, “The more haters you have in your replies the more money you’ll make on Twitter.” Musk replied, “Poetic justice.”
 

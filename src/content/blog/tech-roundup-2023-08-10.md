@@ -8,11 +8,8 @@ pubDate: 'Aug 11 2023'
 
 An AI-generated deep fake has been making the rounds—I think it's pretty convincing:
 
-> [NEW] - Joshua Avatar 2.0 🤖✨. Both of these video clips were 100% AI-generated, featuring my own avatar and voice clone. 🎙️🎥
->
-> We've made massive enhancements to our life-style avatar's video quality and fine-tuned our voice technology to mimic my unique accent and speech… [pic.twitter.com/9EgxRA69dg](https://t.co/9EgxRA69dg)
->
-> — Joshua Xu (@joshua_xu_) [August 8, 2023](https://twitter.com/joshua_xu_/status/1689019874667024384?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">[NEW] - Joshua Avatar 2.0 🤖✨. Both of these video clips were 100% AI-generated, featuring my own avatar and voice clone. 🎙️🎥<br><br>We&#39;ve made massive enhancements to our life-style avatar&#39;s video quality and fine-tuned our voice technology to mimic my unique accent and speech… <a href="https://t.co/9EgxRA69dg">pic.twitter.com/9EgxRA69dg</a></p>&mdash; Joshua Xu (@joshua_xu_) <a href="https://twitter.com/joshua_xu_/status/1689019874667024384?ref_src=twsrc%5Etfw">August 8, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Researchers have published a paper on guessing passwords with AI by listening to the sounds made by your keyboard over a Zoom call.
 
@@ -34,9 +31,8 @@ Google has announced NotebookLM, an AI-powered notebook where you can feed in yo
 
 It appears journalists still don't understand the "shitposting" culture on X and that they might want to take posts with a grain of salt: someone wrote an entire Insider article about a joke X post:
 
-> This is my finest work [pic.twitter.com/lpkenvh70Q](https://t.co/lpkenvh70Q)
->
-> — Alex Cohen (@anothercohen) [August 7, 2023](https://twitter.com/anothercohen/status/1688540656480727041?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This is my finest work <a href="https://t.co/lpkenvh70Q">pic.twitter.com/lpkenvh70Q</a></p>&mdash; Alex Cohen (@anothercohen) <a href="https://twitter.com/anothercohen/status/1688540656480727041?ref_src=twsrc%5Etfw">August 7, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 That, or they're just trying to cash in on some of the engagement too. 😏
 

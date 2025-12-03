@@ -10,9 +10,8 @@ Uber has finally [turned a profit](https://www.bloomberg.com/news/videos/2023-08
 
 While some people may have reservations scanning their iris in exchange for a Worldcoin ID and 25 WLD (worth around AUD$90 as of writing), they haven't had any issues finding people to sign up:
 
-> day 3 of [@worldcoin](https://twitter.com/worldcoin?ref_src=twsrc%5Etfw) launch, crazy lines around the world. one person getting verified every 8 seconds now. [pic.twitter.com/vHRu1sWMT3](https://t.co/vHRu1sWMT3)
->
-> — Sam Altman (@sama) [July 26, 2023](https://twitter.com/sama/status/1684297687708098565?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">day 3 of <a href="https://twitter.com/worldcoin?ref_src=twsrc%5Etfw">@worldcoin</a> launch, crazy lines around the world. one person getting verified every 8 seconds now. <a href="https://t.co/vHRu1sWMT3">pic.twitter.com/vHRu1sWMT3</a></p>&mdash; Sam Altman (@sama) <a href="https://twitter.com/sama/status/1684297687708098565?ref_src=twsrc%5Etfw">July 26, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 However, Kenya—one of the biggest markets for take-up—has [suspended](https://decrypt.co/150942/kenya-suspends-worldcoin-operations-privacy-concerns) Worldcoin's rollout there over privacy concerns.
 
@@ -20,18 +19,8 @@ However, Kenya—one of the biggest markets for take-up—has [suspended](https:
 
 If you want to read more about the state of open-source AI, here's a nice write-up:
 
-> The open source models arena
->
-> I try not to post too much about open models until we reach a point where there will no longer be any debate about if they are at the level of closed models.
->
-> So let's make it brief. 
->
-> ----
-> LLaMA 2
->
-> The open models arena heated up last week with the… [pic.twitter.com/BfXEb9CPfx](https://t.co/BfXEb9CPfx)
->
-> — Yam Peleg (@Yampeleg) [July 30, 2023](https://twitter.com/Yampeleg/status/1685539560975933441?ref_src=twsrc%5Etfw)
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The open source models arena<br><br>I try not to post too much about open models until we reach a point where there will no longer be any debate about if they are at the level of closed models.<br><br>So let&#39;s make it brief. <br><br>----<br>LLaMA 2<br><br>The open models arena heated up last week with the… <a href="https://t.co/BfXEb9CPfx">pic.twitter.com/BfXEb9CPfx</a></p>&mdash; Yam Peleg (@Yampeleg) <a href="https://twitter.com/Yampeleg/status/1685539560975933441?ref_src=twsrc%5Etfw">July 30, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 The bit that stuck with me though: there's a model called SlimPajama?
 
