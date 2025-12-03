@@ -61,6 +61,7 @@ h6 {
 }
 h1 {
 	font-size: 30px;
+	font-weight: 500;
 }
 h2 {
 	font-size: 2.441em;
@@ -92,6 +93,8 @@ a:hover {
 }
 p {
 	margin-bottom: 1em;
+	line-height: 38px;
+	font-size: 19px;
 }
 .prose p {
 	margin-bottom: 2em;
