@@ -89,9 +89,26 @@ function htmlToMdx(html) {
         return `*${node.childNodes.map(processNode).join('').trim()}*`;
 
       case 'ul':
-        return node.childNodes
-          .filter(n => n.rawTagName === 'li')
-          .map(li => `- ${li.childNodes.map(processNode).join('').trim()}`)
+        const listItems = node.childNodes.filter(n => n.rawTagName === 'li' || n.rawTagName === 'ul');
+
+        // Check if list items start with numbers (manually numbered list in Ghost)
+        const firstItem = listItems.find(n => n.rawTagName === 'li');
+        const firstText = firstItem ? firstItem.childNodes.map(processNode).join('').trim() : '';
+        const isNumberedList = /^\d+\.\s/.test(firstText);
+
+        return listItems
+          .map(item => {
+            if (item.rawTagName === 'ul') {
+              // Handle nested ul (just process its items directly)
+              return processNode(item).trim();
+            }
+            const text = item.childNodes.map(processNode).join('').trim();
+            // If it's already numbered or we're preserving the format, use it as-is
+            if (isNumberedList) {
+              return text;
+            }
+            return `- ${text}`;
+          })
           .join('\n') + '\n\n';
 
       case 'ol':
@@ -152,11 +169,12 @@ function htmlToMdx(html) {
         if (imgSrc && (imgSrc.includes('static.ghost.org') && imgSrc.includes('link-icon'))) {
           return '';
         }
-        // Skip __GHOST_URL__ placeholder images
+        // Replace __GHOST_URL__ with actual site URL
+        let finalSrc = imgSrc;
         if (imgSrc && imgSrc.includes('__GHOST_URL__')) {
-          return '';
+          finalSrc = imgSrc.replace('__GHOST_URL__', 'https://www.steveharrison.dev');
         }
-        return `![${alt}](${imgSrc})\n\n`;
+        return `![${alt}](${finalSrc})\n\n`;
 
       case 'figure':
         // Handle Ghost bookmark cards
@@ -172,9 +190,17 @@ function htmlToMdx(html) {
 
             const title = titleElem ? titleElem.text.trim() : '';
             const description = descElem ? descElem.text.trim() : '';
-            const thumbnail = thumbElem ? thumbElem.getAttribute('src') : '';
-            const icon = iconElem ? iconElem.getAttribute('src') : '';
+            let thumbnail = thumbElem ? thumbElem.getAttribute('src') : '';
+            let icon = iconElem ? iconElem.getAttribute('src') : '';
             const publisher = publisherElem ? publisherElem.text.trim() : '';
+
+            // Replace __GHOST_URL__ in thumbnail and icon
+            if (thumbnail && thumbnail.includes('__GHOST_URL__')) {
+              thumbnail = thumbnail.replace('__GHOST_URL__', 'https://www.steveharrison.dev');
+            }
+            if (icon && icon.includes('__GHOST_URL__')) {
+              icon = icon.replace('__GHOST_URL__', 'https://www.steveharrison.dev');
+            }
 
             // Skip if it's a placeholder icon
             const cleanIcon = (icon && icon.includes('static.ghost.org') && icon.includes('link-icon')) ? '' : icon;

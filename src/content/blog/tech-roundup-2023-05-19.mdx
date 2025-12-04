@@ -41,6 +41,8 @@ Amazon [acquired Snackable.ai](https://nypost.com/2023/05/05/amazon-acquires-art
 
 There's some cool stuff happening with AI-powered news readers. Instagram co-founder Kevin Systrom is now working on a news aggregator app with an [AI-powered feed](https://techcrunch.com/2023/03/07/the-tech-behind-artifact-the-newly-launched-news-aggregator-from-instagrams-co-founders/) called [Artifact](https://artifact.news/), and it looks really slick. My favourite feature so far is it can summarise any article into three bullet points (using OpenAI). I tried it out and it worked flawlessly! That being said, it did miss a lot of the nuance in a Bloomberg opinion piece, so it depends on the article how useful it will be. For simple articles though, it does a great job of extracting key points. Artifact also allows you to search across multiple publications, follow specific journalists, and add comments within the app to articles. I think it's nice to have a news product that is not tied to a social network and is focusing on [providing writers with direct relationships with their readers](https://techcrunch.com/2023/05/15/kevin-systrom-explains-why-artifact-wants-to-treat-writers-like-the-creators-they-are/), regardless of where they place their writing.
 
+![](https://www.steveharrison.dev/content/images/2023/05/Artifact-UI-1.png)
+
 [Curio](https://curio.io/), which provides news articles narrated, has [added](https://techcrunch.com/2023/05/17/audio-journalism-app-curio-can-now-create-personalized-episodes-using-ai/) AI features to create a custom audio episode based on a prompt such as "What are the latest developments in AI?" They use their existing library of publications, including the Wall Street Journal, Scientific American, and The Guardian, to train the model.
 
 [Anthropic](https://www.anthropic.com/), an AI company that targets the business market, [announced](https://www.anthropic.com/index/100k-context-windows) that their model Claude now has a 100K token limit, and demoed some cool capabilities like being able to load in a PDF of some API documentation and then ask how to do certain tasks. In contrast, ChatGPT's GPT-4 Plus has a 32K token limit, which means that you can load in more data to Claude (such as an entire book like The Great Gatsby) to query with prompts. You can [try Claude in Slack](https://www.anthropic.com/claude-in-slack).
@@ -88,5 +90,7 @@ An interesting story from some internet sleuths recently: in 2021, [Coinbase inc
 ### Validating JSON data
 
 On the full stack development front, my co-worker used the [AJV](https://ajv.js.org/) JavaScript library this week in our Next.js API to make sure JSON in the request body was what we were expecting and return an error if not. AJV allows you to define JSON schemas and then validate data against them like so:
+
+![](https://www.steveharrison.dev/content/images/2023/05/Screenshot-2023-05-18-at-11.26.42-pm.png)
 
 Alright, that's a wrap, see you next week!
