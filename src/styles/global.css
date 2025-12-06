@@ -176,6 +176,10 @@ nav {
 	font-family: system-ui;
 }
 
+footer {
+	font-size: 15px;
+}
+
 .internal-links {
 	font-size: 15px;
 }
