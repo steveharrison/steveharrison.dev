@@ -76,7 +76,8 @@ h3 {
 	font-size: 1.953em;
 }
 h4 {
-	font-size: 1.563em;
+	font-size: 18px;
+	font-weight: 500;
 }
 h5 {
 	font-size: 1.25em;
@@ -136,6 +137,12 @@ code {
 	border-radius: 3px;
 	color: var(--accent);
 }
+
+time {
+	font-size: 14px;
+}
+
+
 pre {
 	background-color: #f6f6f6;
 	padding: 1.6rem 2.4rem;
@@ -177,7 +184,7 @@ nav {
 }
 
 footer {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .internal-links {
