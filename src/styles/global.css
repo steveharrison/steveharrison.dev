@@ -40,8 +40,9 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 15px;
-	line-height: 1.7;
+	line-height: 1.5;
+	font-size: 18px;
+
 }
 main {
 	width: 720px;
@@ -49,6 +50,11 @@ main {
 	margin: auto;
 	padding: 3em 1em;
 }
+
+.title {
+	font-family: system-ui;
+}
+
 h1,
 h2,
 h3,
@@ -93,12 +99,20 @@ a:hover {
 }
 p {
 	margin-bottom: 1em;
-	line-height: 38px;
-	font-size: 19px;
 }
+
+.prose {
+	font-family: Georgia;
+}
+
 .prose p {
 	margin-bottom: 2em;
 }
+
+.bookmark-card p {
+	font-family: system-ui;
+}
+
 textarea {
 	width: 100%;
 	font-size: 16px;
@@ -156,6 +170,14 @@ hr {
 	main {
 		padding: 1em;
 	}
+}
+
+nav {
+	font-family: system-ui;
+}
+
+.internal-links {
+	font-size: 15px;
 }
 
 .sr-only {
