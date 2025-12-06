@@ -100,8 +100,10 @@ Another approach is to take advantage of MUI's in-built keyboard accessibility a
 
 ```
 await page.locator('.MuiSlider-thumb').click();
-for (let i = 0; i < 10; i++) { await page.keyboard.press('ArrowRight');
+for (let i = 0; i < 10; i++) {
+  await page.keyboard.press('ArrowRight');
 }
+
 ```
 
 ---

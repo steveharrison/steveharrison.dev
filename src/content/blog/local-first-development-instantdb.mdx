@@ -36,12 +36,14 @@ You obtain a reference to the database with your unique client ID:
 
 ```javascript
 const db = init<Schema>({ appId: APP_ID })
+
 ```
 
 And then in your React components, you can read data like so:
 
 ```javascript
- const { isLoading, error, data } = db.useQuery({ todos: {} })
+  const { isLoading, error, data } = db.useQuery({ todos: {} })
+
 ```
 
 There's no need to reach for a state-management library—you can just replace `useState` hooks with `useQuery` hooks. It's ridiculously simple—the way it should be!
@@ -49,19 +51,54 @@ There's no need to reach for a state-management library—you can just replace `
 Other CRUD operations are also simple:
 
 ```javascript
-function addTodo(text: string) { db.transact( tx.todos[id()].update({ text, done: false, createdAt: Date.now(), }) )
-} function deleteTodo(todo: Todo) { db.transact(tx.todos[todo.id].delete())
-} function toggleDone(todo: Todo) { db.transact(tx.todos[todo.id].update({ done: !todo.done }))
-} function deleteCompleted(todos: Todo[]) { const completed = todos.filter((todo) => todo.done) const txs = completed.map((todo) => tx.todos[todo.id].delete()) db.transact(txs)
-} function toggleAll(todos: Todo[]) { const newVal = !todos.every((todo) => todo.done) db.transact(todos.map((todo) => tx.todos[todo.id].update({ done: newVal })))
+function addTodo(text: string) {
+  db.transact(
+    tx.todos[id()].update({
+      text,
+      done: false,
+      createdAt: Date.now(),
+    })
+  )
 }
+
+function deleteTodo(todo: Todo) {
+  db.transact(tx.todos[todo.id].delete())
+}
+
+function toggleDone(todo: Todo) {
+  db.transact(tx.todos[todo.id].update({ done: !todo.done }))
+}
+
+function deleteCompleted(todos: Todo[]) {
+  const completed = todos.filter((todo) => todo.done)
+  const txs = completed.map((todo) => tx.todos[todo.id].delete())
+  db.transact(txs)
+}
+
+function toggleAll(todos: Todo[]) {
+  const newVal = !todos.every((todo) => todo.done)
+  db.transact(todos.map((todo) => tx.todos[todo.id].update({ done: newVal })))
+}
+
 ```
 
 However, there are many other features that platforms like Firebase and Supabase offer like auth and file storage—InstantDB is adding all of these too! You can integrate with Clerk and Google OAuth, and Storage is in beta:
 
 ```tsx
-async function upload(files: FileList) { const file = files[0]; // use the file's current name as the path await db.storage.upload(file.name, file); // or, give the file a custom name await db.storage.upload('demo.png', file); // or, put it in the `images` subdirectory await db.storage.upload('images/demo.png', file); // or, put it in a subdirectory for the current user, // and restrict access to this file via Storage permissions await db.storage.upload(`${currentUser.id}/demo.png`, file);
-} return <input type="file" onChange={(e) => upload(e.target.files)} />;
+async function upload(files: FileList) {
+  const file = files[0];
+  // use the file's current name as the path
+  await db.storage.upload(file.name, file);
+  // or, give the file a custom name
+  await db.storage.upload('demo.png', file);
+  // or, put it in the `images` subdirectory
+  await db.storage.upload('images/demo.png', file);
+  // or, put it in a subdirectory for the current user,
+  // and restrict access to this file via Storage permissions
+  await db.storage.upload(`${currentUser.id}/demo.png`, file);
+}
+
+return <input type="file" onChange={(e) => upload(e.target.files)} />;
 ```
 
 They also have an SDK for React Native and Vanilla JS, and an admin UI to inspect your database like Supabase.

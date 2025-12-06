@@ -11,8 +11,13 @@ pubDate: 'Nov 13 2025'
 Next.js 16 makes Turbopack the default bundler now, which breaks `npm link` to directories outside your project directory. The fix is to tell Next.js to look for files in the parent directory to the local component library folder:
 
 ```javascript
-import path from "path"; const nextConfig: NextConfig = { outputFileTracingRoot: path.join(__dirname, '../')
-}; export default nextConfig;
+import path from "path";
+
+const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname, '../')
+};
+
+export default nextConfig;
 ```
 
 next.config.ts
@@ -20,7 +25,10 @@ next.config.ts
 This is assuming a folder structure like so:
 
 ```
-MyCompany/ component-library (being npm linked into my-project) my-project next.config.ts
+MyCompany/
+  component-library (being npm linked into my-project)
+  my-project
+    next.config.ts
 ```
 
 Alternatively, if you want to switch back to Webpack, you can pass `--webpack` in as an option like so:
@@ -48,7 +56,18 @@ Turbopack? I thought you had to pass the `--turbopack` flag for that, and I reve
 The next step was to see if I could get the symlink resolution working with Turbopack. I found [this GitHub issue](https://github.com/vercel/next.js/issues/64472) and tried the experimental config value. It still didn't work! Then I checked the logs:
 
 ```
- the --inspect option was detected, the Next.js router server should be inspected at 9230. ⚠ Invalid next.config.ts options detected: ⚠ Unrecognized key(s) in object: 'outputFileTracingRoot' at "experimental" ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config ⚠ `experimental.outputFileTracingRoot` has been moved to `outputFileTracingRoot`. Please update your next.config.ts file accordingly. ▲ Next.js 16.0.1 (Turbopack) - Local: http://localhost:3000 - Network: http://[redacted]:3000 - Environments: .env.local - Experiments (use with caution): ? outputFileTracingRoot (invalid experimental key)
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+ ⚠ Invalid next.config.ts options detected: 
+ ⚠     Unrecognized key(s) in object: 'outputFileTracingRoot' at "experimental"
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ⚠ `experimental.outputFileTracingRoot` has been moved to `outputFileTracingRoot`. Please update your next.config.ts file accordingly.
+   ▲ Next.js 16.0.1 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://[redacted]:3000
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ? outputFileTracingRoot (invalid experimental key)
+
 ```
 
 Aha! That config value was no longer experimental. So I added the value to the root config rather than in the `experiemental` object, and voilà! The components got resolved.

@@ -76,8 +76,8 @@ function htmlToMdx(html) {
           const langMatch = className.match(/language-(\w+)/);
           lang = langMatch ? langMatch[1] : '';
         }
-        // Use structuredText to get clean code content
-        const codeContent = node.structuredText;
+        // Get raw text content preserving newlines
+        const codeContent = codeElem ? codeElem.text : node.text;
         return `\`\`\`${lang}\n${codeContent}\n\`\`\`\n\n`;
 
       case 'strong':

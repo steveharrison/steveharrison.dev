@@ -5,7 +5,7 @@
  */
 
 :root {
-	--accent: rgb(171, 171, 171);
+	--accent: rgb(60, 137, 239);
 	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
@@ -115,16 +115,29 @@ img {
 	border-radius: 8px;
 }
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
+	font-size: 15px;
+	padding: 0.4rem;
+	background-color: #f6f6f6;
+	border-radius: 3px;
+	color: var(--accent);
 }
 pre {
-	padding: 1.5em;
+	background-color: #f6f6f6;
+	padding: 1.6rem 2.4rem;
 	border-radius: 8px;
+	line-height: 1.5;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	-webkit-overflow-scrolling: touch;
 }
 pre > code {
 	all: unset;
+	font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
+	font-size: 15px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 blockquote {
 	border-left: 4px solid var(--accent);

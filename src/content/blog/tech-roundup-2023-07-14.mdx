@@ -51,7 +51,11 @@ I started working with AWS DynamoDB this week. You can [run it locally in a Dock
 If you have a test in Playwright that takes longer to run than normal, you can use a simple command, `[test.slow()](https://playwright.dev/docs/api/class-test#test-slow-1)`, to triple the default timeout for that test:
 
 ```js
-import { test, expect } from '@playwright/test'; test('slow test', async ({ page }) => { test.slow(); // ...
+import { test, expect } from '@playwright/test';
+
+test('slow test', async ({ page }) => {
+    test.slow();
+    // ...
 });
 ```
 

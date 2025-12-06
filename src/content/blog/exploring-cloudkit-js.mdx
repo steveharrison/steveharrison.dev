@@ -39,7 +39,17 @@ Firstly, to use CloudKit, you need to have a paid Apple developer account. Start
 While not required, I also recommend modifying the `addTask` function in `Models > Model.swift` to the following code that doesn't swallow errors and logs what's happening in case something fails:
 
 ```Swift
-func addTask(taskItem: TaskItem) async { debugPrint("addTask called with taskItem.record", taskItem.record) do { let record = try await db.save(taskItem.record) guard let task = TaskItem(record: record) else { return } tasksDictionary[task.recordId!] = task debugPrint("saved record is ", record); } catch { debugPrint("Error saving record: \(error.localizedDescription)") }
+func addTask(taskItem: TaskItem) async {
+    debugPrint("addTask called with taskItem.record", taskItem.record)
+    
+    do {
+        let record = try await db.save(taskItem.record)
+        guard let task = TaskItem(record: record) else { return }
+        tasksDictionary[task.recordId!] = task
+        debugPrint("saved record is ", record);
+    } catch {
+        debugPrint("Error saving record: \(error.localizedDescription)")
+    }
 }
 ```
 
