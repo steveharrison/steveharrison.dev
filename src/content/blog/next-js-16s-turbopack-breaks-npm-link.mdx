@@ -10,7 +10,7 @@ pubDate: 'Nov 13 2025'
 
 Next.js 16 makes Turbopack the default bundler now, which breaks `npm link` to directories outside your project directory. The fix is to tell Next.js to look for files in the parent directory to the local component library folder:
 
-```javascript
+```javascript title="next.config.ts"
 import path from "path";
 
 const nextConfig: NextConfig = {
@@ -19,8 +19,6 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 ```
-
-<div><small>next.config.ts</small></div>
 
 This is assuming a folder structure like so:
 
