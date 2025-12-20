@@ -41,7 +41,7 @@ body {
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	line-height: 1.5;
-	font-size: 18px;
+	font-size: 16px;
 
 }
 main {
@@ -102,12 +102,8 @@ p {
 	margin-bottom: 1em;
 }
 
-.prose {
-	font-family: Georgia;
-}
-
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 }
 
 .bookmark-card p {
