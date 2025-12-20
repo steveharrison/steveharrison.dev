@@ -73,13 +73,13 @@ In the Front End development world, [Vercel](https://vercel.com/), who provide i
 
 With Vercel Postgres, you can write SQL to a fully-managed Postgres database in your React component files:
 
-![](https://www.steveharrison.dev/content/images/2023/05/Screenshot-2023-05-05-at-5.49.00-pm.png)
+![](/content/images/2023/05/Screenshot-2023-05-05-at-5.49.00-pm.png)
 
 [@levelsio](https://twitter.com/levelsio) probably [best described](https://twitter.com/levelsio/status/1654053489004417026) it as "index.php is BACK". 😂 However, this time, with all of the [advances in client-side interaction](https://twitter.com/dan_abramov/status/1654323788811468800?s=20) included. Additionally, the [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) syntax means that every variable included in the above SQL statement will be escaped properly, preventing SQL injection attacks. We have made some progress over the last 20 years! 😉
 
 The SQL will never be visible to the client because the above code snippet is using [Server Actions](https://nextjs.org/blog/next-13-4#server-actions-alpha), another feature they've added to Next.js that enables you to mutate data on the server from the client without worrying about creating an in-between API layer yourself, no doubt inspired by [Remix](https://remix.run/).
 
-![](https://www.steveharrison.dev/content/images/2023/05/Screenshot-2023-05-05-at-5.52.34-pm.png)
+![](/content/images/2023/05/Screenshot-2023-05-05-at-5.52.34-pm.png)
 
 You will also be able to use Vercel Postgres with your favourite ORM like [Prisma](https://www.prisma.io) or [Drizzle](https://github.com/drizzle-team/drizzle-orm) rather than writing SQL. 
 

@@ -17,8 +17,8 @@ I've created a GitHub repository with two examples of a simple task list app tha
   url="https://github.com/steveharrison/cloudkitjs-examples"
   title="GitHub - steveharrison/cloudkitjs-examples"
   description="Contribute to steveharrison/cloudkitjs-examples development by creating an account on GitHub."
-  thumbnail="https://www.steveharrison.dev/content/images/thumbnail/cloudkitjs-examples"
-  icon="https://www.steveharrison.dev/content/images/icon/pinned-octocat-093da3e6fa40.svg"
+  thumbnail="/content/images/thumbnail/cloudkitjs-examples"
+  icon="/content/images/icon/pinned-octocat-093da3e6fa40.svg"
   publisher="GitHub"
 />
 
@@ -34,7 +34,7 @@ Firstly, to use CloudKit, you need to have a paid Apple developer account. Start
 4. Under Containers, click the plus button and enter your bundle identifier. It will add "iCloud." to the beginning once created, but this must*be the same as your bundle identifier.* (I didn't realise this initially.)
 5. Wait 5 min or so. It takes some time for iCloud to create the container, and even once it goes from red to black when you click the refresh icon to the right of the plus, it may not be fully initialised yet.
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-10.58.28-am.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-10.58.28-am.png)
 
 While not required, I also recommend modifying the `addTask` function in `Models > Model.swift` to the following code that doesn't swallow errors and logs what's happening in case something fails:
 
@@ -62,13 +62,13 @@ Next, let's see the data in the CloudKit Dashboard:
 - Switch to the container you created in Xcode in the top left menu.
 - Select Schema > Indexes and add an index as follows:
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-11.09.59-am.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-11.09.59-am.png)
 
 This is a critical step that you have to do for every CloudKit database if you want to be able to view the records in the dashboard. (Another gotcha that I missed trying to get the example working before watching the full tutorial video.)
 
 Now you can go into Data > Records, select Private Database, select TaskItem as the Record Type, and click Query Records. You should now see the tasks you created in the iOS app displayed in the table below:
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-11.20.34-am-1.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-11.20.34-am-1.png)
 
 Great! Now we have CloudKit working on iOS, let's get it working on a webpage.
 
@@ -76,11 +76,11 @@ Great! Now we have CloudKit working on iOS, let's get it working on a webpage.
 
 Go to the CloudKit Dashboard > Settings > Tokens & Keys and click New API Token.
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-1.18.32-pm.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-1.18.32-pm.png)
 
 Enter a name for the key and use the default settings:
 
-![](https://www.steveharrison.dev/content/images/2024/09/screencapture-icloud-developer-apple-dashboard-database-teams-995CUDNJAV-containers-iCloud-dev-steveharrison-TaskTracker1050-environments-DEVELOPMENT-tokens-2024-09-13-13_16_37.png)
+![](/content/images/2024/09/screencapture-icloud-developer-apple-dashboard-database-teams-995CUDNJAV-containers-iCloud-dev-steveharrison-TaskTracker1050-environments-DEVELOPMENT-tokens-2024-09-13-13_16_37.png)
 
 Copy the API key value to the clipboard.
 
@@ -90,7 +90,7 @@ Now `cd` into the `cloudkitjs-examples` directory and run `npx serve` . Navigate
 
 You should see a "Sign in with Apple" button: click it and follow the steps to sign in with your Apple ID (it should be the same ID you signed into the iOS Simulator with). Then you should see something similar to the following (you may have to refresh the page after signing in):
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-1.06.31-pm.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-1.06.31-pm.png)
 
 If you type something into the text field and click Add, it will create a new record in CloudKit that you should be able to see in the dashboard and the iOS app. If you add new records there and refresh the web app, you should see the updates.
 
@@ -110,11 +110,11 @@ npm run dev
 
 You should see the following screen:
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-1.31.32-pm.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-1.31.32-pm.png)
 
 Sign in and then you should see the following (refresh if tasks aren't showing):
 
-![](https://www.steveharrison.dev/content/images/2024/09/Screenshot-2024-09-13-at-1.31.08-pm.png)
+![](/content/images/2024/09/Screenshot-2024-09-13-at-1.31.08-pm.png)
 
 You should be able to add a new task and see it at the top of the list. If you look at the code, you can see that Apple's CloudKit JS was designed before Promises and `async/await`, but that doesn't mean we can't wrap their methods in Promises ourselves and `await` these wrapper functions, which is what I've done in `store.ts`. Apple also recommends you host the CloudKit JS through their CDN, but we typically bundle JS libraries these days to avoid race conditions (you'll notice we had to use a `window.addEventListener('cloudkitloaded')` in the vanilla JS version) and dependencies breaking, so I've used a TypeScript wrapper called `tsl-apple-cloudkit`, which also gives types for most of the library.
 

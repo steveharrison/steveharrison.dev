@@ -12,7 +12,7 @@ Then another dev noticed in DevTools that when the bug occurred, the document HT
 
 It turns out that the bug was happening in AWS CloudFront: the "Cache key settings" were configured to "None", so it was completely ignoring the query string and would cache whichever page URL was loaded first. So if you loaded `?category=local-news` and nothing was cached yet on CloudFront, it would cache that version of the page. Then if someone else on a different computer went to `?category=international-news` , they would see the cached version of the page. We fixed the bug by changing "Cache key settings" to "All", so that now different query strings would get cached separately, which is what we expected.
 
-![](https://www.steveharrison.dev/content/images/2024/05/Screenshot-2024-04-03-at-2.19.31-pm.png)
+![](/content/images/2024/05/Screenshot-2024-04-03-at-2.19.31-pm.png)
 
 But what about the fact that the bug appeared at a different frequency in different environments? Turned out we had a different cache expiration time between the environments, so the one with the shortest cache expiry time would end up working as expected more often, because the bug only occurred when the page was cached.
 
