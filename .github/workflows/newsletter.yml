@@ -1,0 +1,77 @@
+name: Send Newsletter via Buttondown
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**'
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect new blog post and send newsletter
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: |
+          # Find newly added blog posts in this push
+          NEW_POSTS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'src/content/blog/*.md' 'src/content/blog/*.mdx')
+
+          if [ -z "$NEW_POSTS" ]; then
+            echo "No new blog posts found. Skipping."
+            exit 0
+          fi
+
+          for POST in $NEW_POSTS; do
+            echo "Processing: $POST"
+
+            # Extract frontmatter fields
+            TITLE=$(sed -n '/^---$/,/^---$/{ /^title:/{ s/^title: *//; s/^['\''"]//; s/['\''"]$//; p; } }' "$POST")
+            DESCRIPTION=$(sed -n '/^---$/,/^---$/{ /^description:/{ s/^description: *//; s/^['\''"]//; s/['\''"]$//; p; } }' "$POST")
+
+            # Get the slug from the filename (remove path prefix and extension)
+            SLUG=$(basename "$POST" | sed 's/\.\(md\|mdx\)$//')
+
+            # Extract body (everything after the second ---)
+            BODY=$(awk 'BEGIN{n=0} /^---$/{n++; next} n>=2{print}' "$POST")
+
+            POST_URL="https://steveharrison.dev/${SLUG}/"
+
+            # Build email body: description + link + markdown content
+            EMAIL_BODY=$(cat <<EMAILEOF
+          ${DESCRIPTION}
+
+          [Read on the web](${POST_URL})
+
+          ---
+
+          ${BODY}
+          EMAILEOF
+            )
+
+            # Send via Buttondown API as a draft
+            HTTP_STATUS=$(curl -s -o /tmp/buttondown_response.json -w "%{http_code}" \
+              -X POST \
+              "https://api.buttondown.com/v1/emails" \
+              -H "Authorization: Token ${BUTTONDOWN_API_KEY}" \
+              -H "Content-Type: application/json" \
+              -d "$(jq -n \
+                --arg subject "$TITLE" \
+                --arg body "$EMAIL_BODY" \
+                --arg status "draft" \
+                '{subject: $subject, body: $body, status: $status}'
+              )")
+
+            if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+              echo "Draft created for: $TITLE"
+            else
+              echo "Failed to create draft for: $TITLE (HTTP $HTTP_STATUS)"
+              cat /tmp/buttondown_response.json
+              exit 1
+            fi
+          done

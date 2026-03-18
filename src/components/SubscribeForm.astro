@@ -1,0 +1,71 @@
+---
+---
+
+<div class="subscribe">
+	<h4>Subscribe to my newsletter</h4>
+	<p>Get new articles delivered to your inbox.</p>
+	<form
+		action="https://buttondown.com/api/emails/embed-subscribe/steveharrison"
+		method="post"
+		class="embeddable-buttondown-form"
+	>
+		<div class="form-row">
+			<input type="email" name="email" id="bd-email" placeholder="Your email" required />
+			<input type="submit" value="Subscribe" />
+		</div>
+		<p class="powered-by">
+			<a href="https://buttondown.com/refer/steveharrison" target="_blank">
+				Powered by Buttondown.
+			</a>
+		</p>
+	</form>
+</div>
+
+<style>
+	.subscribe {
+		max-width: 720px;
+		margin: 2em auto;
+		padding: 1.5em;
+		text-align: center;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.subscribe h4 {
+		margin-bottom: 0.25em;
+	}
+	.subscribe p {
+		color: rgb(var(--gray));
+		margin-bottom: 1em;
+		font-size: 14px;
+	}
+	.form-row {
+		display: flex;
+		gap: 0.5em;
+		justify-content: center;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	.form-row input[type="email"] {
+		flex: 1;
+		padding: 0.5em 0.75em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 6px;
+		font-size: 14px;
+	}
+	.form-row input[type="submit"] {
+		padding: 0.5em 1.25em;
+		background: var(--accent);
+		color: white;
+		border: none;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 14px;
+	}
+	.form-row input[type="submit"]:hover {
+		opacity: 0.9;
+	}
+	.powered-by {
+		font-size: 12px !important;
+		margin-top: 0.75em;
+		margin-bottom: 0 !important;
+	}
+</style>
