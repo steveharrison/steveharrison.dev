@@ -8,7 +8,67 @@ import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 5);
+	.slice(0, 3);
+
+const videos = [
+	{
+		title: "Building a Design System from Scratch",
+		date: new Date("2026-03-15"),
+		href: "#",
+	},
+	{
+		title: "Next.js vs Astro: Which Should You Pick?",
+		date: new Date("2026-02-28"),
+		href: "#",
+	},
+	{
+		title: "My Developer Setup for 2026",
+		date: new Date("2026-01-20"),
+		href: "#",
+	},
+];
+
+const projects = [
+	{
+		title: "React Performance Monitor",
+		description: "A lightweight devtool for tracking React component re-renders and identifying performance bottlenecks.",
+		image: "/blog-placeholder-1.jpg",
+		href: "#",
+	},
+	{
+		title: "CLI Task Runner",
+		description: "A fast, ergonomic CLI tool for orchestrating multi-step build and deploy pipelines.",
+		image: "/blog-placeholder-2.jpg",
+		href: "#",
+	},
+	{
+		title: "Design Token Bridge",
+		description: "Syncs design tokens from Figma to code, keeping your design system in lockstep with production.",
+		image: "/blog-placeholder-3.jpg",
+		href: "#",
+	},
+];
+
+const work = [
+	{
+		title: "E-Commerce Platform Redesign",
+		description: "Led the full redesign of a high-traffic e-commerce platform, improving conversion rates by 34%.",
+		image: "/blog-placeholder-4.jpg",
+		href: "#",
+	},
+	{
+		title: "Real-Time Analytics Dashboard",
+		description: "Built a real-time analytics dashboard from the ground up, enabling data-driven decisions across the org.",
+		image: "/blog-placeholder-5.jpg",
+		href: "#",
+	},
+	{
+		title: "Component Library & Design System",
+		description: "Created a comprehensive design system and React component library used across multiple product teams.",
+		image: "/blog-placeholder-1.jpg",
+		href: "#",
+	},
+];
 ---
 
 <!doctype html>
@@ -19,24 +79,119 @@ const posts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main>
-			<section class="recent-posts">
-				<h2>Recent Articles</h2>
-				<ul>
-					{posts.map((post) => (
-						<li>
-							<a href={`/${post.id}/`}>
-								<h3>{post.data.title}</h3>
-								<p class="date">
-									<FormattedDate date={post.data.pubDate} />
-								</p>
-								<p class="description">{post.data.description}</p>
-							</a>
-						</li>
-					))}
-				</ul>
-				<a href="/articles" class="view-all">View all articles →</a>
+			<!-- Hero -->
+			<section class="hero">
+				<img
+					src="https://api.dicebear.com/9.x/initials/svg?seed=SH&backgroundColor=3c89ef&textColor=ffffff&fontSize=40"
+					alt="Steve Harrison"
+					class="hero-avatar"
+					width="120"
+					height="120"
+				/>
+				<div class="hero-text">
+					<h1>Hey, I'm Steve</h1>
+					<p class="bio">
+						I'm a software engineer who loves building for the web. I write about frontend development, developer tools, and the craft of shipping great products.
+					</p>
+				</div>
 			</section>
 
+			<!-- Recent Articles & Videos (side by side on desktop) -->
+			<div class="lists-row">
+				<section class="list-section">
+					<div class="section-header">
+						<h2>Recent Articles</h2>
+						<a href="/articles" class="view-all">
+							View All
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
+						</a>
+					</div>
+					<ul class="item-list">
+						{posts.map((post) => (
+							<li>
+								<a href={`/${post.id}/`}>
+									<svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+									<div class="item-content">
+										<span class="item-title">{post.data.title}</span>
+										<span class="item-date"><FormattedDate date={post.data.pubDate} /></span>
+									</div>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="list-section">
+					<div class="section-header">
+						<h2>Recent Videos</h2>
+						<a href="#" class="view-all">
+							View All
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
+						</a>
+					</div>
+					<ul class="item-list">
+						{videos.map((video) => (
+							<li>
+								<a href={video.href}>
+									<svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+									<div class="item-content">
+										<span class="item-title">{video.title}</span>
+										<span class="item-date"><FormattedDate date={video.date} /></span>
+									</div>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			</div>
+
+			<!-- Projects -->
+			<section class="card-section">
+				<div class="section-header">
+					<h2>Projects</h2>
+					<a href="#" class="view-all">
+						View All
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
+					</a>
+				</div>
+				<div class="card-grid">
+					{projects.map((project) => (
+						<a href={project.href} class="card">
+							<div class="card-image">
+								<img src={project.image} alt={project.title} />
+							</div>
+							<div class="card-body">
+								<h3>{project.title}</h3>
+								<p>{project.description}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<!-- Work -->
+			<section class="card-section">
+				<div class="section-header">
+					<h2>Work</h2>
+					<a href="#" class="view-all">
+						View All
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
+					</a>
+				</div>
+				<div class="card-grid">
+					{work.map((item) => (
+						<a href={item.href} class="card">
+							<div class="card-image">
+								<img src={item.image} alt={item.title} />
+							</div>
+							<div class="card-body">
+								<h3>{item.title}</h3>
+								<p>{item.description}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
@@ -44,189 +199,273 @@ const posts = (await getCollection('blog'))
 
 <style>
 	main {
-		margin: auto;
+		margin: 0 auto;
 		padding: 1em;
-		max-width: 60ch;
+		max-width: 960px;
 	}
 
+	/* Hero */
 	.hero {
-		margin-bottom: 3em;
+		display: flex;
+		align-items: center;
+		gap: 2em;
+		padding: 3em 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+		margin-bottom: 2.5em;
 	}
 
-	h1 {
-		font-size: 2.5em;
+	.hero-avatar {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+
+	.hero-text h1 {
+		font-size: 2.2em;
 		font-weight: 700;
+		margin: 0 0 0.4em 0;
 		line-height: 1.2;
-		margin-bottom: 0.5em;
 	}
 
 	.bio {
-		font-size: 1.1em;
+		font-size: 1.05em;
 		line-height: 1.6;
-		color: rgb(var(--gray-dark));
-	}
-
-	section {
-		margin-bottom: 3em;
-	}
-
-	h2 {
-		font-size: 1.8em;
-		font-weight: 600;
-		margin-bottom: 1em;
-		border-bottom: 2px solid rgb(var(--accent));
-		padding-bottom: 0.3em;
-	}
-
-	.recent-posts ul {
-		list-style: none;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1.5em;
-	}
-
-	.recent-posts li {
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 8px;
-		padding: 1.25em;
-		transition: all 0.2s ease;
-	}
-
-	.recent-posts li:hover {
-		border-color: rgb(var(--accent));
-		box-shadow: 0 4px 12px rgba(var(--black), 10%);
-		transform: translateY(-2px);
-	}
-
-	.recent-posts a {
-		text-decoration: none;
-		color: inherit;
-		display: block;
-	}
-
-	.recent-posts h3 {
-		margin: 0 0 0.5em 0;
-		color: rgb(var(--accent));
-		font-size: 1.3em;
-	}
-
-	.recent-posts .date {
-		font-size: 0.9em;
 		color: rgb(var(--gray));
-		margin: 0 0 0.5em 0;
+		margin: 0;
 	}
 
-	.recent-posts .description {
+	/* Section headers */
+	.section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1em;
+	}
+
+	.section-header h2 {
+		font-size: 1.4em;
+		font-weight: 700;
 		margin: 0;
-		color: rgb(var(--gray-dark));
-		line-height: 1.5;
+		border: none;
+		padding: 0;
 	}
 
 	.view-all {
-		display: inline-block;
-		margin-top: 1em;
-		color: rgb(var(--accent));
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+		font-size: 0.9em;
+		font-weight: 500;
+		color: rgb(var(--gray));
 		text-decoration: none;
-		font-weight: 600;
+		transition: color 0.2s ease;
 	}
 
 	.view-all:hover {
-		text-decoration: underline;
+		color: rgb(var(--accent));
 	}
 
-	.projects {
-		display: flex;
-		flex-direction: column;
-		gap: 2.5em;
+	.view-all svg {
+		transition: transform 0.2s ease;
 	}
 
-	.project {
+	.view-all:hover svg {
+		transform: translateX(2px);
+	}
+
+	/* Lists row (Articles + Videos side by side) */
+	.lists-row {
 		display: grid;
-		grid-template-columns: 300px 1fr;
-		gap: 2em;
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 8px;
-		padding: 1.5em;
-		transition: all 0.2s ease;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5em;
+		margin-bottom: 3em;
 	}
 
-	.project:hover {
-		border-color: rgb(var(--accent));
-		box-shadow: 0 4px 12px rgba(var(--black), 10%);
+	/* List sections (Articles / Videos) */
+	.list-section {
+		margin-bottom: 0;
 	}
 
-	.project-image {
-		width: 100%;
-		height: 200px;
-		border-radius: 4px;
-		overflow: hidden;
-	}
-
-	.project-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.project-details h3 {
-		margin: 0 0 0.5em 0;
-		font-size: 1.4em;
-		color: rgb(var(--black));
-	}
-
-	.company {
-		font-size: 0.9em;
-		color: rgb(var(--gray));
-		margin: 0 0 1em 0;
-		font-style: italic;
-	}
-
-	.project-details > p:not(.company) {
-		line-height: 1.6;
-		color: rgb(var(--gray-dark));
-		margin-bottom: 1em;
-	}
-
-	.tech-stack {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em;
+	.item-list {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
 
-	.tech-stack li {
-		background: rgb(var(--accent));
-		color: white;
-		padding: 0.3em 0.8em;
-		border-radius: 4px;
-		font-size: 0.85em;
+	.item-list li {
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.item-list li:last-child {
+		border-bottom: none;
+	}
+
+	.item-list a {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		padding: 0.85em 0.5em;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.15s ease;
+		border-radius: 6px;
+	}
+
+	.item-list a:hover {
+		background: rgba(var(--gray-light), 0.4);
+	}
+
+	.item-icon {
+		flex-shrink: 0;
+		color: rgb(var(--gray));
+	}
+
+	.item-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex: 1;
+		min-width: 0;
+	}
+
+	.item-title {
 		font-weight: 500;
+		font-size: 0.95em;
+		color: rgb(var(--gray-dark));
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
-	@media (max-width: 900px) {
-		.project {
-			grid-template-columns: 1fr;
-		}
-
-		.project-image {
-			height: 250px;
-		}
+	.item-date {
+		font-size: 0.82em;
+		color: rgb(var(--gray));
+		flex-shrink: 0;
+		margin-left: 1em;
 	}
 
+	/* Card sections (Projects / Work) */
+	.card-section {
+		margin-bottom: 3em;
+	}
+
+	.card-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5em;
+	}
+
+	.card {
+		text-decoration: none;
+		color: inherit;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 10px;
+		overflow: hidden;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 20px rgba(var(--black), 0.08);
+	}
+
+	.card-image {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+	}
+
+	.card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.card-body {
+		padding: 1em;
+	}
+
+	.card-body h3 {
+		font-size: 1em;
+		font-weight: 600;
+		margin: 0 0 0.4em 0;
+		color: rgb(var(--gray-dark));
+	}
+
+	.card-body p {
+		font-size: 0.85em;
+		color: rgb(var(--gray));
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	/* Responsive */
 	@media (max-width: 600px) {
-		h1 {
-			font-size: 2em;
+		.hero {
+			flex-direction: column;
+			text-align: center;
+			gap: 1.2em;
+			padding: 2em 0;
 		}
 
-		h2 {
-			font-size: 1.5em;
+		.hero-avatar {
+			width: 96px;
+			height: 96px;
+		}
+
+		.hero-text h1 {
+			font-size: 1.6em;
 		}
 
 		.bio {
-			font-size: 1em;
+			font-size: 0.95em;
+		}
+
+		.lists-row {
+			grid-template-columns: 1fr;
+			gap: 2em;
+		}
+
+		.card-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.item-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.15em;
+		}
+
+		.item-date {
+			margin-left: 0;
+		}
+
+		.section-header h2 {
+			font-size: 1.2em;
+		}
+	}
+
+	@media (min-width: 601px) and (max-width: 768px) {
+		.hero-text h1 {
+			font-size: 1.8em;
+		}
+
+		.lists-row {
+			grid-template-columns: 1fr;
+			gap: 2em;
+		}
+
+		.card-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 769px) and (max-width: 960px) {
+		.card-grid {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 </style>

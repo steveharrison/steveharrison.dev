@@ -43,3 +43,5 @@ However, oftentimes it does not go smoothly. Here are some scenarios I've run in
 4. **Ditch the dev servers and create production builds in both projects.**
 
    Sometimes, I've run into dev mode quirks and caching issues, so if all else is failing, stop the dev servers and do a full production build in both projects (e.g. if `company-portal` is a Next.js app, `npm run build && npm run start`) to see if the same error occurs. Remember to do the component library build first. 🙂
+   
+   Clear .next cache.
