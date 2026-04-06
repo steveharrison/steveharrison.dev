@@ -44,6 +44,12 @@ try {
 
 const projects = [
 	{
+		title: "The Finances App",
+		description: "A personal finance app for tracking transactions, accounts, and spending across multiple banks.",
+		image: "/content/images/thumbnail/the-finances-app.png",
+		href: "https://thefinances.app",
+	},
+	{
 		title: "React Performance Monitor",
 		description: "A lightweight devtool for tracking React component re-renders and identifying performance bottlenecks.",
 		image: "/blog-placeholder-1.jpg",
@@ -126,8 +132,11 @@ const work = [
 								<a href={`/${post.id}/`}>
 									<svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
 									<div class="item-content">
-										<span class="item-title">{post.data.title}</span>
-										<span class="item-date"><FormattedDate date={post.data.pubDate} /></span>
+										<div class="item-main">
+											<span class="item-title">{post.data.title}</span>
+											<span class="item-date"><FormattedDate date={post.data.pubDate} /></span>
+										</div>
+										{post.data.description && <span class="item-description">{post.data.description}</span>}
 									</div>
 								</a>
 							</li>
@@ -294,10 +303,12 @@ const work = [
 		grid-template-columns: 1fr 1fr;
 		gap: 2.5em;
 		margin-bottom: 3em;
+		overflow: hidden;
 	}
 
 	/* List sections (Articles / Videos) */
 	.list-section {
+		min-width: 0;
 		margin-bottom: 0;
 	}
 
@@ -345,10 +356,25 @@ const work = [
 
 	.item-content {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		flex-direction: column;
 		flex: 1;
 		min-width: 0;
+	}
+
+	.item-main {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.item-description {
+		font-size: 0.82em;
+		color: rgb(var(--gray));
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-top: 0.2em;
+		line-height: 1.4;
 	}
 
 	.item-title {
