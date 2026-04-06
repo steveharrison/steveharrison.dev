@@ -10,23 +10,37 @@ const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 
-const videos = [
-	{
-		title: "Building a Design System from Scratch",
-		date: new Date("2026-03-15"),
-		href: "#",
-	},
-	{
-		title: "Next.js vs Astro: Which Should You Pick?",
-		date: new Date("2026-02-28"),
-		href: "#",
-	},
-	{
-		title: "My Developer Setup for 2026",
-		date: new Date("2026-01-20"),
-		href: "#",
-	},
-];
+// Fetch latest videos from YouTube at build time
+const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@steve_harrison/videos';
+let videos: { title: string; thumbnail: string; href: string }[] = [];
+
+try {
+	const res = await fetch(YOUTUBE_CHANNEL_URL);
+	const html = await res.text();
+	const match = html.match(/var ytInitialData = ({.*?});<\/script>/);
+	if (match) {
+		const data = JSON.parse(match[1]);
+		const tabs = data.contents.twoColumnBrowseResultsRenderer.tabs;
+		for (const tab of tabs) {
+			if (tab.tabRenderer?.title === 'Videos') {
+				const items = tab.tabRenderer.content.richGridRenderer.contents;
+				for (const item of items.slice(0, 3)) {
+					if (item.richItemRenderer) {
+						const vid = item.richItemRenderer.content.videoRenderer;
+						videos.push({
+							title: vid.title.runs[0].text,
+							thumbnail: `https://i.ytimg.com/vi/${vid.videoId}/mqdefault.jpg`,
+							href: `https://www.youtube.com/watch?v=${vid.videoId}`,
+						});
+					}
+				}
+				break;
+			}
+		}
+	}
+} catch (e) {
+	console.warn('Failed to fetch YouTube videos:', e);
+}
 
 const projects = [
 	{
@@ -132,11 +146,10 @@ const work = [
 					<ul class="item-list">
 						{videos.map((video) => (
 							<li>
-								<a href={video.href}>
-									<svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+								<a href={video.href} target="_blank">
+									<img class="video-thumb" src={video.thumbnail} alt="" width="72" height="40" loading="lazy" />
 									<div class="item-content">
 										<span class="item-title">{video.title}</span>
-										<span class="item-date"><FormattedDate date={video.date} /></span>
 									</div>
 								</a>
 							</li>
@@ -320,6 +333,14 @@ const work = [
 	.item-icon {
 		flex-shrink: 0;
 		color: rgb(var(--gray));
+	}
+
+	.video-thumb {
+		flex-shrink: 0;
+		width: 72px;
+		height: 40px;
+		object-fit: cover;
+		border-radius: 4px;
 	}
 
 	.item-content {
