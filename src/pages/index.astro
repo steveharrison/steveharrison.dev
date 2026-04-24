@@ -225,10 +225,29 @@ const work = [
 	}
 
 	main {
+		width: auto;
 		margin: 0 auto;
 		padding: 1em;
 		max-width: 960px;
-		overflow-x: hidden;
+	}
+
+	.hero-text {
+		min-width: 0;
+		flex: 1;
+	}
+
+	.hero-text h1,
+	.bio {
+		overflow-wrap: anywhere;
+	}
+
+	.card {
+		min-width: 0;
+	}
+
+	.card-body h3,
+	.card-body p {
+		overflow-wrap: anywhere;
 	}
 
 	/* Hero */
@@ -374,6 +393,8 @@ const work = [
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		min-width: 0;
+		gap: 1em;
 	}
 
 	.item-description {
@@ -391,8 +412,9 @@ const work = [
 		font-weight: 500;
 		font-size: 0.95em;
 		color: rgb(var(--grey));
+		min-width: 0;
 		word-wrap: break-word;
-		overflow-wrap: break-word;
+		overflow-wrap: anywhere;
 	}
 
 	.item-date {
