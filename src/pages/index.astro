@@ -45,7 +45,7 @@ try {
 const projects = [
 	{
 		title: "The Finances App",
-		description: "A personal finance app for tracking transactions, accounts, and spending across multiple banks.",
+		description: "A local-first personal finance app for analysing spending across multiple accounts.",
 		image: "/content/images/thumbnail/the-finances-app.png",
 		href: "https://thefinances.app",
 	},
@@ -220,10 +220,15 @@ const work = [
 </html>
 
 <style>
+	* {
+		box-sizing: border-box;
+	}
+
 	main {
 		margin: 0 auto;
 		padding: 1em;
 		max-width: 960px;
+		overflow-x: hidden;
 	}
 
 	/* Hero */
@@ -263,6 +268,7 @@ const work = [
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 1em;
 		margin-bottom: 1em;
 	}
 
@@ -272,6 +278,7 @@ const work = [
 		margin: 0;
 		border: none;
 		padding: 0;
+		white-space: nowrap;
 	}
 
 	.view-all {
@@ -283,6 +290,8 @@ const work = [
 		color: rgb(var(--gray));
 		text-decoration: none;
 		transition: color 0.2s ease;
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
 
 	.view-all:hover {
@@ -370,20 +379,20 @@ const work = [
 	.item-description {
 		font-size: 0.82em;
 		color: rgb(var(--gray));
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		margin-top: 0.2em;
 		line-height: 1.4;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.item-title {
 		font-weight: 500;
 		font-size: 0.95em;
 		color: rgb(var(--gray-dark));
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
 	}
 
 	.item-date {
@@ -451,24 +460,28 @@ const work = [
 
 	/* Responsive */
 	@media (max-width: 600px) {
+		main {
+			padding: 0.75em;
+		}
+
 		.hero {
 			flex-direction: column;
 			text-align: center;
 			gap: 1.2em;
-			padding: 2em 0;
+			padding: 1.5em 0;
 		}
 
 		.hero-avatar {
-			width: 96px;
-			height: 96px;
+			width: 80px;
+			height: 80px;
 		}
 
 		.hero-text h1 {
-			font-size: 1.6em;
+			font-size: 1.5em;
 		}
 
 		.bio {
-			font-size: 0.95em;
+			font-size: 0.9em;
 		}
 
 		.lists-row {
@@ -478,9 +491,15 @@ const work = [
 
 		.card-grid {
 			grid-template-columns: 1fr;
+			max-width: 320px;
 		}
 
-		.item-content {
+		.item-list a {
+			gap: 0.75em;
+			padding: 0.75em 0.25em;
+		}
+
+		.item-main {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.15em;
@@ -491,7 +510,20 @@ const work = [
 		}
 
 		.section-header h2 {
-			font-size: 1.2em;
+			font-size: 1.15em;
+		}
+
+		.view-all {
+			white-space: nowrap;
+			font-size: 0.82em;
+		}
+
+		.card-body h3 {
+			font-size: 0.9em;
+		}
+
+		.card-body p {
+			font-size: 0.8em;
 		}
 	}
 
