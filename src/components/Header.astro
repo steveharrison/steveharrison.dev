@@ -74,7 +74,7 @@ import CloseIcon from '../assets/icons/close.svg';
 		margin: 0;
 		padding: 0 1em;
 		background: white;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		border-bottom: 1px solid rgb(var(--grey-light));
 		position: sticky;
 		top: 0;
 		z-index: 100;
@@ -95,9 +95,14 @@ import CloseIcon from '../assets/icons/close.svg';
 	h2 a.active {
 		text-decoration: none;
 	}
+	
+	nav {
+		padding: 10px 0;
+	}
 
 	nav a {
-		padding: 1em 0.5em;
+		padding-top: 10px;
+		padding-bottom: 2px;
 		color: var(--black);
 		text-decoration: none;
 	}
@@ -113,21 +118,26 @@ import CloseIcon from '../assets/icons/close.svg';
 		gap: 1em;
 	}
 
-	.nav-links {
+	.nav-links, .social-links {
 		display: flex;
-		gap: 0.5em;
+		gap: 0.75rem;
+	}
+	
+	.nav-links {
+		margin-right: 10px;
 	}
 
-	.nav-links a {
+	.nav-links a, .social-links a {
 		font-size: 0.95em;
 		font-weight: 500;
-		color: rgb(var(--gray));
+		color: #000;
 		transition: color 0.2s ease;
 	}
 
 	.nav-links a:hover,
-	.nav-links a.active {
-		color: rgb(var(--black));
+	.social-links a:hover {
+		color: var(--grey);
+		border-color: var(--grey);
 	}
 
 	.social-links,
@@ -142,7 +152,7 @@ import CloseIcon from '../assets/icons/close.svg';
 		border: none;
 		cursor: pointer;
 		padding: 0.5em;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--grey));
 		-webkit-tap-highlight-color: transparent;
 	}
 
@@ -182,7 +192,7 @@ import CloseIcon from '../assets/icons/close.svg';
 
 	.overlay-header h2 a {
 		text-decoration: none;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--grey));
 	}
 
 	.overlay-close {
@@ -190,7 +200,7 @@ import CloseIcon from '../assets/icons/close.svg';
 		border: none;
 		cursor: pointer;
 		padding: 0.5em;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--grey));
 		-webkit-tap-highlight-color: transparent;
 	}
 
@@ -198,16 +208,16 @@ import CloseIcon from '../assets/icons/close.svg';
 		display: flex;
 		flex-direction: column;
 		padding-top: 1em;
-		border-top: 1px solid rgb(var(--gray-light));
+		border-top: 1px solid rgb(var(--grey-light));
 	}
 
 	.overlay-nav a {
 		font-size: 1.75em;
 		font-weight: 600;
-		color: rgb(var(--gray-dark));
+		color: rgb(var(--grey));
 		text-decoration: none;
 		padding: 0.5em 0;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		border-bottom: 1px solid rgb(var(--grey-light));
 		transition: color 0.2s ease;
 	}
 
@@ -225,7 +235,7 @@ import CloseIcon from '../assets/icons/close.svg';
 	.overlay-social a {
 		font-size: 1em;
 		font-weight: 500;
-		color: rgb(var(--gray));
+		color: rgb(var(--grey));
 		text-decoration: none;
 		padding: 0.6em 0;
 		transition: color 0.2s ease;

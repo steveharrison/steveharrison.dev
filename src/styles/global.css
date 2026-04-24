@@ -9,15 +9,12 @@
 	--accent: #000;
 	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
+	--grey: #797979;
 	--grey-light: #e0e0e0;
-	--dark-grey: #797979;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--grey-gradient: rgba(var(--grey-light), 50%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--grey), 25%), 0 8px 24px rgba(var(--grey), 33%),
+		0 16px 32px rgba(var(--grey), 33%);
 }
 @font-face {
 	font-family: 'Atkinson';
@@ -42,7 +39,7 @@ body {
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: rgb(var(--grey));
 	line-height: 1.5;
 	font-size: 16px;
 
@@ -174,15 +171,15 @@ pre > code {
 	word-wrap: break-word;
 }
 blockquote {
-	border-left: 3px solid var(--grey-light);
-	padding: 0 0 0 20px;
+	border-left: 2px solid var(--grey-light);
+	padding: 0 0 0 18px;
 	margin: 0px;
-	font-size: 1.1rem;
-	color: darkgrey;
+	margin-left: 5px;
+	color: rgb(78 78 78);
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid rgb(var(--grey-light));
 }
 @media (max-width: 720px) {
 	body {
@@ -221,10 +218,4 @@ footer {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
-}
-
-.nav-links {
-	a {
-		color: #000;
-	}
 }
