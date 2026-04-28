@@ -1,0 +1,142 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+type Item = { title: string; href: string };
+type Section = { heading: string; items: Item[] };
+
+const sections: Section[] = [
+	{
+		heading: 'Favourite Apps',
+		items: [
+			{ title: 'Tower — Best Git GUI', href: 'https://www.git-tower.com/mac' },
+			{ title: 'Things — Beautiful Todo app', href: 'https://culturedcode.com/things/' },
+		],
+	},
+	{
+		heading: 'Books',
+		items: [
+			{ title: 'Apple in China', href: 'https://www.amazon.com/Apple-China-Capture-Greatest-Company/dp/1668053373' },
+		],
+	},
+];
+
+// Pull an ASIN out of an Amazon URL, e.g. /dp/1668053373 or /gp/product/B0XXXXXXXX.
+function amazonAsin(url: string): string | null {
+	const m = url.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i);
+	return m ? m[1] : null;
+}
+
+function iconFor(url: string): string {
+	const asin = amazonAsin(url);
+	if (asin) {
+		// Amazon's open product image endpoint — works for any ASIN, no auth needed.
+		return `https://images.amazon.com/images/P/${asin}.01._SCLZZZZZZZ_.jpg`;
+	}
+	try {
+		const { hostname } = new URL(url);
+		return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+	} catch {
+		return '';
+	}
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Recommendations | ${SITE_TITLE}`} description="Things I use and like." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Recommendations</h1>
+			{sections.map((section) => (
+				<section class="rec-section">
+					<h2>{section.heading}</h2>
+					<ul class="rec-list">
+						{section.items.map((item) => (
+							<li>
+								<a href={item.href} target="_blank" rel="noopener noreferrer">
+									<img class="rec-icon" src={iconFor(item.href)} alt="" width="24" height="24" loading="lazy" />
+									<span>{item.title}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	main > h1 {
+		font-size: 2em;
+		font-weight: 700;
+		margin: 1em 0 0.8em;
+	}
+
+	.rec-section {
+		margin-bottom: 2.5em;
+	}
+
+	.rec-section h2 {
+		font-size: 1.25em;
+		font-weight: 700;
+		margin: 0 0 0.6em;
+		border: none;
+		padding: 0;
+	}
+
+	.rec-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.rec-list li {
+		border-bottom: 1px solid rgb(var(--grey-light));
+	}
+
+	.rec-list li:last-child {
+		border-bottom: none;
+	}
+
+	.rec-list a {
+		display: flex;
+		align-items: center;
+		gap: 0.85em;
+		padding: 0.7em 0.4em;
+		text-decoration: none;
+		color: rgb(var(--grey));
+		font-weight: 500;
+		font-size: 0.95em;
+		border-radius: 6px;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.rec-list a:hover {
+		background: rgba(var(--grey-light), 0.4);
+		color: rgb(var(--accent));
+	}
+
+	.rec-icon {
+		flex-shrink: 0;
+		width: 24px;
+		height: 24px;
+		object-fit: contain;
+		border-radius: 4px;
+		background: #fff;
+	}
+</style>
+</html>
