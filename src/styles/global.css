@@ -5,16 +5,16 @@
  */
 
 :root {
-	--accent: rgb(60, 137, 239);
+	/* --accent: rgb(60, 137, 239); */
+	--accent: #000;
 	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--grey: #797979;
+	--grey-light: #e0e0e0;
+	--grey-gradient: rgba(var(--grey-light), 50%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--grey), 25%), 0 8px 24px rgba(var(--grey), 33%),
+		0 16px 32px rgba(var(--grey), 33%);
 }
 @font-face {
 	font-family: 'Atkinson';
@@ -39,7 +39,7 @@ body {
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: rgb(var(--grey));
 	line-height: 1.5;
 	font-size: 16px;
 
@@ -70,7 +70,8 @@ h1 {
 	font-weight: 500;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: 1.3rem;
+	font-weight: 500;
 }
 h3 {
 	font-size: 1.953em;
@@ -92,12 +93,25 @@ strong,
 b {
 	font-weight: 700;
 }
-a {
-	color: var(--accent);
+
+.prose {
+	a {
+		color: #000;
+		font-weight: 500;
+		border-bottom: 2px solid #b3b3b3;
+		display: inline-block;
+		padding-bottom: 0;
+		text-decoration: none;
+		line-height: 19px;
+		transition: color 0.3s ease-in-out;
+	}
+	
+	a:hover {
+		color: rgb(102 102 102);
+	}
 }
-a:hover {
-	color: var(--accent);
-}
+
+
 p {
 	margin-bottom: 1em;
 }
@@ -157,14 +171,15 @@ pre > code {
 	word-wrap: break-word;
 }
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
+	border-left: 2px solid var(--grey-light);
+	padding: 0 0 0 18px;
 	margin: 0px;
-	font-size: 1.333em;
+	margin-left: 5px;
+	color: rgb(78 78 78);
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid rgb(var(--grey-light));
 }
 @media (max-width: 720px) {
 	body {

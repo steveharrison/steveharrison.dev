@@ -1,0 +1,174 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+type Item = { title: string; href: string };
+type Section = { heading: string; items: Item[] };
+
+const sections: Section[] = [
+	{
+		heading: 'Favourite Apps',
+		items: [
+			{ title: 'Tower — Best Git GUI', href: 'https://www.git-tower.com/mac' },
+			{ title: 'Things — Beautiful Todo app', href: 'https://culturedcode.com/things/' },
+			{ title: '1Password', href: 'https://1password.com' },
+			{ title: 'Sketch', href: 'https://www.sketch.com' },
+			{ title: 'Querious', href: 'https://www.araelium.com/querious' },
+			{ title: 'Nova', href: 'https://nova.app' },
+			{ title: 'Toggl Track', href: 'https://toggl.com/track/' },
+			{ title: 'Claude', href: 'https://claude.ai' },
+			{ title: 'Kaleidoscope', href: 'https://kaleidoscope.app' },
+			{ title: 'DaisyDisk', href: 'https://daisydiskapp.com' },
+			{ title: 'NetNewsWire', href: 'https://netnewswire.com' },
+			{ title: 'iA Writer', href: 'https://ia.net/writer' },
+			{ title: 'Byword', href: 'https://bywordapp.com' },
+			{ title: 'Flighty', href: 'https://flightyapp.com' },
+			{ title: 'xScope', href: 'https://xscopeapp.com' },
+			{ title: 'Day One', href: 'https://dayoneapp.com' },
+			{ title: 'BetterDisplay', href: 'https://github.com/waydabber/BetterDisplay' },
+			{ title: 'Backblaze', href: 'https://www.backblaze.com' },
+			{ title: 'Proxyman', href: 'https://proxyman.io' },
+			{ title: 'RapidAPI', href: 'https://rapidapi.com' },
+			{ title: 'Transmit', href: 'https://panic.com/transmit/' },
+			{ title: 'Versions', href: 'https://versionsapp.com' },
+			{ title: 'Listy', href: 'https://listyapp.com' },
+			{ title: 'Little Snitch', href: 'https://www.obdev.at/products/littlesnitch/' },
+			{ title: 'iMazing', href: 'https://imazing.com' },
+		],
+	},
+	{
+		heading: 'Books',
+		items: [
+			{ title: 'Apple in China', href: 'https://www.amazon.com/Apple-China-Capture-Greatest-Company/dp/1668053373' },
+			{ title: 'Build — Tony Fadell', href: 'https://www.amazon.com/Build-Unorthodox-Guide-Making-Things/dp/0063046067' },
+			{ title: 'Sprint — Jake Knapp', href: 'https://www.amazon.com/Sprint-Solve-Problems-Test-Ideas/dp/1501121740' },
+			{ title: 'How to Build a Car — Adrian Newey', href: 'https://www.amazon.com/How-Build-Car-Autobiography-Designer/dp/0008196818' },
+			{ title: 'Broken Money — Lyn Alden', href: 'https://www.amazon.com/Broken-Money-Financial-System-Failing/dp/1737789736' },
+			{ title: 'Billion Dollar Whale', href: 'https://www.amazon.com/Billion-Dollar-Whale-Fooled-Hollywood/dp/0316453471' },
+			{ title: 'Steve Jobs — Walter Isaacson', href: 'https://www.amazon.com/Steve-Jobs-Walter-Isaacson/dp/1451648537' },
+			{ title: 'The Everything Store', href: 'https://www.amazon.com/Everything-Store-Jeff-Bezos-Amazon/dp/0316219282' },
+			{ title: 'Power Play — Tim Higgins', href: 'https://www.amazon.com/Power-Play-Tesla-Bet-Century/dp/0593086112' },
+			{ title: 'Elon Musk — Walter Isaacson', href: 'https://www.amazon.com/Elon-Musk-Walter-Isaacson/dp/1982181281' },
+		],
+	},
+];
+
+// Pull an ASIN out of an Amazon URL, e.g. /dp/1668053373 or /gp/product/B0XXXXXXXX.
+function amazonAsin(url: string): string | null {
+	const m = url.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i);
+	return m ? m[1] : null;
+}
+
+function iconFor(url: string): string {
+	const asin = amazonAsin(url);
+	if (asin) {
+		// Amazon's open product image endpoint — works for any ASIN, no auth needed.
+		return `https://images.amazon.com/images/P/${asin}.01._SCLZZZZZZZ_.jpg`;
+	}
+	try {
+		const { hostname } = new URL(url);
+		return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+	} catch {
+		return '';
+	}
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Recommendations | ${SITE_TITLE}`} description="Things I use and like." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Recommendations</h1>
+			{sections.map((section) => (
+				<section class="rec-section">
+					<h2>{section.heading}</h2>
+					<ul class="rec-list">
+						{section.items.map((item) => (
+							<li>
+								<a href={item.href} target="_blank" rel="noopener noreferrer">
+									<img class="rec-icon" src={iconFor(item.href)} alt="" width="24" height="24" loading="lazy" />
+									<span>{item.title}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	main > h1 {
+		font-size: 2em;
+		font-weight: 700;
+		margin: 1em 0 0.8em;
+	}
+
+	.rec-section {
+		margin-bottom: 2.5em;
+	}
+
+	.rec-section h2 {
+		font-size: 1.25em;
+		font-weight: 700;
+		margin: 0 0 0.6em;
+		border: none;
+		padding: 0;
+	}
+
+	.rec-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.rec-list li {
+		border-bottom: 1px solid rgb(var(--grey-light));
+	}
+
+	.rec-list li:last-child {
+		border-bottom: none;
+	}
+
+	.rec-list a {
+		display: flex;
+		align-items: center;
+		gap: 0.85em;
+		padding: 0.7em 0.4em;
+		text-decoration: none;
+		color: rgb(var(--grey));
+		font-weight: 500;
+		font-size: 0.95em;
+		border-radius: 6px;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.rec-list a:hover {
+		background: rgba(var(--grey-light), 0.4);
+		color: rgb(var(--accent));
+	}
+
+	.rec-icon {
+		flex-shrink: 0;
+		width: 24px;
+		height: 24px;
+		object-fit: contain;
+		border-radius: 4px;
+		background: #fff;
+	}
+</style>
+</html>
