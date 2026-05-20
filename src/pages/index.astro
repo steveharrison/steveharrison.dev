@@ -24,9 +24,29 @@ try {
 		for (const tab of tabs) {
 			if (tab.tabRenderer?.title === 'Videos') {
 				const items = tab.tabRenderer.content.richGridRenderer.contents;
-				for (const item of items.slice(0, 3)) {
-					if (item.richItemRenderer) {
-						const vid = item.richItemRenderer.content.videoRenderer;
+				for (const item of items) {
+					if (videos.length >= 3) break;
+					const content = item.richItemRenderer?.content;
+					if (!content) continue;
+
+					// Newer YouTube layout: lockupViewModel
+					const lockup = content.lockupViewModel;
+					if (lockup) {
+						const videoId = lockup.contentId;
+						const title = lockup.metadata?.lockupMetadataViewModel?.title?.content;
+						if (videoId && title) {
+							videos.push({
+								title,
+								thumbnail: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+								href: `https://www.youtube.com/watch?v=${videoId}`,
+							});
+						}
+						continue;
+					}
+
+					// Older YouTube layout: videoRenderer
+					const vid = content.videoRenderer;
+					if (vid) {
 						videos.push({
 							title: vid.title.runs[0].text,
 							thumbnail: `https://i.ytimg.com/vi/${vid.videoId}/mqdefault.jpg`,
@@ -121,7 +141,7 @@ const projects = [
 				<section class="list-section">
 					<div class="section-header">
 						<h2>Recent Videos</h2>
-						<a href="#" class="view-all">
+						<a href={YOUTUBE_CHANNEL_URL} target="_blank" class="view-all">
 							View All
 							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
 						</a>
