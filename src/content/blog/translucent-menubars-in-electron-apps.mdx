@@ -1,0 +1,47 @@
+---
+title: 'Translucent menubars in Electron apps'
+description: 'macOS Tahoe introduced slight translucency for app sidebars, and you can add the same effect to an Electron BrowserWindow using the vibrancy property.'
+pubDate: 'May 28 2026'
+---
+
+macOS Tahoe introduced slight translucency for app sidebars, and you can also add this effect to an Electron `BrowserWindow` using the [`vibrancy`](https://www.electronjs.org/docs/latest/api/browser-window#winsetvibrancytype-options-macos) property:
+
+```javascript
+new BrowserWindow({
+  width: 1100,
+  height: 720,
+  titleBarStyle: "hiddenInset",
+  vibrancy: "sidebar",
+});
+```
+
+Here's a comparison: on the left is [The Finances App](https://thefinances.app/) sidebar with no transparency, and on the right, with `vibrancy: "sidebar"`:
+
+![](/content/images/2026/05/vibrancy-side-by-side.png)
+
+`vibrancy` accepts the following values:
+
+- `titlebar`
+- `selection`
+- `menu`
+- `popover`
+- `sidebar`
+- `header`
+- `sheet`
+- `window`
+- `hud`
+- `fullscreen-ui`
+- `tooltip`
+- `content`
+- `under-window`
+- `under-page`
+
+My helpful mate Claude whipped up a demo to compare all these different values: https://github.com/steveharrison/vibrancy-demo. Popovers are more translucent than sidebars, for example:
+
+![](/content/images/2026/05/vibrancy-popover.png)
+
+![](/content/images/2026/05/vibrancy-sidebar.png)
+
+You can read more in the official Apple developer docs on [NSVisualEffectView](https://developer.apple.com/documentation/appkit/nsvisualeffectview).
+
+Enjoy!
