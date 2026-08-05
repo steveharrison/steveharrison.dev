@@ -1,0 +1,214 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const lastUpdated = '5 August 2026';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Terms of Service | ${SITE_TITLE}`}
+			description="Terms for using steveharrison.dev and the Salary Ticker app."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Terms of Service</h1>
+			<p class="updated">Last updated: {lastUpdated}</p>
+
+			<p>
+				These terms cover your use of the website at <strong>steveharrison.dev</strong> and the macOS
+				app <strong>Salary Ticker</strong>, both operated by Steve Harrison ("I", "me"). By using the
+				site or the app, you agree to them. If you do not agree, please do not use them.
+			</p>
+
+			<h2>Licence to use Salary Ticker</h2>
+
+			<p>
+				Salary Ticker is provided free of charge. You may download, install, and use it on any Mac you
+				own or control, for personal or commercial purposes, at no cost.
+			</p>
+
+			<p>You may not:</p>
+
+			<ul>
+				<li>Sell, rent, or charge others for the app</li>
+				<li>
+					Redistribute modified copies, or repackage and distribute it as your own work. Please link
+					to this site instead of mirroring the download
+				</li>
+				<li>
+					Reverse engineer, decompile, or disassemble the app, except where that right cannot legally
+					be restricted
+				</li>
+				<li>Remove or alter any copyright or attribution notices</li>
+			</ul>
+
+			<p>
+				I retain all rights in the app, its source code, name, icon, and branding. This licence does
+				not transfer ownership of anything.
+			</p>
+
+			<h2>Only download from official sources</h2>
+
+			<p>
+				The only official download for Salary Ticker is from
+				<a href="/salaryticker">steveharrison.dev/salaryticker</a>. The app is signed and notarised by
+				Apple under Developer Team ID <code>8RTPS5KUF8</code>; you can verify this in Terminal with
+				<code>codesign -dv --verbose=2 "/Applications/Salary Ticker.app"</code>. I cannot vouch for
+				copies obtained anywhere else, and these terms do not apply to them.
+			</p>
+
+			<h2>No warranty</h2>
+
+			<p>
+				Except as set out below, the app and this website are provided "as is" and "as available",
+				without warranty of any kind, express or implied, including but not limited to warranties of
+				merchantability, fitness for a particular purpose, accuracy, and non-infringement. I do not
+				warrant that the app will be uninterrupted, error free, or compatible with any future version
+				of macOS.
+			</p>
+
+			<p>
+				<strong>Australian Consumer Law.</strong> Nothing in these terms excludes, restricts, or
+				modifies any guarantee, right, or remedy you have under the Australian Consumer Law (Schedule
+				2 of the <em>Competition and Consumer Act 2010</em> (Cth)) or any other law where doing so
+				would be unlawful. Where the Australian Consumer Law applies and permits me to do so, my
+				liability for a failure to comply with a consumer guarantee is limited, at my option, to
+				resupplying the app or paying the cost of having it resupplied.
+			</p>
+
+			<p>
+				<strong>Salary Ticker is a novelty and motivational tool, not a financial product.</strong> The
+				figures it displays are a simple calculation based on numbers you enter yourself. They are not
+				payroll data, not a record of hours worked, not tax advice, and not financial advice. Do not
+				rely on them for invoicing, timesheets, tax, or any other financial or legal purpose.
+			</p>
+
+			<h2>Limitation of liability</h2>
+
+			<p>
+				To the fullest extent permitted by law, I am not liable for any indirect, incidental,
+				consequential, or special damages, or for any loss of data, profits, revenue, or business,
+				arising out of your use of or inability to use the app or this website. Since the app is
+				supplied free of charge, my total liability to you for any claim is limited to zero, or to the
+				minimum permitted by law if that is higher.
+			</p>
+
+			<p>
+				Nothing in these terms excludes or limits liability for death or personal injury caused by
+				negligence, for fraud, or for anything else that cannot lawfully be excluded, including your
+				rights under the Australian Consumer Law described above.
+			</p>
+
+			<h2>Support and updates</h2>
+
+			<p>
+				The app is offered free and without any guarantee of support, updates, or continued
+				availability. I may change it, or stop distributing it, at any time. That said, if something
+				is broken I would genuinely like to know, so please do get in touch.
+			</p>
+
+			<h2>Website content</h2>
+
+			<p>
+				Articles and other content on this site are my own opinion and are provided for general
+				information. They may go out of date. Code samples are offered without warranty; test anything
+				before you rely on it. Unless stated otherwise, the written content is my copyright. You are
+				welcome to quote from it with attribution and a link, but please do not republish whole
+				articles without asking.
+			</p>
+
+			<h2>Privacy</h2>
+
+			<p>
+				How data is handled is set out in the <a href="/privacy">Privacy Policy</a>, which forms part
+				of these terms.
+			</p>
+
+			<h2>Changes to these terms</h2>
+
+			<p>
+				I may update these terms from time to time. The date at the top of this page shows when they
+				last changed. Continuing to use the site or app after a change means you accept the updated
+				terms.
+			</p>
+
+			<h2>Governing law</h2>
+
+			<p>
+				These terms are governed by the laws of New South Wales, Australia, and you submit to the
+				non-exclusive jurisdiction of the courts of that State and of the Commonwealth of Australia.
+				If you are a consumer resident elsewhere, you keep the benefit of any mandatory protections of
+				your home country's law.
+			</p>
+
+			<h2>Contact</h2>
+
+			<p>
+				You can reach me at
+				<a href="mailto:steve@steveharrison.dev">steve@steveharrison.dev</a>, or on
+				<a
+					href="https://www.linkedin.com/in/stevenanthonyharrison/"
+					target="_blank"
+					rel="noopener noreferrer">LinkedIn</a
+				>.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	main > h1 {
+		font-size: 2em;
+		font-weight: 700;
+		margin: 1em 0 0.4em;
+	}
+
+	.updated {
+		color: rgb(var(--grey));
+		font-size: 0.9em;
+		margin-bottom: 2em;
+	}
+
+	main h2 {
+		font-size: 1.25em;
+		font-weight: 700;
+		margin: 2em 0 0.6em;
+		border: none;
+		padding: 0;
+	}
+
+	main p {
+		margin-bottom: 1em;
+		line-height: 1.6;
+	}
+
+	main ul {
+		margin: 0 0 1em 1.2em;
+		line-height: 1.6;
+	}
+
+	main li {
+		margin-bottom: 0.4em;
+	}
+
+	main code {
+		font-size: 0.9em;
+		background: rgba(var(--grey-light), 0.5);
+		padding: 0.1em 0.35em;
+		border-radius: 4px;
+	}
+</style>

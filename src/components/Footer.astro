@@ -3,7 +3,12 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Steve Harrison
+	<p>&copy; {today.getFullYear()} Steve Harrison</p>
+	<p class="legal-links">
+		<a href="/privacy">Privacy</a>
+		<span aria-hidden="true">&middot;</span>
+		<a href="/terms">Terms</a>
+	</p>
 </footer>
 <style>
 	footer {
@@ -11,6 +16,19 @@ const today = new Date();
 		background: linear-gradient(var(--grey-gradient)) no-repeat;
 		color: rgb(var(--grey));
 		text-align: center;
+	}
+	footer p {
+		margin: 0;
+	}
+	.legal-links {
+		margin-top: 0.5em;
+		font-size: 0.9em;
+		display: flex;
+		justify-content: center;
+		gap: 0.5em;
+	}
+	.legal-links a {
+		color: rgb(var(--grey));
 	}
 	.social-links {
 		display: flex;

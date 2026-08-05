@@ -1,0 +1,187 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const lastUpdated = '5 August 2026';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Privacy Policy | ${SITE_TITLE}`}
+			description="How steveharrison.dev and Salary Ticker handle your data."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Privacy Policy</h1>
+			<p class="updated">Last updated: {lastUpdated}</p>
+
+			<p>
+				This policy covers the website at <strong>steveharrison.dev</strong> and the macOS app
+				<strong>Salary Ticker</strong>. Both are operated by Steve Harrison, an individual developer
+				based in Australia.
+			</p>
+
+			<h2>Salary Ticker (the macOS app)</h2>
+
+			<p>
+				<strong>Salary Ticker does not collect, transmit, or store any of your personal data.</strong>
+			</p>
+
+			<p>
+				The app contains no analytics, no crash reporting, no advertising, and no third-party SDKs of
+				any kind. It makes no network connections whatsoever, so nothing you enter can leave your Mac.
+			</p>
+
+			<p>
+				The settings you enter, such as your daily pay figure and your day start and end times, are
+				stored locally on your Mac using the standard macOS preferences system
+				(<code>UserDefaults</code>, under the identifier <code>com.salaryticker.app</code>). They are
+				never uploaded anywhere, and I have no way to see them.
+			</p>
+
+			<p>
+				Deleting the app removes it from your Mac. To remove its stored preferences as well, run
+				<code>defaults delete com.salaryticker.app</code> in Terminal.
+			</p>
+
+			<p>
+				The app is distributed from this website and is signed and notarised by Apple under Apple
+				Developer Team ID <code>8RTPS5KUF8</code>. Apple may log notarisation checks when you first
+				launch the app; that is a function of macOS itself and is covered by
+				<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">
+					Apple's privacy policy</a>.
+			</p>
+
+			<h2>This website</h2>
+
+			<h3>Analytics</h3>
+
+			<p>
+				This site uses Google Analytics 4 to understand which pages people visit and which links they
+				click. This sets cookies in your browser and sends Google information such as your
+				approximate location, browser, device type, and the pages you view. I use this only in
+				aggregate, to see what is worth writing more of.
+			</p>
+
+			<p>
+				I never see your name or email address through analytics. If you would rather not be counted,
+				you can install the
+				<a
+					href="https://tools.google.com/dlpage/gaoptout"
+					target="_blank"
+					rel="noopener noreferrer">Google Analytics opt-out browser add-on</a
+				>, use your browser's tracking protection, or block the script. Nothing on this site depends
+				on analytics working. Google's handling of this data is covered by
+				<a
+					href="https://policies.google.com/privacy"
+					target="_blank"
+					rel="noopener noreferrer">Google's privacy policy</a
+				>.
+			</p>
+
+			<h3>Newsletter</h3>
+
+			<p>
+				If you choose to subscribe to the newsletter, your email address is submitted to and stored by
+				<a href="https://buttondown.com" target="_blank" rel="noopener noreferrer">Buttondown</a>,
+				which sends the emails on my behalf. I use your address only to send you new articles. I do
+				not sell it, rent it, or share it with anyone else. Every email includes an unsubscribe link,
+				and unsubscribing removes you from the list.
+			</p>
+
+			<h3>Hosting and embedded content</h3>
+
+			<p>
+				Like most websites, the server hosting this site may keep standard access logs, including IP
+				addresses, for security and reliability. Some pages embed content from third parties such as
+				YouTube or link to external sites; those providers have their own privacy policies, and this
+				policy does not cover them.
+			</p>
+
+			<h2>Your rights</h2>
+
+			<p>
+				You can ask me what personal information I hold about you, ask me to correct it, and ask me to
+				delete it. In practice the only personal information I hold directly is a newsletter email
+				address, if you gave me one. Email me and I will action any request. If you are in the EU or
+				UK, or anywhere else with equivalent data protection law, the same applies to you.
+			</p>
+
+			<p>
+				Some of the services above, including Google Analytics and Buttondown, are based overseas, so
+				information collected through them may be stored or processed outside Australia.
+			</p>
+
+			<h2>Changes</h2>
+
+			<p>
+				If this policy changes in a way that matters, I will update the date at the top of this page.
+			</p>
+
+			<h2>Contact</h2>
+
+			<p>
+				Questions about any of this? Email
+				<a href="mailto:steve@steveharrison.dev">steve@steveharrison.dev</a>, or find me on
+				<a
+					href="https://www.linkedin.com/in/stevenanthonyharrison/"
+					target="_blank"
+					rel="noopener noreferrer">LinkedIn</a
+				>.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	main > h1 {
+		font-size: 2em;
+		font-weight: 700;
+		margin: 1em 0 0.4em;
+	}
+
+	.updated {
+		color: rgb(var(--grey));
+		font-size: 0.9em;
+		margin-bottom: 2em;
+	}
+
+	main h2 {
+		font-size: 1.25em;
+		font-weight: 700;
+		margin: 2em 0 0.6em;
+		border: none;
+		padding: 0;
+	}
+
+	main h3 {
+		font-size: 1.05em;
+		font-weight: 600;
+		margin: 1.5em 0 0.5em;
+	}
+
+	main p {
+		margin-bottom: 1em;
+		line-height: 1.6;
+	}
+
+	main code {
+		font-size: 0.9em;
+		background: rgba(var(--grey-light), 0.5);
+		padding: 0.1em 0.35em;
+		border-radius: 4px;
+	}
+</style>
