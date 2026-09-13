@@ -1,0 +1,131 @@
+---
+// Deliberately standalone, like /salaryticker: no BaseHead/Header/Footer so the
+// landing page keeps its own bare styling rather than inheriting the site chrome.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const description = "A macOS app that lists your Photos library by file size, biggest first, so you can see what is eating your storage.";
+// Swap in the real App Store URL once the app is live on App Store Connect.
+const appStoreURL = "https://apps.apple.com/app/photos-by-size/id0000000000";
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photos by Size</title>
+  <meta name="description" content={description}>
+  <!-- The app's own icon, rather than the site favicon. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/photosbysize/icon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/photosbysize/icon-512.png">
+  <link rel="apple-touch-icon" href="/photosbysize/icon-180.png">
+  <link rel="canonical" href={canonicalURL}>
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalURL}>
+  <meta property="og:title" content="Photos by Size">
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={new URL('/photosbysize/screenshot.png', Astro.site)}>
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Photos by Size">
+  <meta property="twitter:description" content={description}>
+  <meta property="twitter:image" content={new URL('/photosbysize/screenshot.png', Astro.site)}>
+
+  <!-- Google analytics -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-X4CHT5LFX4"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-X4CHT5LFX4');
+  </script>
+
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #fff;
+      color: #111;
+      display: flex;
+      justify-content: center;
+      padding: 96px 24px;
+    }
+    main {
+      width: 100%;
+      max-width: 640px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    img.icon {
+      width: 128px;
+      height: 128px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    p.tagline {
+      font-size: 1.125rem;
+      color: #555;
+      line-height: 1.6;
+      max-width: 46ch;
+    }
+    img.screenshot {
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    }
+    a.download {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 10px;
+    }
+    a.download:hover { background: #333; }
+    .fine-print {
+      font-size: 0.8rem;
+      color: #999;
+    }
+    .fine-print a {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="icon" src="/photosbysize/icon-512.png" alt="">
+    <h1>Photos by Size</h1>
+    <p class="tagline">Your Photos library sorted by file size, biggest first. See what is taking the space, then download, file, or delete it in a couple of clicks.</p>
+
+    <img class="screenshot" src="/photosbysize/screenshot.png" alt="Photos by Size window listing photos and videos with thumbnails, largest first, with exact file sizes and dates">
+
+    <a class="download" href={appStoreURL}>Get it on the Mac App Store</a>
+    <p class="fine-print">macOS 14 or later · Nothing is deleted permanently · No data leaves your Mac</p>
+    <p class="fine-print">
+      <a href="/">By Steve Harrison</a> ·
+      <a href="/privacy">Privacy</a> ·
+      <a href="/terms">Terms</a>
+    </p>
+  </main>
+
+  <script is:inline>
+    document.querySelector('a.download').addEventListener('click', function () {
+      gtag('event', 'app_store_click', {
+        app_name: 'Photos by Size',
+        link_url: this.href,
+      });
+    });
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
 
-const lastUpdated = '5 August 2026';
+const lastUpdated = '14 September 2026';
 ---
 
 <!doctype html>
@@ -12,7 +12,7 @@ const lastUpdated = '5 August 2026';
 	<head>
 		<BaseHead
 			title={`Privacy Policy | ${SITE_TITLE}`}
-			description="How steveharrison.dev and Salary Ticker handle your data."
+			description="How steveharrison.dev, Salary Ticker and Photos by Size handle your data."
 		/>
 	</head>
 	<body>
@@ -22,8 +22,8 @@ const lastUpdated = '5 August 2026';
 			<p class="updated">Last updated: {lastUpdated}</p>
 
 			<p>
-				This policy covers the website at <strong>steveharrison.dev</strong> and the macOS app
-				<strong>Salary Ticker</strong>. Both are operated by Steve Harrison, an individual developer
+				This policy covers the website at <strong>steveharrison.dev</strong> and the macOS apps
+				<strong>Salary Ticker</strong> and <strong>Photos by Size</strong>. All are operated by Steve Harrison, an individual developer
 				based in Australia.
 			</p>
 
@@ -56,6 +56,33 @@ const lastUpdated = '5 August 2026';
 				launch the app; that is a function of macOS itself and is covered by
 				<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">
 					Apple's privacy policy</a>.
+			</p>
+
+			<h2>Photos by Size (the macOS app)</h2>
+
+			<p>
+				<strong>Photos by Size does not collect, transmit, or store any of your personal data.</strong>
+			</p>
+
+			<p>
+				The app has no account, no analytics, no crash reporting, no advertising, and no third-party
+				code. It reads your Photos library through Apple's PhotoKit after you grant permission in the
+				standard macOS prompt, and it only changes your library when you ask it to: adding items to an
+				album, or moving them to Recently Deleted, where Photos keeps them for 30 days.
+			</p>
+
+			<p>
+				Photos are never uploaded. The app makes no network connections of its own, with two exceptions
+				handled entirely by Apple's system frameworks: downloading originals that are stored only in
+				iCloud, which goes through Apple's iCloud Photos service, and looking up a place name for a
+				photo's location, which sends the coordinates to Apple's geocoding service. I receive nothing
+				from either.
+			</p>
+
+			<p>
+				A cache of the last library scan (file names and sizes, no images) is stored inside the app's
+				sandbox container on your Mac so the list appears quickly on the next launch. Deleting the app
+				removes it.
 			</p>
 
 			<h2>This website</h2>
