@@ -1,0 +1,87 @@
+---
+// Shared chrome for the privacy and terms pages: site header/footer, a title,
+// a "last updated" line, and the prose styling the legal text needs.
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+interface Props {
+	title: string;
+	description: string;
+	lastUpdated: string;
+}
+
+const { title, description, lastUpdated } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>{title}</h1>
+			<p class="updated">Last updated: {lastUpdated}</p>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style is:global>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	main > h1 {
+		font-size: 2em;
+		font-weight: 700;
+		margin: 1em 0 0.4em;
+	}
+
+	.updated {
+		color: rgb(var(--grey));
+		font-size: 0.9em;
+		margin-bottom: 2em;
+	}
+
+	main h2 {
+		font-size: 1.25em;
+		font-weight: 700;
+		margin: 2em 0 0.6em;
+		border: none;
+		padding: 0;
+	}
+
+	main h3 {
+		font-size: 1.05em;
+		font-weight: 600;
+		margin: 1.5em 0 0.5em;
+	}
+
+	main p {
+		margin-bottom: 1em;
+		line-height: 1.6;
+	}
+
+	main ul {
+		margin: 0 0 1em 1.2em;
+		line-height: 1.6;
+	}
+
+	main li {
+		margin-bottom: 0.4em;
+	}
+
+	main code {
+		font-size: 0.9em;
+		background: rgba(var(--grey-light), 0.5);
+		padding: 0.1em 0.35em;
+		border-radius: 4px;
+	}
+</style>

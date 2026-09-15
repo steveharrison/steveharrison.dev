@@ -1,0 +1,76 @@
+---
+import LegalPage from '../../layouts/LegalPage.astro';
+---
+
+<LegalPage
+	title="Salary Ticker Privacy Policy"
+	description="How the Salary Ticker macOS app handles your data: it doesn't collect any."
+	lastUpdated="15 September 2026"
+>
+	<p>
+		This policy covers the macOS app <strong>Salary Ticker</strong>, made by Steve Harrison, an
+		individual developer based in Australia. The website at steveharrison.dev has its own
+		<a href="/privacy">privacy policy</a>.
+	</p>
+
+	<h2>What the app collects</h2>
+
+	<p>
+		<strong>Salary Ticker does not collect, transmit, or store any of your personal data.</strong>
+	</p>
+
+	<p>
+		The app contains no analytics, no crash reporting, no advertising, and no third-party SDKs of
+		any kind. It makes no network connections whatsoever, so nothing you enter can leave your Mac.
+	</p>
+
+	<h2>Data stored on your Mac</h2>
+
+	<p>
+		The settings you enter, such as your daily pay figure and your day start and end times, are
+		stored locally on your Mac using the standard macOS preferences system
+		(<code>UserDefaults</code>, under the identifier <code>com.salaryticker.app</code>). They are
+		never uploaded anywhere, and I have no way to see them.
+	</p>
+
+	<p>
+		Deleting the app removes it from your Mac. To remove its stored preferences as well, run
+		<code>defaults delete com.salaryticker.app</code> in Terminal.
+	</p>
+
+	<h2>Notarisation</h2>
+
+	<p>
+		The app is distributed from this website and is signed and notarised by Apple under Apple
+		Developer Team ID <code>8RTPS5KUF8</code>. Apple may log notarisation checks when you first
+		launch the app; that is a function of macOS itself and is covered by
+		<a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">
+			Apple's privacy policy</a
+		>.
+	</p>
+
+	<h2>Your rights</h2>
+
+	<p>
+		Because the app holds no personal information about you, there is nothing for me to access,
+		correct, or delete. If you have a question about any of this, email me and I will answer it.
+	</p>
+
+	<h2>Changes</h2>
+
+	<p>
+		If this policy changes in a way that matters, I will update the date at the top of this page.
+	</p>
+
+	<h2>Contact</h2>
+
+	<p>
+		Questions about any of this? Email
+		<a href="mailto:steve@steveharrison.dev">steve@steveharrison.dev</a>, or find me on
+		<a
+			href="https://www.linkedin.com/in/stevenanthonyharrison/"
+			target="_blank"
+			rel="noopener noreferrer">LinkedIn</a
+		>.
+	</p>
+</LegalPage>
