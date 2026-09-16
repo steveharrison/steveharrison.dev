@@ -1,0 +1,28 @@
+---
+title: Reviewing AI work with change previews
+description: 'A skill that turns a finished code change into a one-page visual review: before/after screenshots with arrow callouts, steps to reproduce both states, a short walkthrough video, and the diff split into annotated sections.'
+pubDate: 'Sep 16 2026'
+---
+
+Now that we’re using AI tools to generate code, the bottleneck is reviewing the changes to make sure the agent has done the right thing. I’ve been spending a lot more time doing a mix of manual testing, reviewing code diffs, and reading AI summaries. 
+
+It involves a lot of context switching: you may be reading a diff, then you want to read the AI summary of changes, then you want to spin up a dev server for that worktree, and then you want to revert to a git commit before the changes to double-check the previous behaviour.
+
+It got me thinking: what if we put all of these together? So I created [change-preview](https://github.com/steveharrison/change-preview), a skill that generates a preview page with:
+- Before/After screenshots and/or videos
+- Diagrams if no screenshots applicable
+- Annotations on the screenshots of things that have changed in the UI
+- Code diffs alongside AI summaries of why that code was changed
+- Steps to reproduce if I want to test changes manually
+
+This way, you can get an agent to work on several features in parallel, and when done, simply review a bunch of change previews. If you’re happy, you can then ask your agent to create a pull request using the change preview, so reviewers can also see info such as before/after screen recordings in the PR description. 
+
+Here’s an example for some recent changes to my [openenrichment.org](https://openenrichment.org) project, where I refactored the dataset into multiple regions:
+
+<video src="/content/images/2026/09/change-preview-walkthrough.mp4" controls muted playsinline style="max-width: 100%;"></video>
+
+I’ve also added a toggle button for a modern, OpenAI-style design or a classic, Claude-style design. And it supports dark mode, of course!
+
+<img src="/content/images/2026/09/change-preview-dark-mode.jpg" alt="The change preview page in dark mode" />
+
+You can find the skill at [https://github.com/steveharrison/change-preview](https://github.com/steveharrison/change-preview)
