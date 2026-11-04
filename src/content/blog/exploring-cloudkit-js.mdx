@@ -38,7 +38,7 @@ Firstly, to use CloudKit, you need to have a paid Apple developer account. Start
 
 While not required, I also recommend modifying the `addTask` function in `Models > Model.swift` to the following code that doesn't swallow errors and logs what's happening in case something fails:
 
-```Swift
+```swift
 func addTask(taskItem: TaskItem) async {
     debugPrint("addTask called with taskItem.record", taskItem.record)
     
