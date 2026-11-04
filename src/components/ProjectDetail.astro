@@ -1,0 +1,325 @@
+---
+// One app, as shown in the homepage lightbox: copy on one side and a slideshow of
+// screenshots and videos on the other. The slideshow is started by initGallery()
+// when the lightbox opens.
+import type { Project } from '../data/portfolio';
+import { tech } from '../data/portfolio';
+import SocialChip from './SocialChip.astro';
+import Markdown from './Markdown.astro';
+
+interface Props {
+	project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project">
+	<div class="copy">
+		<h2 id={`lb-title-app-${project.slug}`}>
+			<img class="icon" src={project.icon ?? project.appIcon} alt="" width="48" height="48" />
+			{project.title}
+		</h2>
+		<p class="years">{project.years}</p>
+		<p><Markdown text={project.description} /></p>
+		{project.tech && (
+			<ul class="tech-list">
+				{project.tech.map((id) => tech[id] && (
+					<li><img src={tech[id].icon} alt="" width="16" height="16" />{tech[id].name}</li>
+				))}
+			</ul>
+		)}
+		{project.social && (
+			<p class="social">{project.social.map((post) => <SocialChip post={post} />)}</p>
+		)}
+		{(project.website || project.links) && (
+			<p class="links">
+				{project.website && <a class="website" href={project.website}>View website →</a>}
+				{project.links?.map((link) => <a href={link.href}>{link.label} →</a>)}
+			</p>
+		)}
+	</div>
+	<div class="gallery">
+		<div class="stage">
+			{project.media.map((item, i) => (
+				<figure class:list={['slide', item.fit && `fit-${item.fit}`, i === 0 && 'is-active']}>
+					{item.video ? (
+						<video src={item.src} poster={item.poster} muted playsinline preload="metadata" loop={project.media.length === 1} aria-label={item.alt}></video>
+					) : (
+						<img src={item.src} alt={item.alt} loading="lazy" />
+					)}
+				</figure>
+			))}
+			{(project.media.length > 1 || project.media.some((item) => item.video)) && (
+				<button type="button" class="pause" aria-label="Pause slideshow" title="Pause">
+					<svg class="icon-pause" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.8" height="9" rx="0.8" /><rect x="7.2" y="1.5" width="2.8" height="9" rx="0.8" /></svg>
+					<svg class="icon-play" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 1.8v8.4a.6.6 0 0 0 .9.5l6.6-4.2a.6.6 0 0 0 0-1L4.4 1.3a.6.6 0 0 0-.9.5z" /></svg>
+				</button>
+			)}
+		</div>
+		{project.media.length > 1 && (
+			<div class="thumbs">
+				{project.media.map((item, i) => (
+					<button type="button" class:list={['thumb', item.fit && `fit-${item.fit}`, i === 0 && 'is-active']} aria-label={`Show ${item.alt}`} aria-current={i === 0 ? 'true' : undefined}>
+						{item.video ? (
+							<video src={item.poster ? undefined : `${item.src}#t=0.5`} poster={item.poster} muted playsinline preload="metadata" aria-hidden="true"></video>
+						) : (
+							<img src={item.src} alt="" loading="lazy" />
+						)}
+					</button>
+				))}
+			</div>
+		)}
+	</div>
+</article>
+
+<style>
+	.project {
+		display: grid;
+		grid-template-columns: 5fr 7fr;
+		align-items: center;
+		gap: 2.5em;
+	}
+
+	.copy h2 {
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+		margin: 0;
+		font-size: 1.8em;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.icon {
+		width: 1.6em;
+		height: 1.6em;
+		flex-shrink: 0;
+		border-radius: 22%;
+	}
+
+	.years {
+		margin: 0.2em 0 0.8em;
+		color: #86868b;
+		font-size: 0.9em;
+	}
+
+	.copy p {
+		line-height: 1.6;
+	}
+
+	.tech-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+		margin: 0 0 1em;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tech-list li {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		padding: 0.2em 0.6em;
+		border-radius: 999px;
+		background: #f5f5f7;
+		font-size: 0.78em;
+		font-weight: 500;
+	}
+
+	.social {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5em 1.5em;
+		font-weight: 600;
+	}
+
+	.links a {
+		color: inherit;
+	}
+
+	.links .website {
+		padding: 0.5em 1em;
+		border-radius: 999px;
+		background: #111;
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.gallery {
+		min-width: 0;
+	}
+
+	/* All slides are stacked in the stage; changing slides is a plain cross-dissolve. */
+	.stage {
+		position: relative;
+		aspect-ratio: 16 / 10;
+		border-radius: 12px;
+		overflow: hidden;
+		background: #1d1d1f;
+		/* Layered "plate" shadow after glenn.me: a hairline edge, then soft falloff. */
+		box-shadow:
+			0 0 2px rgba(20, 20, 20, 0.15),
+			0 1px 2px rgba(20, 20, 20, 0.1),
+			0 4px 8px -2px rgba(20, 20, 20, 0.1),
+			0 10px 18px -6px rgba(20, 20, 20, 0.12),
+			0 22px 36px -14px rgba(20, 20, 20, 0.14);
+	}
+
+	.slide {
+		position: absolute;
+		inset: 0;
+		margin: 0;
+		opacity: 0;
+		transition: opacity 0.6s ease;
+	}
+
+	.slide.is-active {
+		opacity: 1;
+	}
+
+	.slide img,
+	.slide video,
+	.thumb img,
+	.thumb video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.fit-top img,
+	.fit-top video {
+		object-position: top;
+	}
+
+	.fit-contain {
+		background: linear-gradient(160deg, #6aa6d8, #2c5f8a);
+	}
+
+	.fit-contain img,
+	.fit-contain video {
+		object-fit: contain;
+		padding: 6%;
+		box-sizing: border-box;
+	}
+
+	/* Pause/play for the slideshow, over the stage's bottom-right corner. */
+	.pause {
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+		z-index: 1;
+		display: grid;
+		place-items: center;
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(20, 20, 20, 0.5);
+		-webkit-backdrop-filter: blur(8px);
+		backdrop-filter: blur(8px);
+		color: #fff;
+		fill: currentColor;
+		cursor: pointer;
+		opacity: 0.8;
+		transition: opacity 0.2s ease, background-color 0.2s ease;
+	}
+
+	.pause:hover,
+	.pause:focus-visible {
+		opacity: 1;
+		background: rgba(20, 20, 20, 0.7);
+	}
+
+	.pause:focus-visible {
+		outline: 2px solid #fff;
+		outline-offset: 2px;
+	}
+
+	.pause .icon-play,
+	[data-paused] .pause .icon-pause {
+		display: none;
+	}
+
+	[data-paused] .pause .icon-play {
+		display: block;
+	}
+
+	.thumbs {
+		display: flex;
+		gap: 0.6em;
+		margin-top: 0.9em;
+	}
+
+	/* --progress (0–1) is set by initGallery() and fills the bar under the active thumb. */
+	.thumb {
+		position: relative;
+		flex: 0 1 96px;
+		aspect-ratio: 16 / 10;
+		padding: 0;
+		border: none;
+		border-radius: 6px;
+		overflow: hidden;
+		cursor: pointer;
+		opacity: 0.55;
+		box-shadow:
+			0 0 1px rgba(20, 20, 20, 0.15),
+			0 1px 2px rgba(20, 20, 20, 0.1),
+			0 3px 6px -1px rgba(20, 20, 20, 0.1);
+		outline-offset: 2px;
+		transition: opacity 0.2s ease;
+	}
+
+	.thumb:hover,
+	.thumb.is-active {
+		opacity: 1;
+	}
+
+	.thumb.is-active {
+		outline: 2px solid #111;
+	}
+
+	.thumb::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 3px;
+		background: #fff;
+		transform-origin: left;
+		transform: scaleX(var(--progress, 0));
+	}
+
+	.thumb.fit-contain img,
+	.thumb.fit-contain video {
+		padding: 4%;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.slide {
+			transition: none;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.project {
+			grid-template-columns: 1fr;
+			gap: 1.5em;
+		}
+
+		.copy h2 {
+			font-size: 1.5em;
+		}
+	}
+</style>

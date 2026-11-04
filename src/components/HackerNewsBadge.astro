@@ -1,0 +1,73 @@
+---
+import type { HackerNewsStory } from '../lib/hackernews';
+
+interface Props {
+	story: HackerNewsStory;
+}
+
+const { story } = Astro.props;
+---
+
+<a
+	class="hn-badge"
+	href={story.url}
+	target="_blank"
+	rel="noopener noreferrer"
+	title="Discussion on Hacker News"
+	aria-label={`${story.points} points and ${story.comments} comments on Hacker News`}
+>
+	<span class="hn-logo" aria-hidden="true">Y</span>
+	<span>{story.points}<span class="hn-unit"> pts</span></span>
+	<span class="hn-sep" aria-hidden="true">·</span>
+	<span>{story.comments}<span class="hn-unit"> comments</span></span>
+</a>
+
+<style>
+	.hn-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		flex-shrink: 0;
+		padding: 0.2em 0.55em 0.2em 0.25em;
+		border: 1px solid #ffd7bf;
+		border-radius: 999px;
+		background: #fff6f0;
+		color: #b34700;
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.4;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: background-color 150ms ease, transform 160ms var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.hn-badge:hover {
+			background: #ffead9;
+		}
+	}
+
+	.hn-badge:active {
+		transform: scale(0.97);
+	}
+
+	.hn-logo {
+		display: inline-grid;
+		place-items: center;
+		width: 1.25em;
+		height: 1.25em;
+		border-radius: 4px;
+		background: #ff6600;
+		color: #fff;
+		font-size: 0.9em;
+		font-weight: 700;
+	}
+
+	.hn-unit {
+		font-weight: 500;
+	}
+
+	.hn-sep {
+		color: #e0a77f;
+	}
+</style>

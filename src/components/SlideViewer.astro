@@ -1,0 +1,113 @@
+---
+// A talk's slides stacked vertically, to scroll through like a document. A small bar
+// pinned to the top shows which slide you're on and links to the PDF. Slides are
+// JPEGs rendered from the talk's PDF into /content/slides/<dir>/slide-01.jpg, …
+interface Props {
+	dir: string;
+	count: number;
+	pdf: string;
+	title: string;
+}
+
+const { dir, count, pdf, title } = Astro.props;
+const slides = Array.from({ length: count }, (_, i) => `/content/slides/${dir}/slide-${String(i + 1).padStart(2, '0')}.jpg`);
+---
+
+<div class="slide-viewer" role="region" aria-label={`Slides: ${title}`}>
+	<div class="slide-bar">
+		<span class="slide-count" aria-live="polite">Slide <span class="slide-current">1</span> of {count}</span>
+		<a class="slide-download" href={pdf} download>Download PDF</a>
+	</div>
+	<ol class="slide-list">
+		{slides.map((src, i) => (
+			<li>
+				<img src={src} alt={`Slide ${i + 1} of ${count}`} width="1280" height="720" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+			</li>
+		))}
+	</ol>
+</div>
+
+<script>
+	// Delegated, so it works for viewers moved into the lightbox after page load: whenever
+	// anything scrolls, the current slide is the one whose middle is nearest the middle
+	// of the screen.
+	document.addEventListener(
+		'scroll',
+		() => {
+			for (const viewer of document.querySelectorAll<HTMLElement>('dialog[open] .slide-viewer')) {
+				const middle = innerHeight / 2;
+				let current = 0;
+				let best = Infinity;
+				viewer.querySelectorAll('.slide-list img').forEach((slide, i) => {
+					const box = slide.getBoundingClientRect();
+					const distance = Math.abs(box.top + box.height / 2 - middle);
+					if (distance < best) {
+						best = distance;
+						current = i;
+					}
+				});
+				viewer.querySelector('.slide-current')!.textContent = String(current + 1);
+			}
+		},
+		true,
+	);
+</script>
+
+<style>
+	.slide-viewer {
+		margin: 1.25em 0;
+	}
+
+	/* Pinned flush to the top of the lightbox while its slides scroll past, spanning its
+	   full width; the right side is left clear for the lightbox's close button. */
+	.slide-bar {
+		position: sticky;
+		top: calc(-1 * var(--lb-pad-top, 0px));
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		gap: 1.25em;
+		margin: 0 calc(-1 * var(--lb-pad-x, 0px)) 0.75em;
+		padding: 1.1em calc(var(--lb-pad-x, 0px) + 48px) 1.1em var(--lb-pad-x, 0px);
+		background: rgba(255, 255, 255, 0.86);
+		-webkit-backdrop-filter: blur(12px) saturate(160%);
+		backdrop-filter: blur(12px) saturate(160%);
+	}
+
+	.slide-count {
+		color: #6e6e73;
+		font-size: 0.85em;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.slide-download {
+		color: #0066cc;
+		font-size: 0.9em;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.slide-download:hover {
+		text-decoration: underline;
+	}
+
+	.slide-list {
+		display: grid;
+		gap: 1.25em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.slide-list img {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		border-radius: 12px;
+		background: #f5f5f7;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.08),
+			0 8px 24px -10px rgba(20, 20, 20, 0.25);
+	}
+</style>

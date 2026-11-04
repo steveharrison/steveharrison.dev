@@ -1,15 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-    <rect class="tile" width="128" height="128" rx="28" />
-    <g class="mark" fill="none" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M46.5 43.47A11 11 0 1 0 41 64a11 11 0 1 1-5.5 21.06" />
-        <path d="M70 42v44M98 42v44M70 64h28" />
-    </g>
-    <style>
-        .tile { fill: #0F1219; }
-        .mark { stroke: #FFF; }
-        @media (prefers-color-scheme: dark) {
-            .tile { fill: #FFF; }
-            .mark { stroke: #0F1219; }
-        }
-    </style>
+	<!-- A paperclip, like the one holding the photo on the homepage. -->
+	<path class="clip" fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" transform="rotate(35 64 64)" d="M72 44V84a10 10 0 0 1-20 0V30a18 18 0 0 1 36 0V90a26 26 0 0 1-52 0V48" />
+	<style>
+		.clip { stroke: #1d1d1f; }
+		@media (prefers-color-scheme: dark) {
+			.clip { stroke: #f5f5f7; }
+		}
+	</style>
 </svg>

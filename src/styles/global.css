@@ -8,6 +8,8 @@
 	/* --accent: rgb(60, 137, 239); */
 	--accent: #000;
 	--accent-dark: #000d8a;
+	/* Keyboard focus rings on cards trace the card's own rounded edge in this colour. */
+	--focus-ring: #0066cc;
 	--black: 15, 18, 25;
 	--grey: #797979;
 	--grey-light: #e0e0e0;
@@ -15,6 +17,10 @@
 	--box-shadow:
 		0 2px 6px rgba(var(--grey), 25%), 0 8px 24px rgba(var(--grey), 33%),
 		0 16px 32px rgba(var(--grey), 33%);
+	/* Motion curves (after Emil Kowalski): a strong ease-out for things entering or
+	   responding to the pointer, and an ease-in-out for things moving on screen. */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 @font-face {
 	font-family: 'Atkinson';
@@ -218,4 +224,55 @@ footer {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
+}
+
+/* Code blocks (Expressive Code), finishing the shadcn-style look set in astro.config.mjs.
+   :root lifts these above Expressive Code's own rules, which load later. */
+:root .expressive-code .frame.has-title:not(.is-terminal) .title {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	min-width: 0;
+}
+
+/* A file icon before the file name (Lucide's "file"). */
+:root .expressive-code .frame.has-title:not(.is-terminal) .title::before {
+	content: '';
+	flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+	background-color: currentColor;
+	opacity: 0.8;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* The copy button: a 28px ghost icon button with Lucide's "copy" icon. In a titled block
+   it sits in the header bar, always visible; elsewhere it appears on hover, top right. */
+:root .expressive-code .copy button {
+	width: 28px;
+	height: 28px;
+	border-radius: 6px;
+	background: none;
+}
+
+:root .expressive-code .copy button::after {
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/svg%3E") center / 14px no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+
+:root .expressive-code .copy button:hover::after {
+	background-color: #1f2328;
+}
+
+:root .expressive-code .frame.has-title:not(.is-terminal) .copy {
+	inset-block-start: 0;
+	inset-inline-end: 0.4rem;
+	height: calc(var(--ec-uiFontSize) * 1.5 + 2 * var(--ec-uiPadBlk) + var(--ec-brdWd));
+	align-items: center;
+}
+
+:root .expressive-code .frame.has-title:not(.is-terminal) .copy button {
+	align-self: center;
+	opacity: 1;
 }

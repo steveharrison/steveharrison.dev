@@ -1,5 +1,4 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 import YouTubeIcon from '../assets/icons/youtube.svg';
 import XIcon from '../assets/icons/x.svg';
@@ -12,11 +11,6 @@ import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="nav-right">
-			<div class="nav-links">
-				<HeaderLink href="/">Home</HeaderLink>
-				<HeaderLink href="/articles">Blog</HeaderLink>
-				<HeaderLink href="/recommendations">Recommendations</HeaderLink>
-			</div>
 			<div class="social-links">
 				<a href="https://www.youtube.com/@steve_harrison" target="_blank">
 					<span class="sr-only">Follow Steve on YouTube</span>
@@ -115,11 +109,6 @@ import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
 
 <!-- Full-screen mobile overlay -->
 <div class="overlay" id="mobile-overlay" aria-hidden="true">
-	<div class="overlay-nav">
-		<a href="/">Home</a>
-		<a href="/articles">Blog</a>
-		<a href="/recommendations">Recommendations</a>
-	</div>
 	<div class="overlay-social">
 		<a href="https://www.youtube.com/@steve_harrison" target="_blank">YouTube</a>
 		<a href="https://x.com/stevenaharrison" target="_blank">X</a>
@@ -173,37 +162,50 @@ import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
 		font-weight: 500;
 	}
 
+	/* Even padding all round, so the focus ring is a clean rounded rectangle; the
+	   negative margin keeps the name where it was. */
+	nav h2 a {
+		margin: 0 -6px;
+		padding: 6px;
+		border-radius: 8px;
+	}
+
 	.nav-right {
 		display: flex;
 		align-items: center;
 		gap: 1em;
 	}
 
-	.nav-links, .social-links {
+	.social-links,
+	.social-links a {
 		display: flex;
-		gap: 0.75rem;
-	}
-	
-	.nav-links {
-		margin-right: 10px;
 	}
 
-	.nav-links a, .social-links a {
-		font-size: 0.95em;
-		font-weight: 500;
+	/* Each icon sits in the middle of its own 32px target: the 0.75rem gap between
+	   icons is split into 6px of padding on every side, so the gaps are tappable and
+	   the focus ring is even. The negative margin keeps the last icon flush right,
+	   and the 4px nudge keeps the icons at the same height as before. */
+	.social-links {
+		margin-right: -6px;
+	}
+
+	.social-links a {
+		position: relative;
+		top: 4px;
+		padding: 6px;
+		border-radius: 8px;
 		color: #000;
 		transition: color 0.2s ease;
 	}
 
-	.nav-links a:hover,
 	.social-links a:hover {
 		color: var(--grey);
-		border-color: var(--grey);
 	}
 
-	.social-links,
-	.social-links a {
-		display: flex;
+	nav h2 a:focus-visible,
+	.social-links a:focus-visible {
+		outline: 2px solid var(--focus-ring);
+		outline-offset: 0;
 	}
 
 	/* ---- Hamburger button (Apple-style morph) ---- */
@@ -237,45 +239,35 @@ import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
 		display: flex;
 		flex-direction: column;
 		padding: 4em 1.5em 0;
-		max-height: 0;
 		overflow: hidden;
+		/* Unrolls from the top. clip-path stays off the layout thread, unlike the
+		   max-height it replaces. Closing is quicker than opening. */
+		clip-path: inset(0 0 100% 0);
 		opacity: 0;
 		visibility: hidden;
-		transition: max-height 0.5s cubic-bezier(0.52, 0.16, 0.24, 1), opacity 0.36s linear, visibility 0s linear 0.5s;
+		transition: clip-path 250ms var(--ease-out), opacity 200ms ease, visibility 0s linear 250ms;
 	}
 
 	.overlay.is-open {
-		max-height: 100vh;
+		clip-path: inset(0);
 		opacity: 1;
 		visibility: visible;
-		transition: max-height 0.5s cubic-bezier(0.52, 0.16, 0.24, 1), opacity 0.36s linear, visibility 0s;
+		transition: clip-path 400ms var(--ease-out), opacity 250ms ease, visibility 0s;
 	}
 
-	.overlay-nav {
-		display: flex;
-		flex-direction: column;
-		padding-top: 1em;
-		border-top: 1px solid rgb(var(--grey-light));
-	}
-
-	.overlay-nav a {
-		font-size: 1em;
-		font-weight: 500;
-		color: rgb(var(--grey));
-		text-decoration: none;
-		padding: 0.6em 0;
-		transition: color 0.2s ease;
-	}
-
-	.overlay-nav a:hover {
-		color: rgb(var(--accent));
+	@media (prefers-reduced-motion: reduce) {
+		.overlay,
+		.overlay.is-open {
+			clip-path: none;
+		}
 	}
 
 	.overlay-social {
 		display: flex;
 		flex-direction: column;
 		gap: 0;
-		padding-top: 1.5em;
+		padding-top: 1em;
+		border-top: 1px solid rgb(var(--grey-light));
 	}
 
 	.overlay-social a {
@@ -310,11 +302,6 @@ import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
 		}
 	}
 
-	@media (min-width: 601px) and (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
 </style>
 
 <script is:inline>

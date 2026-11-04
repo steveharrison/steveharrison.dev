@@ -2,9 +2,9 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -14,67 +14,30 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				margin-bottom: 1.5rem;
-			}
-			ul li a {
-				display: flex;
-				align-items: baseline;
-				gap: 1rem;
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			.date {
-				color: rgb(var(--grey));
-				flex-shrink: 0;
-				min-width: 100px;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1.4;
-			}
-			ul li a:hover .title {
-				color: rgb(var(--accent));
-			}
-			@media (max-width: 720px) {
-				ul li a {
-					flex-direction: column;
-					gap: 0.25rem;
-				}
-			}
-		</style>
+		<BaseHead title={`Articles | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/${post.id}/`}>
-									<span class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</span>
-									<h4 class="title">{post.data.title}</h4>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+			<h1>Articles</h1>
+			<ArticleGrid posts={posts} />
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		box-sizing: border-box;
+		width: auto;
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 1em;
+	}
+
+	h1 {
+		font-size: 2.2em;
+		font-weight: 500;
+		margin: 1em 0 0.8em;
+	}
+</style>

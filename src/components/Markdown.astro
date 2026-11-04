@@ -1,0 +1,30 @@
+---
+// Inline Markdown for portfolio text: `code`, [links](https://…), **bold** and *italics*.
+// micromark escapes raw HTML, so the text can't inject markup.
+import { micromark } from 'micromark';
+
+const { text } = Astro.props as { text: string };
+const html = micromark(text).trim().replace(/^<p>([\s\S]*)<\/p>$/, '$1');
+---
+<span class="md" set:html={html} />
+
+<style>
+	/* Links as in blog posts: black, medium weight, with a grey underline. */
+	.md :global(a) {
+		color: #000;
+		font-weight: 500;
+		text-decoration: none;
+		border-bottom: 2px solid #b3b3b3;
+		transition: color 0.3s ease-in-out;
+	}
+
+	.md :global(a:hover) {
+		color: rgb(102 102 102);
+	}
+
+	/* The site's code style, sized down to sit within a line of body text. */
+	.md :global(code) {
+		padding: 0.1em 0.35em;
+		font-size: 0.88em;
+	}
+</style>

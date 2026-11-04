@@ -1,0 +1,166 @@
+---
+// Articles as cards: title, description, then the date beside a reads count and any
+// Hacker News or X engagement chips. Three to a row, stacking on narrower screens. Used on the homepage
+// and the articles page.
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import HackerNewsBadge from './HackerNewsBadge.astro';
+import XBadge from './XBadge.astro';
+import { getHackerNewsStories } from '../lib/hackernews';
+import { xPostFor } from '../lib/xposts';
+import { viewsFor } from '../lib/popularity';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+const hackerNews = await getHackerNewsStories();
+// Reads are only shown once they're worth pointing out. 7511 → "7.5K".
+const MIN_READS = 1000;
+const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });
+---
+
+<ul class="article-grid">
+	{posts.map((post) => (
+		<li class="article-card">
+			<a href={`/${post.id}/`}>
+				<span class="article-title">{post.data.title}</span>
+				{post.data.description && <span class="article-description">{post.data.description}</span>}
+			</a>
+			<div class="article-footer">
+				<span class="article-date"><FormattedDate date={post.data.pubDate} /></span>
+				{viewsFor(post.id) >= MIN_READS && (
+					<span class="reads-badge" title="Page views, from Google Analytics">
+						<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></svg>
+						{compact.format(viewsFor(post.id))} reads
+					</span>
+				)}
+				{hackerNews.has(post.id) && <HackerNewsBadge story={hackerNews.get(post.id)!} />}
+				{xPostFor(post.id) && <XBadge post={xPostFor(post.id)!} />}
+			</div>
+		</li>
+	))}
+</ul>
+
+<style>
+	/* Three cards in a row. */
+	.article-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.article-card {
+		display: flex;
+		flex-direction: column;
+		border-radius: 18px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.06),
+			0 1px 2px rgba(20, 20, 20, 0.06),
+			0 8px 22px -8px rgba(20, 20, 20, 0.16);
+		transition: transform 0.25s var(--ease-out, ease), box-shadow 0.25s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.article-card:hover {
+			transform: translateY(-2px);
+			box-shadow:
+				0 0 0 1px rgba(20, 20, 20, 0.06),
+				0 2px 4px rgba(20, 20, 20, 0.06),
+				0 14px 30px -10px rgba(20, 20, 20, 0.22);
+		}
+	}
+
+	/* Keyboard focus rings the whole card along its rounded edge, not just the link
+	   that fills its top. */
+	.article-card:has(> a:focus-visible) {
+		outline: 2px solid var(--focus-ring);
+		outline-offset: 2px;
+	}
+
+	.article-card > a:focus-visible {
+		outline: none;
+	}
+
+	.article-card > a {
+		display: flex;
+		flex-direction: column;
+		gap: 0.45em;
+		padding: 1.25em 1.35em 0.9em;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	/* Date and engagement chips along the bottom of each card. */
+	.article-footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.45em;
+		margin-top: auto;
+		padding: 0 1.35em 1.15em;
+	}
+
+	/* Quieter than the engagement chips: it's a supporting number, not a link. */
+	.reads-badge {
+		font-size: 0.65rem;
+	}
+
+	.article-date {
+		flex-shrink: 0;
+		color: #86868b;
+		font-size: 0.8em;
+		white-space: nowrap;
+	}
+
+	/* Same pill shape as the Hacker News and X chips, but not a link. */
+	.reads-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		flex-shrink: 0;
+		padding: 0.2em 0.55em;
+		border: 1px solid #e1e1e4;
+		border-radius: 999px;
+		background: #f6f6f7;
+		color: #86868b;
+		font-weight: 500;
+		line-height: 1.4;
+		white-space: nowrap;
+	}
+
+
+	/* Slightly smaller chips so the date and chip share a line in a third-width card. */
+	.article-footer :global(.hn-badge),
+	.article-footer :global(.x-badge) {
+		font-size: 0.7rem;
+	}
+
+	.article-title {
+		font-size: 1.05em;
+		font-weight: 600;
+		line-height: 1.3;
+		color: #1d1d1f;
+	}
+
+	.article-description {
+		color: #6e6e73;
+		font-size: 0.88em;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	@media (max-width: 860px) {
+		.article-grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

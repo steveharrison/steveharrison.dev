@@ -1,0 +1,316 @@
+---
+// My favourite books (on a bookshelf) and apps (as a springboard of icons), each under
+// its own heading. Used on the Recommendations page and at the bottom of the homepage.
+type Book = { title: string; author: string; isbn: string; href: string };
+type App = { name: string; slug: string; href: string; note?: string };
+
+// Covers live in /content/images/recommendations/books/<isbn>.jpg (from Open Library).
+const books: Book[] = [
+	{ title: 'Apple in China', author: 'Patrick McGee', isbn: '1668053373', href: 'https://www.amazon.com/Apple-China-Capture-Greatest-Company/dp/1668053373' },
+	{ title: 'Build', author: 'Tony Fadell', isbn: '0063046067', href: 'https://www.amazon.com/Build-Unorthodox-Guide-Making-Things/dp/0063046067' },
+	{ title: 'Sprint', author: 'Jake Knapp', isbn: '1501121740', href: 'https://www.amazon.com/Sprint-Solve-Problems-Test-Ideas/dp/150112174X' },
+	{ title: 'How to Build a Car', author: 'Adrian Newey', isbn: '0008196818', href: 'https://www.amazon.com/How-Build-Car-Autobiography-Designer/dp/0008196818' },
+	{ title: 'Broken Money', author: 'Lyn Alden', isbn: '1737789736', href: 'https://www.amazon.com/Broken-Money-Financial-System-Failing/dp/B0CNS7NQLD' },
+	{ title: 'Billion Dollar Whale', author: 'Tom Wright & Bradley Hope', isbn: '0316453471', href: 'https://www.amazon.com/Billion-Dollar-Whale-Fooled-Hollywood/dp/0316453471' },
+	{ title: 'Steve Jobs', author: 'Walter Isaacson', isbn: '1451648537', href: 'https://www.amazon.com/Steve-Jobs-Walter-Isaacson/dp/1451648537' },
+	{ title: 'The Everything Store', author: 'Brad Stone', isbn: '0316219282', href: 'https://www.amazon.com/Everything-Store-Jeff-Bezos-Amazon/dp/0316219282' },
+	{ title: 'Power Play', author: 'Tim Higgins', isbn: '0385545460', href: 'https://www.amazon.com/Power-Play-Tesla-Elon-Century/dp/B08N8PG1LR' },
+	{ title: 'Elon Musk', author: 'Walter Isaacson', isbn: '1982181281', href: 'https://www.amazon.com/Elon-Musk-Walter-Isaacson/dp/1982181281' },
+];
+
+// Icons live in /content/images/recommendations/apps/<slug>.png.
+const apps: App[] = [
+	{ name: 'Tower', slug: 'tower', href: 'https://www.git-tower.com/mac', note: 'Best Git GUI' },
+	{ name: 'Things', slug: 'things', href: 'https://culturedcode.com/things/', note: 'Beautiful todo app' },
+	{ name: '1Password', slug: '1password', href: 'https://1password.com' },
+	{ name: 'Sketch', slug: 'sketch', href: 'https://www.sketch.com' },
+	{ name: 'Querious', slug: 'querious', href: 'https://www.araelium.com/querious' },
+	{ name: 'Nova', slug: 'nova', href: 'https://nova.app' },
+	{ name: 'Toggl Track', slug: 'toggl-track', href: 'https://toggl.com/track/' },
+	{ name: 'Kaleidoscope', slug: 'kaleidoscope', href: 'https://kaleidoscope.app' },
+	{ name: 'DaisyDisk', slug: 'daisydisk', href: 'https://daisydiskapp.com' },
+	{ name: 'NetNewsWire', slug: 'netnewswire', href: 'https://netnewswire.com' },
+	{ name: 'iA Writer', slug: 'ia-writer', href: 'https://ia.net/writer' },
+	{ name: 'Byword', slug: 'byword', href: 'https://bywordapp.com' },
+	{ name: 'Flighty', slug: 'flighty', href: 'https://flightyapp.com' },
+	{ name: 'xScope', slug: 'xscope', href: 'https://xscopeapp.com' },
+	{ name: 'Day One', slug: 'day-one', href: 'https://dayoneapp.com' },
+	{ name: 'BetterDisplay', slug: 'betterdisplay', href: 'https://github.com/waydabber/BetterDisplay' },
+	{ name: 'Backblaze', slug: 'backblaze', href: 'https://www.backblaze.com' },
+	{ name: 'iMazing', slug: 'imazing', href: 'https://imazing.com' },
+	{ name: 'Proxyman', slug: 'proxyman', href: 'https://proxyman.io' },
+	{ name: 'RapidAPI', slug: 'rapidapi', href: 'https://rapidapi.com' },
+	{ name: 'Transmit', slug: 'transmit', href: 'https://panic.com/transmit/' },
+	{ name: 'Versions', slug: 'versions', href: 'https://versionsapp.com' },
+	{ name: 'Listy', slug: 'listy', href: 'https://listyapp.com' },
+	{ name: 'Little Snitch', slug: 'little-snitch', href: 'https://www.obdev.at/products/littlesnitch/' },
+];
+---
+
+<section class="group">
+	<div class="group-header">
+		<h2>Favourite Books</h2>
+	</div>
+	<ul class="shelf">
+		{books.map((book) => (
+			<li>
+				<a class="book" href={book.href} target="_blank" rel="noopener noreferrer">
+					<span class="cover">
+						<img src={`/content/images/recommendations/books/${book.isbn}.jpg`} alt={`${book.title} by ${book.author}`} loading="lazy" />
+					</span>
+					<span class="label" aria-hidden="true">
+						<strong>{book.title}</strong>
+						{book.author}
+					</span>
+				</a>
+			</li>
+		))}
+	</ul>
+</section>
+
+<section class="group">
+	<div class="group-header">
+		<h2>Favourite Apps</h2>
+	</div>
+	<ul class="apps">
+		{apps.map((app) => (
+			<li>
+				<a class="app" href={app.href} target="_blank" rel="noopener noreferrer">
+					<img src={`/content/images/recommendations/apps/${app.slug}.png`} alt="" width="64" height="64" loading="lazy" />
+					<span class="app-name">{app.name}</span>
+					{app.note && <span class="app-note">{app.note}</span>}
+				</a>
+			</li>
+		))}
+	</ul>
+</section>
+
+<style>
+	.group {
+		margin-bottom: 2.5em;
+		/* Keeps the edge books' hover labels from widening the page on phones. */
+		overflow-x: clip;
+		overflow-clip-margin: 2em;
+	}
+
+	.group-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		margin-bottom: 1em;
+	}
+
+	.group-header h2 {
+		font-size: 1.4em;
+		font-weight: 500;
+		margin: 0;
+		border: none;
+		padding: 0;
+		white-space: nowrap;
+	}
+
+	/* Bookshelf: every grid row is one shelf. Each plank is painted at the bottom of
+	   its --row-height band, measured up from the bottom: a 12px shadow, a 12px front
+	   edge, then a 10px top surface that the books stand on. */
+	.shelf {
+		--row-height: 245px;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		grid-auto-rows: var(--row-height);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		background-image: linear-gradient(
+			to bottom,
+			transparent calc(100% - 34px),
+			#dedee2 calc(100% - 34px),
+			#ececef calc(100% - 24px),
+			#f7f7f9 calc(100% - 24px),
+			#e2e2e6 calc(100% - 13px),
+			#d6d6db calc(100% - 13px),
+			#d6d6db calc(100% - 12px),
+			rgba(0, 0, 0, 0.1) calc(100% - 12px),
+			transparent 100%
+		);
+		background-size: 100% var(--row-height);
+	}
+
+	.shelf li {
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		/* Books stand on the middle of the plank's top surface. */
+		padding-bottom: 29px;
+	}
+
+	.book {
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+		outline: none;
+	}
+
+	.cover {
+		position: relative;
+		display: block;
+		height: 180px;
+		border-radius: 2px 5px 5px 2px;
+		overflow: hidden;
+		box-shadow:
+			0 1px 1px rgba(0, 0, 0, 0.12),
+			6px 6px 12px rgba(0, 0, 0, 0.14),
+			14px 2px 18px -6px rgba(0, 0, 0, 0.12);
+		transform-origin: bottom center;
+		transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+	}
+
+	.cover img {
+		display: block;
+		height: 100%;
+		width: auto;
+	}
+
+	/* The hinge where the cover wraps around the spine, plus a soft sheen. */
+	.cover::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(
+				90deg,
+				rgba(0, 0, 0, 0.22) 0,
+				rgba(255, 255, 255, 0.28) 3px,
+				rgba(0, 0, 0, 0.12) 7px,
+				transparent 12px
+			),
+			linear-gradient(115deg, rgba(255, 255, 255, 0.18), transparent 45%);
+		pointer-events: none;
+	}
+
+	.label {
+		position: absolute;
+		top: 0.5em;
+		left: 50%;
+		width: max-content;
+		/* Never wider than the book's own grid cell, so it can't spill past the edge of the shelf. */
+		max-width: min(180px, 100%);
+		box-sizing: border-box;
+		padding: 0.45em 0.8em;
+		border-radius: 10px;
+		background: #111;
+		color: #fff;
+		font-size: 0.75em;
+		line-height: 1.35;
+		text-align: center;
+		opacity: 0;
+		transform: translate(-50%, 4px);
+		transition: opacity 0.2s ease, transform 0.2s ease;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.label strong {
+		display: block;
+		font-weight: 600;
+	}
+
+	.book:hover .cover,
+	.book:focus-visible .cover {
+		transform: translateY(-12px) rotate(-2deg);
+		box-shadow:
+			0 1px 1px rgba(0, 0, 0, 0.12),
+			8px 16px 22px rgba(0, 0, 0, 0.18);
+	}
+
+	.book:hover .label,
+	.book:focus-visible .label {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+
+	.book:focus-visible .cover {
+		outline: 2px solid #111;
+		outline-offset: 3px;
+	}
+
+	/* Apps: a springboard-style grid of icons. */
+	.apps {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+		gap: 1.5em 0.5em;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.app {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35em;
+		padding: 0.6em 0.25em;
+		border-radius: 14px;
+		text-align: center;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.15s ease;
+	}
+
+	.app img {
+		width: 64px;
+		height: 64px;
+		filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+		transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.app:hover {
+		background: rgba(0, 0, 0, 0.04);
+	}
+
+	.app:hover img {
+		transform: translateY(-3px) scale(1.06);
+	}
+
+	.app-name {
+		font-size: 0.85em;
+		font-weight: 500;
+	}
+
+	.app-note {
+		font-size: 0.72em;
+		color: var(--grey);
+		line-height: 1.3;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cover,
+		.label,
+		.app img {
+			transition: none;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.shelf {
+			--row-height: 190px;
+			grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+		}
+
+		.cover {
+			height: 135px;
+		}
+
+		.apps {
+			grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+		}
+
+		.app img {
+			width: 54px;
+			height: 54px;
+		}
+	}
+</style>

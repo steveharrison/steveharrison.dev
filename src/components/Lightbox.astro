@@ -1,0 +1,241 @@
+---
+// An Apple-style lightbox. Any element with data-lightbox="id" opens the matching
+// hidden <div id="lb-id">: its content is moved into a modal <dialog> (and back again
+// on close), which zooms out of the clicked element over a blurred backdrop and zooms
+// back into it. The heading inside should have id="lb-title-id". Videos marked
+// data-autoplay start when shown; iframes with data-src only load once shown.
+---
+
+<dialog id="lightbox" class="lightbox">
+	<button type="button" class="lightbox-close" aria-label="Close">
+		<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+	</button>
+	<div class="lightbox-body"></div>
+</dialog>
+
+<script>
+	import { initGallery } from '../lib/gallery';
+
+	const dialog = document.querySelector<HTMLDialogElement>('#lightbox')!;
+	const body = dialog.querySelector<HTMLElement>('.lightbox-body')!;
+	const closeButton = dialog.querySelector<HTMLButtonElement>('.lightbox-close')!;
+	const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+	let opener: HTMLElement | null = null;
+	let source: HTMLElement | null = null;
+	let closing = false;
+
+	// Motion, after Emil Kowalski: ease-out for both directions (ease-in makes a close
+	// feel sluggish to start), exits clearly quicker than entrances, and nothing scales
+	// up from nothing.
+	const easeOut = 'cubic-bezier(0.23, 1, 0.32, 1)';
+	const easeSheet = 'cubic-bezier(0.32, 0.72, 0, 1)';
+
+	// The transform that shrinks the dialog onto the element it was opened from.
+	function collapsedOnto(element: HTMLElement | null) {
+		const from = element?.getBoundingClientRect();
+		if (!from || !from.width || reduceMotion()) return null;
+		const to = dialog.getBoundingClientRect();
+		const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+		const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+		return `translate(${dx}px, ${dy}px) scale(${Math.max(0.15, from.width / to.width)})`;
+	}
+
+	// Hand the open content back to its hidden home, stopping anything that plays.
+	function putBack() {
+		body.querySelectorAll('video').forEach((video) => video.pause());
+		body.querySelectorAll<HTMLIFrameElement>('iframe[data-src]').forEach((frame) => frame.removeAttribute('src'));
+		source?.append(...body.childNodes);
+		source = null;
+	}
+
+	function show(next: HTMLElement, id: string) {
+		putBack();
+		source = next;
+		body.append(...next.childNodes);
+		dialog.setAttribute('aria-labelledby', `lb-title-${id}`);
+		body.scrollTop = 0;
+		body.querySelectorAll<HTMLElement>('.gallery:not([data-ready])').forEach((gallery) => {
+			gallery.dataset.ready = '';
+			initGallery(gallery);
+		});
+		body.querySelectorAll<HTMLIFrameElement>('iframe[data-src]').forEach((frame) => (frame.src = frame.dataset.src!));
+		body.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((video) => {
+			if (!reduceMotion()) video.play().catch(() => {});
+		});
+	}
+
+	function open(trigger: HTMLElement, next: HTMLElement) {
+		const id = trigger.dataset.lightbox!;
+		// Following a link inside the lightbox (e.g. a technology to a role) swaps the content in place.
+		if (dialog.open) {
+			show(next, id);
+			body.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: easeOut });
+			return;
+		}
+		opener = trigger;
+		dialog.showModal();
+		show(next, id);
+
+		const collapsed = collapsedOnto(trigger);
+		dialog.animate(
+			collapsed
+				? [{ opacity: 0, transform: collapsed }, { opacity: 1, transform: 'none' }]
+				: [{ opacity: 0, transform: 'scale(0.96)' }, { opacity: 1, transform: 'none' }],
+			{ duration: collapsed ? 400 : 200, easing: collapsed ? easeSheet : easeOut },
+		);
+		dialog.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, easing: easeOut, pseudoElement: '::backdrop' });
+	}
+
+	async function close() {
+		if (closing || !dialog.open) return;
+		closing = true;
+		// Ignore further clicks on the content while it leaves.
+		dialog.style.pointerEvents = 'none';
+		const collapsed = collapsedOnto(opener);
+		const duration = collapsed ? 200 : 140;
+		const zoom = dialog.animate(
+			collapsed
+				? [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: collapsed }]
+				: [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(0.98)' }],
+			{ duration, easing: easeOut, fill: 'forwards' },
+		);
+		dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration, easing: easeOut, pseudoElement: '::backdrop', fill: 'forwards' });
+		await zoom.finished.catch(() => {});
+		dialog.close();
+		dialog.style.pointerEvents = '';
+		closing = false;
+	}
+
+	document.addEventListener('click', (event) => {
+		const trigger = (event.target as Element).closest<HTMLElement>('[data-lightbox]');
+		// Leave modified clicks alone so links can still open in a new tab.
+		if (!trigger || event.metaKey || event.ctrlKey || event.shiftKey) return;
+		const next = document.getElementById(`lb-${trigger.dataset.lightbox}`);
+		if (!next) return;
+		event.preventDefault();
+		open(trigger, next);
+	});
+
+	dialog.addEventListener('close', () => {
+		// "close" fires a task later; if something has already reopened the dialog, leave it be.
+		if (dialog.open) return;
+		putBack();
+		dialog.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
+	});
+	// Escape: animate out rather than vanishing.
+	dialog.addEventListener('cancel', (event) => {
+		event.preventDefault();
+		close();
+	});
+	// A click on the backdrop lands on the dialog element itself.
+	dialog.addEventListener('click', (event) => {
+		if (event.target === dialog) close();
+	});
+	closeButton.addEventListener('click', close);
+
+	// Keep the page from scrolling behind the lightbox without hiding its scrollbar
+	// (overflow: hidden on <html> made the page jump sideways as the scrollbar went and
+	// came back). The modal dialog already makes the page inert to clicks; this stops the
+	// wheel and touch scrolling that would otherwise fall through from the backdrop, or
+	// from content too short to scroll (overscroll-behavior only contains scrollers).
+	function blockPageScroll(event: Event) {
+		const target = event.target as Element;
+		const insideBody = body.contains(target);
+		if (!insideBody || body.scrollHeight <= body.clientHeight) event.preventDefault();
+	}
+	dialog.addEventListener('wheel', blockPageScroll, { passive: false });
+	dialog.addEventListener('touchmove', blockPageScroll, { passive: false });
+	// Scroll keys pressed outside the content (e.g. with the close button focused) would
+	// scroll the page instead, so send them to the content.
+	dialog.addEventListener('keydown', (event) => {
+		const target = event.target as HTMLElement;
+		if (body.contains(target) || target.matches('input, textarea, select, [contenteditable]')) return;
+		const page = body.clientHeight * 0.9;
+		const top = { PageDown: page, PageUp: -page, ArrowDown: 40, ArrowUp: -40, Home: -body.scrollHeight, End: body.scrollHeight }[event.key];
+		if (top === undefined) return;
+		event.preventDefault();
+		body.scrollBy({ top, behavior: reduceMotion() ? 'auto' : 'smooth' });
+	});
+</script>
+
+<style>
+	.lightbox {
+		width: min(1000px, calc(100vw - 32px));
+		max-width: none;
+		max-height: calc(100dvh - 48px);
+		padding: 0;
+		border: none;
+		border-radius: 24px;
+		background: #fff;
+		color: #1d1d1f;
+		box-shadow:
+			0 0 0 1px rgba(0, 0, 0, 0.04),
+			0 30px 80px -20px rgba(0, 0, 0, 0.35);
+		/* The dialog is a fixed frame; only .lightbox-body scrolls, so the rounded
+		   corners stay intact and the close button stays put. */
+		overflow: hidden;
+	}
+
+	.lightbox[open] {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.lightbox::backdrop {
+		background: rgba(0, 0, 0, 0.4);
+		-webkit-backdrop-filter: blur(18px) saturate(140%);
+		backdrop-filter: blur(18px) saturate(140%);
+	}
+
+	.lightbox-close {
+		position: absolute;
+		top: 14px;
+		right: 14px;
+		z-index: 2;
+		display: grid;
+		place-items: center;
+		width: 34px;
+		height: 34px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(232, 232, 237, 0.85);
+		color: #424245;
+		cursor: pointer;
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+		transition: background 0.15s ease;
+	}
+
+	.lightbox-close:hover {
+		background: #d2d2d7;
+	}
+
+	/* Scrolls without a visible scrollbar (trackpads, touch and keyboard still work). */
+	.lightbox-body {
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		scrollbar-width: none;
+		/* Exposed so content can pin itself flush to the lightbox's top edge. */
+		--lb-pad-top: 3em;
+		--lb-pad-x: 3em;
+		padding: var(--lb-pad-top) var(--lb-pad-x) 2.75em;
+	}
+
+	.lightbox-body::-webkit-scrollbar {
+		display: none;
+	}
+
+	@media (max-width: 600px) {
+		.lightbox {
+			border-radius: 18px;
+		}
+
+		.lightbox-body {
+			--lb-pad-top: 2.5em;
+			--lb-pad-x: 1.25em;
+			padding-bottom: 1.75em;
+		}
+	}
+</style>

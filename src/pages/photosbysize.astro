@@ -3,8 +3,6 @@
 // landing page keeps its own bare styling rather than inheriting the site chrome.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const description = "A macOS app that lists your Photos library by file size, biggest first, so you can see what is eating your storage.";
-// Swap in the real App Store URL once the app is live on App Store Connect.
-const appStoreURL = "https://apps.apple.com/app/photos-by-size/id0000000000";
 ---
 
 <!doctype html>
@@ -110,8 +108,8 @@ const appStoreURL = "https://apps.apple.com/app/photos-by-size/id0000000000";
 
     <img class="screenshot" src="/photosbysize/screenshot.png" alt="Photos by Size window listing photos and videos with thumbnails, largest first, with exact file sizes and dates">
 
-    <a class="download" href={appStoreURL}>Get it on the Mac App Store</a>
-    <p class="fine-print">macOS 14 or later · Nothing is deleted permanently · No data leaves your Mac</p>
+    <a class="download" href="/photosbysize/PhotosBySize.zip" download>Download for macOS</a>
+    <p class="fine-print">Free · macOS 14 or later · Nothing is deleted permanently · No data leaves your Mac</p>
     <p class="fine-print">
       <a href="/">By Steve Harrison</a> ·
       <a href="/photosbysize/privacy-policy">Privacy</a> ·
@@ -121,8 +119,9 @@ const appStoreURL = "https://apps.apple.com/app/photos-by-size/id0000000000";
 
   <script is:inline>
     document.querySelector('a.download').addEventListener('click', function () {
-      gtag('event', 'app_store_click', {
+      gtag('event', 'download', {
         app_name: 'Photos by Size',
+        file_name: 'PhotosBySize.zip',
         link_url: this.href,
       });
     });

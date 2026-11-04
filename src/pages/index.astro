@@ -2,17 +2,63 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
+import Lightbox from '../components/Lightbox.astro';
+import ProjectDetail from '../components/ProjectDetail.astro';
+import Favourites from '../components/Favourites.astro';
+import { Code } from 'astro-expressive-code/components';
+import SlideViewer from '../components/SlideViewer.astro';
+import ArticleGrid from '../components/ArticleGrid.astro';
+import Markdown from '../components/Markdown.astro';
+import { visibleProjects as projects, career, tech, visibleDesigns as designs } from '../data/portfolio';
+import { byPopularity } from '../lib/popularity';
+import StackOverflowIcon from '../assets/icons/stackoverflow.svg';
+import sharp from 'sharp';
 
-const posts = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const posts = (await getCollection('blog')).sort(byPopularity).slice(0, 3);
 
-// Fetch latest videos from YouTube at build time
+// Each inline role thumbnail's width / height, so a row of them can share one height.
+const thumbAspect = new Map<string, number>();
+for (const item of career.flatMap((role) => (role.inline && role.media) || [])) {
+	const src = item.video ? item.poster : item.src;
+	if (!src || thumbAspect.has(src)) continue;
+	try {
+		const { width, height } = await sharp(`${process.cwd()}/public${src}`).metadata();
+		if (width && height) thumbAspect.set(src, width / height);
+	} catch (e) {
+		console.warn(`Failed to read thumbnail size for ${src}:`, e);
+	}
+}
+
+
+// Stack Overflow reputation, fetched at build time (falls back to the last known figure).
+let stackOverflowReputation = 126498;
+try {
+	const res = await fetch('https://api.stackexchange.com/2.3/users/48492?site=stackoverflow');
+	const reputation = (await res.json()).items?.[0]?.reputation;
+	if (typeof reputation === 'number') stackOverflowReputation = reputation;
+} catch (e) {
+	console.warn('Failed to fetch Stack Overflow reputation:', e);
+}
+// e.g. "22 Jun 2009, 6:30 pm AEST", in Sydney time. The date comes from en-GB because
+// en-AU writes "June"/"July" in full but abbreviates the other months.
+const postedDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Australia/Sydney' });
+const postedTime = new Intl.DateTimeFormat('en-AU', { hour: 'numeric', minute: '2-digit', timeZone: 'Australia/Sydney', timeZoneName: 'short' });
+const postedAt = { format: (date: Date) => `${postedDate.format(date)}, ${postedTime.format(date)}` };
+const reputationLabel = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(stackOverflowReputation);
+
+// Fetch videos from YouTube at build time and show the most viewed.
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@steve_harrison/videos';
-let videos: { title: string; thumbnail: string; href: string }[] = [];
+let videos: { id: string; title: string; thumbnail: string; href: string; views: number; viewsLabel: string }[] = [];
+
+// YouTube abbreviates counts on the channel page ("2.9K", "1.2M"); good enough to rank by.
+function parseViews(text: string | undefined): number {
+	const m = text?.replace(/,/g, '').match(/([\d.]+)\s*([KMB])?/i);
+	if (!m) return 0;
+	const scale = { K: 1e3, M: 1e6, B: 1e9 }[m[2]?.toUpperCase() as 'K' | 'M' | 'B'] ?? 1;
+	return Math.round(parseFloat(m[1]) * scale);
+}
 
 try {
 	const res = await fetch(YOUTUBE_CHANNEL_URL);
@@ -25,7 +71,6 @@ try {
 			if (tab.tabRenderer?.title === 'Videos') {
 				const items = tab.tabRenderer.content.richGridRenderer.contents;
 				for (const item of items) {
-					if (videos.length >= 3) break;
 					const content = item.richItemRenderer?.content;
 					if (!content) continue;
 
@@ -33,12 +78,18 @@ try {
 					const lockup = content.lockupViewModel;
 					if (lockup) {
 						const videoId = lockup.contentId;
-						const title = lockup.metadata?.lockupMetadataViewModel?.title?.content;
+						const metadata = lockup.metadata?.lockupMetadataViewModel;
+						const title = metadata?.title?.content;
+						// The first metadata part is the view count, e.g. "2.9K".
+						const viewsLabel = metadata?.metadata?.contentMetadataViewModel?.metadataRows?.[0]?.metadataParts?.[0]?.text?.content;
 						if (videoId && title) {
 							videos.push({
+								id: videoId,
 								title,
 								thumbnail: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
 								href: `https://www.youtube.com/watch?v=${videoId}`,
+								views: parseViews(viewsLabel),
+								viewsLabel: viewsLabel ?? '',
 							});
 						}
 						continue;
@@ -47,10 +98,14 @@ try {
 					// Older YouTube layout: videoRenderer
 					const vid = content.videoRenderer;
 					if (vid) {
+						const viewsLabel = vid.shortViewCountText?.simpleText?.replace(/\s*views?$/i, '');
 						videos.push({
+							id: vid.videoId,
 							title: vid.title.runs[0].text,
 							thumbnail: `https://i.ytimg.com/vi/${vid.videoId}/mqdefault.jpg`,
 							href: `https://www.youtube.com/watch?v=${vid.videoId}`,
+							views: parseViews(viewsLabel),
+							viewsLabel: viewsLabel ?? '',
 						});
 					}
 				}
@@ -61,40 +116,261 @@ try {
 } catch (e) {
 	console.warn('Failed to fetch YouTube videos:', e);
 }
+// Hand-picked, in order. If YouTube's page changes and a pick is missing, fall back to the most viewed.
+const FEATURED_VIDEOS = ['s-yZMJ0cnig', 'otejcLXeHe0', 'AOzGRO9Iz_4']; // Xcode completion, JSON Crack, InstantDB
+const byViews = videos.toSorted((a, b) => b.views - a.views);
+videos = [
+	...FEATURED_VIDEOS.map((id) => videos.find((video) => video.id === id)).filter((video) => video !== undefined),
+	...byViews.filter((video) => !FEATURED_VIDEOS.includes(video.id)),
+].slice(0, 3);
 
-const projects = [
+// The channel page only says "8mo ago", so read each top video's publish date from its page.
+const videoDates = new Map<string, string>();
+await Promise.all(
+	videos.map(async (video) => {
+		try {
+			const html = await (await fetch(video.href)).text();
+			const date = html.match(/"uploadDate":"([^"]+)"/)?.[1];
+			if (date) videoDates.set(video.id, date);
+		} catch (e) {
+			console.warn(`Failed to fetch the publish date for ${video.href}:`, e);
+		}
+	}),
+);
+
+const contributions = [
 	{
-		title: "Photos by Size",
-		description: "A macOS app that lists your Photos library by file size, biggest first, so you can see what is eating your storage.",
-		image: "/content/images/thumbnail/photosbysize.png",
-		href: "/photosbysize/",
+		project: "Chrome DevTools",
+		title: "Fix clipped focus ring on the “No throttling” select",
+		description: "The Network panel's throttling menu had its focus ring cut off on both sides by an `overflow: hidden`.",
+		date: "Oct 2026",
+		merged: "2026-10-08T12:51:59Z",
+		media: [
+			{ src: "/content/images/open-source/devtools-focus-ring-repro.mp4", label: "Repro", video: true },
+			{ src: "/content/images/open-source/devtools-focus-ring-before.png", label: "Before" },
+		],
+		href: "https://chromium-review.googlesource.com/c/devtools/devtools-frontend/+/8435023",
+		lang: "css",
+		diff: `--- a/front_end/ui/legacy/inspectorCommon.css
++++ b/front_end/ui/legacy/inspectorCommon.css
+@@ -741,7 +741,6 @@
+     height: var(--toolbar-height);
+     border: none;
+     white-space: pre;
+-    overflow: hidden;
+     max-width: 100%;
+     color: var(--icon-default);
+@@ -1013,6 +1012,7 @@
+       width: 100%;
+       position: absolute;
+       left: 0;
++      border-radius: inherit;
+       background: var(--sys-color-cdt-base);
+       z-index: -1;
+     }`,
 	},
 	{
-		title: "Salary Ticker",
-		description: "A macOS menubar app that shows how much you've earned so far today, ticking up in real time.",
-		image: "/content/images/thumbnail/salaryticker.png",
-		href: "/salaryticker/",
+		project: "Chrome DevTools",
+		title: "Fix focused list item gradient in dark mode",
+		description: "Focused items in the WebMCP tools list faded to white instead of dark in dark mode.",
+		date: "Oct 2026",
+		merged: "2026-10-07T15:11:29Z",
+		media: [
+			{ src: "/content/images/open-source/devtools-webmcp-gradient-before.png", label: "Before" },
+			{ src: "/content/images/open-source/devtools-webmcp-gradient-after.png", label: "After" },
+		],
+		href: "https://chromium-review.googlesource.com/c/devtools/devtools-frontend/+/8458362",
+		lang: "css",
+		diff: `--- a/front_end/ui/legacy/listWidget.css
++++ b/front_end/ui/legacy/listWidget.css
+@@ -9,18 +9,13 @@
+   overflow-y: auto;
+   flex-direction: column;
+
+-  --override-background-list-item-color: hsl(0deg 0% 96%);
++  --override-background-list-item-color: var(--sys-color-neutral-container);
+
+   &:has(div) {
+     border: var(--sys-size-1) solid var(--sys-color-divider);
+   }
+ }
+
+-.theme-with-dark-background .list,
+-:host-context(.theme-with-dark-background) .list {
+-  --override-background-list-item-color: hsl(0deg 0% 16%);
+-}
+-`,
 	},
 	{
-		title: "The Finances App",
-		description: "A local-first personal finance app for analysing spending across multiple accounts.",
-		image: "/content/images/thumbnail/the-finances-app.png",
-		href: "https://thefinances.app",
+		project: "Preact",
+		title: "Fix JSX SVG attribute names",
+		description: "`clipPath` and `clipRule` weren't being converted to `clip-path` and `clip-rule` in the DOM.",
+		date: "Feb 2020",
+		merged: "2020-02-26T11:21:22Z",
+		href: "https://github.com/preactjs/preact/pull/2366",
+		lang: "js",
+		diff: String.raw`--- a/compat/src/render.js
++++ b/compat/src/render.js
+@@ -7,7 +7,7 @@
+-const CAMEL_PROPS = /^(?:accent|alignment|arabic|baseline|cap|color|fill|flood|font|glyph|horiz|marker|overline|paint|stop|strikethrough|stroke|text|underline|unicode|units|v|vector|vert|word|writing|x)[A-Z]/;
++const CAMEL_PROPS = /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|fill|flood|font|glyph(?!R)|horiz|marker(?!H|W|U)|overline|paint|stop|strikethrough|stroke|text(?!L)|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/;`,
 	},
 	{
-		title: "CSS Advent Calendar",
-		description: "Created an advent calendar in 2024 + 2025 to showcase new CSS & JS features.",
-		image: "/content/images/thumbnail/css-advent-calendar.png",
-		href: "https://cssadventcalendar.dev",
+		project: "React",
+		hidden: true,
+		title: "Fix a typo in the SVG attribute list comment",
+		description: "Corrected \"scrapping\" to \"scraping\" in the comment above React DOM's list of SVG attributes.",
+		date: "Feb 2020",
+		merged: "2020-02-26T05:01:09Z",
+		href: "https://github.com/facebook/react/pull/18119",
+		note: "As you can see, I'm a 10x dev",
+		lang: "js",
+		diff: `--- a/packages/react-dom/src/shared/DOMProperty.js
++++ b/packages/react-dom/src/shared/DOMProperty.js
+@@ -409,7 +409,7 @@
+ // or boolean value assignment. Regular attributes that just accept strings
+ // and have the same names are omitted, just like in the HTML whitelist.
+ // Some of these attributes can be hard to find. This list was created by
+-// scrapping the MDN documentation.
++// scraping the MDN documentation.`,
 	},
 	{
-		title: "Dazzle",
-		description: "I built a self-updating framework for Apple Dashboard widgets back in high school.",
-		image: "/content/images/thumbnail/dazzle.png",
-		href: "https://thefinances.app",
-	}
+		project: "Stack Overflow",
+		title: "Answering questions since 2008",
+		description: "Earned a 126K+ reputation answering questions on Stack Overflow.",
+		date: "2008 – now",
+		href: "https://stackoverflow.com/users/48492/steve-harrison",
+		// Top posts by votes, snapshot from the Stack Exchange API (Oct 2026). Dates are UTC.
+		posts: [
+			{ title: "How do I make the first letter of a string uppercase in JavaScript?", kind: "Answer", score: 8195, href: "https://stackoverflow.com/a/1026087", date: "2009-06-22T08:30:38Z" },
+			{ title: "How to clone a Date object?", kind: "Answer", score: 1075, href: "https://stackoverflow.com/a/1090817", date: "2009-07-07T07:24:00Z" },
+			{ title: "Declaring multiple variables in JavaScript", kind: "Question", score: 415, href: "https://stackoverflow.com/q/694102", date: "2009-03-29T04:37:25Z" },
+			{ title: "Deleting Objects in JavaScript", kind: "Question", score: 398, href: "https://stackoverflow.com/q/742623", date: "2009-04-12T23:18:31Z" },
+			{ title: "Convert a Unix timestamp to time in JavaScript", kind: "Answer", score: 307, href: "https://stackoverflow.com/a/847200", date: "2009-05-11T08:31:47Z" },
+		],
+	},
 ];
 
+const talks = [
+	{
+		event: "MelbJS, July 2026",
+		title: "Local-first web apps",
+		image: "/content/images/talks/melbjs-2026-local-first.jpg",
+		repo: "https://github.com/steveharrison/2026-07-08-local-sqlite-experiments",
+		date: "2026-07-08",
+		deck: { dir: "melbjs-2026-local-first", count: 30, pdf: "/content/slides/melbjs-2026-local-first/local-first-web-apps.pdf" },
+	},
+	{
+		event: "SydCSS, June 2023",
+		title: "What's new in CSS in 2023",
+		date: "2023-06-08",
+		href: "https://www.youtube.com/watch?v=rtXmM7uHyrg&t=613s",
+		deck: { dir: "sydcss-2023-css", count: 38, pdf: "/content/slides/sydcss-2023-css/whats-new-in-css-2023.pdf" },
+		youtubeId: "rtXmM7uHyrg",
+		// The same talk again, a few months later.
+		alsoGiven: {
+			event: "Web Directions Summit 2023",
+			// The week before my 30 Oct 2023 LinkedIn post about it.
+			date: "2023-10-23",
+			pdf: "/content/slides/web-directions-2023-css/whats-new-in-css-2023-web-directions.pdf",
+		},
+	},
+	{
+		event: "Web Directions Summit 2022",
+		title: "Introduction to Temporal",
+		repo: "https://github.com/steveharrison/introduction-to-temporal",
+		// From the "Exploring Temporal" folder that holds the Summit 22 photo.
+		date: "2022-12-02",
+		// The Conffab recording at 1:24:16: the "What's wrong with Date?" slide beside me on stage.
+		image: "/content/images/talks/web-directions-2022-temporal-stream.jpg",
+		// Shown in the lightbox above the slides too (the deck's own first slide is the title).
+		photo: "/content/images/talks/web-directions-2022-temporal-stream.jpg",
+		href: "https://webdirections.org/summit22/speakers/steve-harrison.php",
+		deck: { dir: "web-directions-2022-temporal", count: 9, pdf: "/content/slides/web-directions-2022-temporal/introduction-to-temporal.pdf" },
+	},
+	{
+		event: "Sydney F-Enders",
+		title: "Visual diffing + filling OTP codes in Playwright",
+		href: "/content/slides/f-enders-2023-playwright/advanced-testing-in-playwright.pdf",
+		deck: { dir: "f-enders-2023-playwright", count: 22, pdf: "/content/slides/f-enders-2023-playwright/advanced-testing-in-playwright.pdf" },
+		image: "/content/images/talks/f-enders-2023-playwright.jpg",
+		// From the "Advanced Automation Testing Talk" folder.
+		date: "2023-06-06",
+	},
+];
+
+// Logos shown beside each open source project's name in its lightbox.
+const projectIcons: Record<string, string> = {
+	'Chrome DevTools': '/content/images/tech/googlechrome.svg',
+	Preact: '/content/images/tech/preact.svg',
+	React: '/content/images/tech/react.svg',
+	'Stack Overflow': '/content/images/tech/stackoverflow.svg',
+};
+
+// Contributions grouped by project, in the order each project first appears. Hidden ones are left
+// out, but keep their index so the lightbox ids still line up.
+const ossGroups = [
+	...Map.groupBy(
+		contributions.map((contribution, index) => ({ contribution, index })).filter(({ contribution }) => !contribution.hidden),
+		({ contribution }) => contribution.project,
+	),
+];
+
+// Popular articles, shown newest first.
+const articles = [...posts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// The career timeline, newest first. The current role and any featured roles are shown
+// in full; the rest open in the lightbox. Each role is labelled on the timescale with the
+// year it started, unless the role above it started that year too. Roles are sorted by
+// start year; within a year they keep their order in the career data (a stable sort).
+const [currentRole] = career;
+const timeline = career
+	.toSorted((a, b) => b.start.slice(0, 4).localeCompare(a.start.slice(0, 4)))
+	.map((role, i, roles) => {
+		const year = role.start.slice(0, 4);
+		return {
+			role,
+			year: i > 0 && roles[i - 1].start.startsWith(year) ? '' : year,
+			full: role === currentRole || role.featured,
+		};
+	});
+
+// Roles with no media and only a few lines of text are shown in full on the card.
+function isShortRole(role: (typeof career)[number]) {
+	const text = (role.summary ?? '') + (role.highlights ?? []).join(' ');
+	return !role.media?.length && text.length <= 320;
+}
+
+// "Lead Front End Developer · Contract → Perm", from the role's title and the
+// employment types in its resume terms (e.g. "Contract: 2015 – 2016 • Perm 2016 – 2020").
+function roleSubtitle(role: (typeof career)[number]) {
+	const types = role.terms
+		.split('•')
+		.map((part) => part.split(':')[0].replace(/\d.*$/, '').trim())
+		.filter(Boolean);
+	return [role.title, types.join(' → ')].filter(Boolean).join(' · ');
+}
+
+// Turn a unified diff into plain code plus the line numbers Expressive Code should mark
+// as inserted/deleted, so the full diff in the lightbox keeps syntax highlighting.
+function parseDiff(diff: string, lang: string) {
+	const lines: string[] = [];
+	const ins: number[] = [];
+	const del: number[] = [];
+	let title = '';
+	for (const line of diff.split('\n')) {
+		if (line.startsWith('+++ b/')) title = line.slice(6);
+		else if (line.startsWith('---')) continue;
+		else if (line.startsWith('@@')) {
+			if (lines.length) lines.push(lang === 'css' ? '/* … */' : '// …');
+		} else {
+			if (line[0] === '+') ins.push(lines.length + 1);
+			if (line[0] === '-') del.push(lines.length + 1);
+			lines.push(line.slice(1));
+		}
+	}
+	return { code: lines.join('\n'), meta: `title="${title}" ins={${ins.join(',')}} del={${del.join(',')}}` };
+}
 ---
 
 <!doctype html>
@@ -107,123 +383,514 @@ const projects = [
 		<main>
 			<!-- Hero -->
 			<section class="hero">
-				<img
-					src="/content/images/thumbnail/profile-pic.png"
-					alt="Steve Harrison"
-					class="hero-avatar"
-					width="120"
-					height="120"
-				/>
+				<!-- A print with a white border, its corners curling off the page, held by a paperclip. -->
+				<figure class="print">
+					<span class="print-paper"><img
+						src="/content/images/thumbnail/profile-pic.png"
+						alt="Steve Harrison"
+						class="hero-avatar"
+						width="150"
+						height="150"
+					/></span>
+					<svg class="paperclip" width="22" height="58" viewBox="0 0 22 58" fill="none" aria-hidden="true">
+						<defs>
+							<linearGradient id="clip-metal" x1="0" y1="0" x2="1" y2="1">
+								<stop offset="0" stop-color="#d9dde2" />
+								<stop offset="0.5" stop-color="#8d949c" />
+								<stop offset="1" stop-color="#c3c8ce" />
+							</linearGradient>
+						</defs>
+						<path d="M7 18V9a4 4 0 0 1 8 0v37a7.5 7.5 0 0 1-15 0V14" stroke="url(#clip-metal)" stroke-width="2.4" stroke-linecap="round" transform="translate(3 2)" />
+						<path d="M7 18V9a4 4 0 0 1 8 0v37a7.5 7.5 0 0 1-15 0V14" stroke="rgba(255,255,255,0.7)" stroke-width="0.6" stroke-linecap="round" transform="translate(2.6 1.6)" />
+					</svg>
+				</figure>
 				<div class="hero-text">
 					<h1>Hey, I'm Steve.</h1>
+					<p class="bio bio-lead">
+						I’m a Senior Front End Developer at <a href="https://qantas.com" class="bio-link"><img class="bio-link-icon-qantas" src="/content/images/icons/qantas.png" alt="" width="20" height="20" />Qantas</a> and I’m building <a href="https://thefinances.app" class="bio-link"><img class="bio-link-icon-finances" src="/content/images/icons/the-finances-app.png" alt="" width="20" height="20" />The Finances App</a> in my spare time.
+					</p>
 					<p class="bio">
-						I’m a Senior Front End Developer at <a href="https://qantas.com">Qantas</a> and I'm building <a href="https://thefinances.app">The Finances App</a> in my spare time. I focus on building performant, accessible, and secure websites that deliver high business value and great user experiences. I've worked for a variety of Australian  companies, spoken at meetups/conferences in Sydney, contributed to open source projects including Preact, and answered questions on StackOverflow since 2008.
+						I've worked on UIs for booking &amp; managing flights, staking crypto, viewing aerial imagery, and publishing tsunami warnings.
+						I’ve also spoken at Web Directions and SydCSS
+						<a class="intro-chip" href="https://www.youtube.com/watch?v=rtXmM7uHyrg&t=613s" data-lightbox="talk-1" title="Watch my SydCSS talk"><svg width="14" height="10" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="#ff0033" /><path d="M8 4v6l5-3z" fill="#fff" /></svg>What’s new in CSS in 2023</a>,
+						contributed fixes to <span class="bio-term"><img class="bio-icon" src="/content/images/tech/preact.svg" alt="" width="16" height="16" />Preact</span>
+						<a class="intro-chip" href="https://github.com/preactjs/preact/pull/2366" data-lightbox="oss-2" title="Fix JSX SVG attribute names">#2366</a>
+						and <span class="bio-term"><img class="bio-icon" src="/content/images/tech/googlechrome.svg" alt="" width="16" height="16" />Chrome DevTools</span>
+						<a class="intro-chip" href="https://chromium-review.googlesource.com/c/devtools/devtools-frontend/+/8435023" data-lightbox="oss-0" title="Fix clipped focus ring on the “No throttling” select">Focus ring fix</a>
+						<a class="intro-chip" href="https://chromium-review.googlesource.com/c/devtools/devtools-frontend/+/8458362" data-lightbox="oss-1" title="Fix focused list item gradient in dark mode">Dark mode fix</a>,
+						and answered questions on <span class="bio-term"><img class="bio-icon" src="/content/images/tech/stackoverflow.svg" alt="" width="16" height="16" />Stack Overflow</span>
+						<a class="so-chip" href="https://stackoverflow.com/users/48492/steve-harrison" title={`${stackOverflowReputation.toLocaleString('en')} reputation`}>
+							<StackOverflowIcon width={12} height={12} aria-hidden="true" />{reputationLabel}<span class="so-unit">rep</span>
+						</a>
+						since 2008 (back when that was a thing).
 					</p>
 				</div>
 			</section>
 
-			<!-- Recent Articles & Videos (side by side on desktop) -->
-			<div class="lists-row">
-				<section class="list-section">
-					<div class="section-header">
-						<h2>Recent Articles</h2>
-						<a href="/articles" class="view-all">
-							View All
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
-						</a>
-					</div>
-					<ul class="item-list">
-						{posts.map((post) => (
-							<li>
-								<a href={`/${post.id}/`}>
-									<svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-									<div class="item-content">
-										<div class="item-main">
-											<span class="item-title">{post.data.title}</span>
-											<span class="item-date"><FormattedDate date={post.data.pubDate} /></span>
-										</div>
-										{post.data.description && <span class="item-description">{post.data.description}</span>}
-									</div>
-								</a>
-							</li>
-						))}
-					</ul>
-				</section>
-
-				<section class="list-section">
-					<div class="section-header">
-						<h2>Recent Videos</h2>
-						<a href={YOUTUBE_CHANNEL_URL} target="_blank" class="view-all">
-							View All
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
-						</a>
-					</div>
-					<ul class="item-list">
-						{videos.map((video) => (
-							<li>
-								<a href={video.href} target="_blank">
-									<img class="video-thumb" src={video.thumbnail} alt="" width="72" height="40" loading="lazy" />
-									<div class="item-content">
-										<span class="item-title">{video.title}</span>
-									</div>
-								</a>
-							</li>
-						))}
-					</ul>
-				</section>
-			</div>
-
-			<!-- Projects -->
-			<section class="card-section">
+			<!-- Projects: just icons and names; each opens its full story in the lightbox. -->
+			<section class="apps-section">
 				<div class="section-header">
-					<h2>Projects</h2>
-					<a href="#" class="view-all">
-						View All
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
-					</a>
+					<h2>Side Projects</h2>
 				</div>
-				<div class="card-grid">
+				<ul class="app-grid">
 					{projects.map((project) => (
-						<a href={project.href} class="card">
-							<div class="card-image">
-								<img src={project.image} alt={project.title} />
-							</div>
-							<div class="card-body">
-								<h3>{project.title}</h3>
-								<p>{project.description}</p>
-							</div>
-						</a>
+						<li>
+							<button type="button" class="app-tile" data-lightbox={`app-${project.slug}`}>
+								<img class:list={['app-icon', project.iconShadow && 'has-shadow']} src={project.appIcon} alt="" width="72" height="72" loading="lazy" />
+								<span class="app-name">{project.title}</span>
+								<span class="app-years">{project.years}</span>
+							</button>
+						</li>
 					))}
-				</div>
+				</ul>
 			</section>
 
-			<!-- Work -->
-			<!--
-			<section class="card-section">
+			<!-- Open Source: each contribution on a card; Stack Overflow shows its top posts inline. -->
+			<section class="home-section">
 				<div class="section-header">
-					<h2>Work</h2>
-					<a href="#" class="view-all">
-						View All
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg>
-					</a>
+					<h2>Open Source</h2>
 				</div>
-				<div class="card-grid">
-					{work.map((item) => (
-						<a href={item.href} class="card">
-							<div class="card-image">
-								<img src={item.image} alt={item.title} />
-							</div>
-							<div class="card-body">
-								<h3>{item.title}</h3>
-								<p>{item.description}</p>
-							</div>
-						</a>
-					))}
-				</div>
+				{ossGroups.map(([project, items]) => (
+					<div class="oss-group">
+						<h3 class="oss-heading">
+							{projectIcons[project] && <img src={projectIcons[project]} alt="" width="18" height="18" />}
+							{project}
+						</h3>
+						<ul class="item-list oss-list">
+							{items.map(({ contribution, index }) => (
+								<li class="card">
+									<a href={contribution.href} target="_blank" data-lightbox={contribution.posts ? undefined : `oss-${index}`}>
+										<div class="item-content">
+											<div class="item-main">
+												<span class="item-title">{contribution.title}</span>
+												<span class="item-date">{contribution.merged ? postedDate.format(new Date(contribution.merged)) : contribution.date}</span>
+											</div>
+											<span class="item-description"><Markdown text={contribution.description} /></span>
+										</div>
+									</a>
+									{contribution.posts && (
+										<ul class="so-chips">
+											{contribution.posts.map((post) => (
+												<li>
+													<a href={post.href} target="_blank" rel="noopener noreferrer" title={`${post.kind} · ${postedAt.format(new Date(post.date))}`}>
+														<span class="so-chip-score" aria-label={`${post.score.toLocaleString('en')} votes`}>▲ {post.score.toLocaleString('en')}</span>
+														<span class="so-chip-title">{post.title}</span>
+														<time class="so-chip-date" datetime={post.date}>{postedDate.format(new Date(post.date))}</time>
+													</a>
+												</li>
+											))}
+										</ul>
+									)}
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
 			</section>
-			-->
+
+			<!-- Articles: three cards in a row. -->
+			<section class="home-section">
+				<div class="section-header">
+					<h2>Articles</h2>
+					<a href="/articles" class="view-all">View All <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg></a>
+				</div>
+				<ArticleGrid posts={articles} />
+			</section>
+
+			<!-- Career: a timeline, newest first. The current and featured roles are shown in full;
+			     the rest are compact cards that open in the lightbox. -->
+			<section class="home-section">
+				<div class="section-header">
+					<h2>Career</h2>
+				</div>
+				<ol class="timeline">
+					{timeline.map(({ role, year, full }) => {
+						const head = (
+							<span class="role-head">
+								{role.logo ? <img class="logo logo-row" src={role.logo} alt="" width="40" height="40" loading="lazy" /> : <span class="logo logo-row logo-initials" aria-hidden="true">{role.initials}</span>}
+								<span class="role-name">
+									<span class="role-company">{role.company}</span>
+									{roleSubtitle(role) && <span class="role-title">{roleSubtitle(role)}</span>}
+								</span>
+							</span>
+						);
+						const techIcons = role.tech && (
+							<span class="role-tech" aria-label="Tech stack">
+								{role.tech.map((id) => tech[id] && (
+									<img src={tech[id].icon} alt={tech[id].name} title={tech[id].name} width="16" height="16" loading="lazy" />
+								))}
+							</span>
+						);
+						// Inline roles: small screenshots (a video shows its poster) that each zoom open.
+						const thumbs = role.inline && role.media && (
+							<ul class:list={['role-thumbs', `is-${role.inline}`]}>
+								{role.media.map((item, i) => {
+									const src = item.video ? item.poster : item.src;
+									const aspect = src && thumbAspect.get(src);
+									return (
+										<li style={aspect ? `--ar: ${aspect}` : undefined}>
+											<button type="button" data-lightbox={`shot-${role.slug}-${i}`} aria-label={`Enlarge: ${item.alt}`}>
+												<img src={src} alt="" loading="lazy" />
+												{item.video && (
+													<span class="thumb-play" aria-hidden="true"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor" /></svg></span>
+												)}
+											</button>
+										</li>
+									);
+								})}
+							</ul>
+						);
+						return (
+							<li class:list={['tl-item', role === currentRole && 'is-current']}>
+								<span class="tl-year">{year}</span>
+								<div class="tl-card">
+									{full ? (
+										<article class="current-role">
+											<div class="lb-heading">
+												{role.logo ? <img class="logo logo-large" src={role.logo} alt="" width="56" height="56" /> : <span class="logo logo-large logo-initials" aria-hidden="true">{role.initials}</span>}
+												<div>
+													<h3>{role.company}</h3>
+													<p class="lb-meta">{role.terms}</p>
+												</div>
+											</div>
+											{role.summary && <p><Markdown text={role.summary} /></p>}
+											{role.highlights && <ul class="lb-highlights">{role.highlights.map((item) => <li><Markdown text={item} /></li>)}</ul>}
+											{role.tech && (
+												<ul class="lb-tech">
+													{role.tech.map((id) => tech[id] && (
+														<li><span><img src={tech[id].icon} alt="" width="16" height="16" />{tech[id].name}</span></li>
+													))}
+												</ul>
+											)}
+											{thumbs || role.media && (
+												<div class="lb-media">
+													{role.media.map((item) => (
+														<figure class:list={[item.fit && `fit-${item.fit}`]}>
+															{item.video ? (
+																<video src={item.src} poster={item.poster} controls playsinline preload="none" aria-label={item.alt}></video>
+															) : (
+																<img src={item.src} alt={item.alt} loading="lazy" />
+															)}
+															<figcaption>{item.alt}</figcaption>
+														</figure>
+													))}
+												</div>
+											)}
+										</article>
+									) : (
+										<>
+											{role.inline ? (
+												/* Everything in place; the screenshots open one at a time. */
+												<div class="role-card is-static">
+													<span class="role-body">
+													{head}
+													{role.summary && <p class="role-detail"><Markdown text={role.summary} /></p>}
+													{role.highlights && (
+														<ul class="role-highlights">{role.highlights.map((item) => <li><Markdown text={item} /></li>)}</ul>
+													)}
+													{techIcons}
+													{thumbs}
+													</span>
+												</div>
+											) : isShortRole(role) ? (
+												/* Little to say: show it all in place, no lightbox. */
+												<div class="role-card is-static">
+													<span class="role-body">
+													{head}
+													{role.summary && <p class="role-detail"><Markdown text={role.summary} /></p>}
+													{role.highlights && (
+														<ul class="role-highlights">{role.highlights.map((item) => <li><Markdown text={item} /></li>)}</ul>
+													)}
+													{techIcons}
+													</span>
+												</div>
+											) : (
+												<button type="button" class:list={['role-card', role.media && 'has-header']} data-lightbox={`role-${role.slug}`}>
+													<span class="role-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 1.5v9M1.5 6h9" /></svg></span>
+													{role.media && (() => {
+														const item = role.media[0];
+														return (
+															<span class="role-header">
+																{item.video ? (
+																	<video src={item.src} poster={item.poster} muted loop playsinline preload="none" data-inview-play aria-hidden="true"></video>
+																) : (
+																	<img src={item.src} alt="" loading="lazy" />
+																)}
+															</span>
+														);
+													})()}
+													<span class="role-body">
+														{head}
+														{techIcons}
+													</span>
+												</button>
+											)}
+										</>
+									)}
+								</div>
+							</li>
+						);
+					})}
+				</ol>
+			</section>
+
+			<!-- Speaking: a grid of talk cards, with a photo or recording where there is one. -->
+			<section class="home-section">
+				<div class="section-header">
+					<h2>Speaking</h2>
+				</div>
+				<ul class="media-grid">
+					{talks.map((talk, i) => {
+						const body = (
+							<>
+								<span class:list={['media-thumb', !(talk.youtubeId || talk.image) && 'media-thumb-empty']}>
+									{talk.youtubeId || talk.image ? (
+										<img src={talk.image ?? `https://i.ytimg.com/vi/${talk.youtubeId}/mqdefault.jpg`} alt="" width="320" height="180" loading="lazy" />
+									) : (
+										<span class="talk-placeholder"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M12 17v4" /><path d="M8 21h8" /></svg><span>{talk.event?.split(",")[0] ?? "Talk"}</span></span>
+									)}
+									{talk.youtubeId && <><svg class="play-badge" width="28" height="20" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="#ff0033" /><path d="M8 4v6l5-3z" fill="#fff" /></svg></>}
+								</span>
+								<span class="media-title">{talk.title}</span>
+								<span class="media-meta">
+									{[talk.event, talk.date && postedDate.format(new Date(talk.date))].filter(Boolean).join(' · ')}
+									{talk.alsoGiven && <><br />{talk.alsoGiven.event} · {postedDate.format(new Date(talk.alsoGiven.date))}</>}
+								</span>
+							</>
+						);
+						return (
+							<li>
+								{talk.href ? (
+									<a class="media-card" href={talk.href} target="_blank" rel="noopener noreferrer" data-lightbox={`talk-${i}`}>{body}</a>
+								) : (
+									<button type="button" class="media-card" data-lightbox={`talk-${i}`}>{body}</button>
+								)}
+							</li>
+						);
+					})}
+				</ul>
+			</section>
+
+			<!-- Videos: big thumbnails that play in the lightbox. -->
+			<section class="home-section">
+				<div class="section-header">
+					<h2>Videos</h2>
+					<a href={YOUTUBE_CHANNEL_URL} target="_blank" class="view-all">View All <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg></a>
+				</div>
+				<ul class="media-grid">
+					{videos.map((video) => (
+						<li>
+							<a class="media-card" href={video.href} target="_blank" data-lightbox={`video-${video.id}`}>
+								<span class="media-thumb">
+									<img src={video.thumbnail} alt="" width="320" height="180" loading="lazy" />
+									<svg class="play-badge" width="28" height="20" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="#ff0033" /><path d="M8 4v6l5-3z" fill="#fff" /></svg>
+								</span>
+								<span class="media-title">{video.title}</span>
+								<span class="media-meta">
+									{video.viewsLabel && `${video.viewsLabel} views`}
+									{videoDates.has(video.id) && ` · ${postedDate.format(new Date(videoDates.get(video.id)!))}`}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<!-- Design: earlier design work from Behance. -->
+			<section class="home-section" id="design">
+				<div class="section-header">
+					<h2>Design</h2>
+					<a href="https://www.behance.net/steveharrison" target="_blank" class="view-all">Behance <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4"/><path d="M8 12h8"/></svg></a>
+				</div>
+				<ul class="media-grid design-grid">
+					{designs.map((design) => (
+						<li>
+							<a class="media-card" href={design.behance} target="_blank" rel="noopener noreferrer" data-lightbox={`design-${design.slug}`}>
+								<span class:list={['media-thumb', 'design-thumb', design.thumbFit && `fit-${design.thumbFit}`]}>
+									<img src={design.images[0].src} alt="" loading="lazy" />
+								</span>
+								<span class="media-title">{design.title}</span>
+								<span class="media-meta">{design.year}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="favourites">
+				<Favourites />
+			</section>
 		</main>
 		<Footer />
+
+		<Lightbox />
+
+		<script>
+			// Career header videos play muted while on screen, unless motion is reduced.
+			if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				const observer = new IntersectionObserver((entries) => {
+					for (const entry of entries) {
+						const video = entry.target as HTMLVideoElement;
+						if (entry.isIntersecting) video.play().catch(() => {});
+						else video.pause();
+					}
+				}, { threshold: 0.4 });
+				document.querySelectorAll('video[data-inview-play]').forEach((video) => observer.observe(video));
+			}
+		</script>
+
+		<!-- Lightbox content: each hidden block is moved into the lightbox while its item is open. -->
+		{projects.map((project) => (
+			<div hidden class="lb-source" id={`lb-app-${project.slug}`}><ProjectDetail project={project} /></div>
+		))}
+
+		{videos.map((video) => (
+			<div hidden class="lb-source" id={`lb-video-${video.id}`}>
+				<div class="lb">
+					<p class="lb-eyebrow">Video</p>
+					<h2 id={`lb-title-video-${video.id}`}>{video.title}</h2>
+					{video.viewsLabel && <p class="lb-meta">{video.viewsLabel} views on YouTube</p>}
+					<div class="lb-embed">
+						<iframe data-src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`} title={video.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+					</div>
+					<p class="lb-links"><a href={video.href} target="_blank" rel="noopener noreferrer">Watch on YouTube →</a></p>
+				</div>
+			</div>
+		))}
+
+		{contributions.map((contribution, i) => !contribution.posts && (
+			<div hidden class="lb-source" id={`lb-oss-${i}`}>
+				<div class="lb">
+					<p class="lb-project">
+						{projectIcons[contribution.project] && <img src={projectIcons[contribution.project]} alt="" width="18" height="18" />}
+						{contribution.project}
+					</p>
+					<h2 id={`lb-title-oss-${i}`}>{contribution.title}</h2>
+					<p class="lb-meta">
+						{contribution.merged ? <>Merged <time datetime={contribution.merged}>{postedAt.format(new Date(contribution.merged))}</time></> : contribution.date}
+					</p>
+					<p><Markdown text={contribution.description} /></p>
+					{contribution.media && (
+						<div class="pr-media">
+							{contribution.media.map((item) => (
+								<figure>
+									{item.video ? (
+										<video src={item.src} muted loop playsinline data-autoplay preload="none" aria-label={`${item.label}: ${contribution.title}`}></video>
+									) : (
+										<img src={item.src} alt={`${item.label}: ${contribution.title}`} loading="lazy" />
+									)}
+									<figcaption>{item.label}</figcaption>
+								</figure>
+							))}
+						</div>
+					)}
+					{contribution.diff && (
+						<div class="lb-diff">
+							<Code {...parseDiff(contribution.diff, contribution.lang!)} lang={contribution.lang} wrap />
+							{contribution.note && (
+								<span class="cheeky-note">
+									<svg width="44" height="22" viewBox="0 0 44 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M42 6c-9-4-22-4-34 7" /><path d="M7 19.5 7.5 12.5 14 12" /></svg>
+									{contribution.note}
+								</span>
+							)}
+						</div>
+					)}
+					<p class="lb-links">
+						<a href={contribution.href} target="_blank" rel="noopener noreferrer">View the pull request →</a>
+					</p>
+				</div>
+			</div>
+		))}
+
+		{talks.map((talk, i) => (
+			<div hidden class="lb-source" id={`lb-talk-${i}`}>
+				<div class="lb">
+					<p class="lb-eyebrow">Talk</p>
+					<h2 id={`lb-title-talk-${i}`}>{talk.title}</h2>
+					{talk.event && <p class="lb-meta">{talk.event}{talk.alsoGiven && <> · {talk.alsoGiven.event}</>}</p>}
+					{talk.youtubeId && (
+						<div class="lb-embed">
+							<iframe data-src={`https://www.youtube-nocookie.com/embed/${talk.youtubeId}?start=613&autoplay=1&rel=0`} title={talk.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+						</div>
+					)}
+					{talk.image && !talk.deck && <img class="lb-image" src={talk.image} alt={talk.image.includes('2022-temporal') ? `On stage at ${talk.event}` : `Title slide of ${talk.title}`} loading="lazy" />}
+					{talk.photo && <img class="lb-image" src={talk.photo} alt={`On stage at ${talk.event}, beside the “What's wrong with Date?” slide`} width="1280" height="720" loading="lazy" />}
+					{talk.deck && <SlideViewer {...talk.deck} title={talk.title} />}
+					{(talk.youtubeId || talk.repo || (talk.href && talk.href !== talk.deck?.pdf)) && (
+						<p class="lb-links">
+							{talk.youtubeId && <a href={talk.href} target="_blank" rel="noopener noreferrer">Watch on YouTube →</a>}
+							{talk.href && !talk.youtubeId && talk.href !== talk.deck?.pdf && <a href={talk.href} target="_blank" rel="noopener noreferrer">{talk.href.startsWith('/') ? 'Read the write-up →' : 'More about the talk →'}</a>}
+							{talk.alsoGiven && <a href={talk.alsoGiven.pdf} target="_blank" rel="noopener noreferrer">{talk.alsoGiven.event} slides (PDF) →</a>}
+							{talk.repo && <a href={talk.repo} target="_blank" rel="noopener noreferrer">Code on GitHub →</a>}
+						</p>
+					)}
+				</div>
+			</div>
+		))}
+
+		{designs.map((design) => (
+			<div hidden class="lb-source" id={`lb-design-${design.slug}`}>
+				<div class="lb">
+					<p class="lb-eyebrow">Design · {design.year}</p>
+					<h2 id={`lb-title-design-${design.slug}`}>{design.title}</h2>
+					<p>{design.description}</p>
+					<div class="lb-stack">
+						{design.images.map((image) => <img src={image.src} alt={image.alt} loading="lazy" />)}
+					</div>
+					<p class="lb-links"><a href={design.behance} target="_blank" rel="noopener noreferrer">View on Behance →</a></p>
+				</div>
+			</div>
+		))}
+
+		{career.filter((role) => role.inline).flatMap((role) => (role.media ?? []).map((item, i) => (
+			<div hidden class="lb-source" id={`lb-shot-${role.slug}-${i}`}>
+				<figure class="lb-shot">
+					{item.video ? (
+						<video src={item.src} poster={item.poster} controls playsinline muted loop data-autoplay preload="none" aria-label={item.alt}></video>
+					) : (
+						<img src={item.src} alt={item.alt} />
+					)}
+					<figcaption id={`lb-title-shot-${role.slug}-${i}`}>{item.alt}</figcaption>
+				</figure>
+			</div>
+		)))}
+
+		{career.map((role) => (
+			<div hidden class="lb-source" id={`lb-role-${role.slug}`}>
+				<div class="lb">
+					<div class="lb-heading">
+						{role.logo ? <img class="logo logo-large" src={role.logo} alt="" width="56" height="56" /> : <span class="logo logo-large logo-initials" aria-hidden="true">{role.initials}</span>}
+						<div>
+							<h2 id={`lb-title-role-${role.slug}`}>{role.company}</h2>
+							<p class="lb-meta">{role.terms}</p>
+						</div>
+					</div>
+					{role.summary && <p><Markdown text={role.summary} /></p>}
+					{role.highlights && <ul class="lb-highlights">{role.highlights.map((item) => <li><Markdown text={item} /></li>)}</ul>}
+					{role.tech && (
+						<ul class="lb-tech">
+							{role.tech.map((id) => tech[id] && (
+								<li><span><img src={tech[id].icon} alt="" width="16" height="16" />{tech[id].name}</span></li>
+							))}
+						</ul>
+					)}
+					{role.media && (
+						<div class="lb-media">
+							{role.media.map((item) => (
+								<figure class:list={[item.fit && `fit-${item.fit}`]}>
+									{item.video ? (
+										<video src={item.src} poster={item.poster} controls playsinline preload="none" aria-label={item.alt}></video>
+									) : (
+										<img src={item.src} alt={item.alt} loading="lazy" />
+									)}
+									<figcaption>{item.alt}</figcaption>
+								</figure>
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		))}
 	</body>
 </html>
 
@@ -241,7 +908,7 @@ const projects = [
 
 	.hero-text {
 		min-width: 0;
-		flex: 1;
+		flex: 0 1 auto;
 	}
 
 	.hero-text h1,
@@ -249,45 +916,278 @@ const projects = [
 		overflow-wrap: anywhere;
 	}
 
-	.card {
-		min-width: 0;
-	}
-
-	.card-body h3,
-	.card-body p {
-		overflow-wrap: anywhere;
-	}
-
 	/* Hero */
 	.hero {
 		display: flex;
-		align-items: center;
-		gap: 2em;
+		align-items: flex-start;
+		justify-content: center;
+		gap: 2.75em;
 		padding: 3em 0;
-		border-bottom: 1px solid rgb(var(--grey-light));
 		margin-bottom: 2.5em;
 	}
 
-	.hero-avatar {
-		width: 120px;
-		height: 120px;
-		border-radius: 50%;
-		object-fit: cover;
+	.print {
+		position: relative;
 		flex-shrink: 0;
+		margin: 0;
+		transform: rotate(-3deg);
+		transition: transform 400ms var(--ease-out);
 	}
 
+	/* Nudge the print a little straighter, as if picked up off the desk. */
+	@media (hover: hover) and (pointer: fine) {
+		.print:hover {
+			transform: rotate(-1.5deg) translateY(-2px);
+		}
+	}
+
+	/* On load the print settles into place and the copy follows, a beat apart.
+	   "backwards" (not "both") hands the transform back to .print afterwards, so the
+	   hover above still works. */
+	@media (prefers-reduced-motion: no-preference) {
+		.print {
+			animation: print-settle 700ms var(--ease-out) backwards;
+		}
+
+		.hero-text > * {
+			animation: hero-rise 600ms var(--ease-out) backwards;
+		}
+
+		.hero-text > :nth-child(1) { animation-delay: 80ms; }
+		.hero-text > :nth-child(2) { animation-delay: 140ms; }
+		.hero-text > :nth-child(3) { animation-delay: 200ms; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.print,
+		.hero-text > * {
+			animation: hero-fade 300ms ease backwards;
+		}
+
+		.print {
+			transition: none;
+		}
+	}
+
+	@keyframes print-settle {
+		from {
+			opacity: 0;
+			transform: translateY(8px) rotate(-7deg) scale(0.96);
+		}
+	}
+
+	@keyframes hero-rise {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+	}
+
+	@keyframes hero-fade {
+		from {
+			opacity: 0;
+		}
+	}
+
+	/* The paper sits on its own layer so the curl shadows stay underneath it. */
+	.print-paper {
+		position: relative;
+		z-index: 1;
+		display: block;
+		padding: 8px 8px 22px;
+		background: #fff;
+		box-shadow:
+			0 0 1px rgba(20, 20, 20, 0.18),
+			0 1px 3px rgba(20, 20, 20, 0.1);
+	}
+
+	/* Lifted-corner shadows: two angled shadows tucked under the bottom corners. */
+	.print::before,
+	.print::after {
+		content: '';
+		position: absolute;
+		bottom: 12px;
+		width: 46%;
+		height: 30%;
+		box-shadow: 0 14px 12px rgba(20, 20, 20, 0.28);
+		z-index: 0;
+	}
+
+	.print::before {
+		left: 6px;
+		transform: rotate(-4deg);
+	}
+
+	.print::after {
+		right: 6px;
+		transform: rotate(4deg);
+	}
+
+	.hero-avatar {
+		display: block;
+		width: 150px;
+		height: 150px;
+		object-fit: cover;
+	}
+
+	.paperclip {
+		position: absolute;
+		z-index: 2;
+		top: -24px;
+		left: 26px;
+		transform: rotate(6deg);
+		filter: drop-shadow(1px 2px 1.5px rgba(20, 20, 20, 0.25));
+	}
+
+	/* Type scale after apple.com: a large, tightly tracked headline, a 21px intro
+	   line in near-black, then 17px body copy in a secondary grey. */
 	.hero-text h1 {
-		font-size: 2.2em;
-		font-weight: 700;
-		margin: 0 0 0.4em 0;
-		line-height: 1.2;
+		font-size: 48px;
+		font-weight: 500;
+		line-height: 1.08;
+		letter-spacing: -0.003em;
+		margin: 0 0 0.3em 0;
+		color: #1d1d1f;
+		text-wrap: balance;
 	}
 
 	.bio {
-		font-size: 1.05em;
-		line-height: 1.6;
-		color: rgb(var(--grey));
+		max-width: 60ch;
 		margin: 0;
+		font-size: 17px;
+		line-height: 1.47;
+		letter-spacing: -0.022em;
+		color: #6e6e73;
+		text-wrap: pretty;
+	}
+
+	.bio-lead {
+		margin-bottom: 0.65em;
+		font-size: 21px;
+		line-height: 1.38;
+		letter-spacing: 0.011em;
+		color: #1d1d1f;
+	}
+
+	/* Keep each icon on the same line as its name. */
+	/* Black, medium-weight links (as in blog posts) without an underline;
+	   the icons already mark them out. */
+	.bio a {
+		color: #000;
+		font-weight: 500;
+		text-decoration: none;
+		transition: color 150ms ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.bio a:hover {
+			color: rgb(102 102 102);
+		}
+	}
+
+	.bio-link {
+		white-space: nowrap;
+	}
+
+	/* Stack Overflow reputation chip, in the same family as the Hacker News badge. */
+	/* Neutral chips in the intro that open a talk or pull request in the lightbox. */
+	.bio a.intro-chip {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.35em;
+		margin: 0 0.1em;
+		padding: 0.05em 0.55em 0.05em 0.45em;
+		border: 1px solid #e3e3e8;
+		border-radius: 999px;
+		background: #f7f7f9;
+		color: #1d1d1f;
+		font-size: 0.8em;
+		font-weight: 600;
+		letter-spacing: 0;
+		vertical-align: 0.08em;
+		white-space: nowrap;
+		transition: background 0.15s ease, border-color 0.15s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.bio a.intro-chip:hover {
+			border-color: #d2d2d7;
+			background: #efeff2;
+			color: #1d1d1f;
+		}
+	}
+
+	.bio a.so-chip {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.3em;
+		margin: 0 0.1em;
+		padding: 0.05em 0.5em;
+		border: 1px solid #fbd9b8;
+		border-radius: 999px;
+		background: #fff7ef;
+		color: #b85b00;
+		font-size: 0.8em;
+		font-weight: 600;
+		letter-spacing: 0;
+		vertical-align: 0.08em;
+		white-space: nowrap;
+		transition: background-color 150ms ease, transform 160ms var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.bio a.so-chip:hover {
+			background: #ffeedd;
+			color: #b85b00;
+		}
+	}
+
+	.bio a.so-chip:active {
+		transform: scale(0.97);
+	}
+
+	.so-chip svg {
+		color: #f48024;
+	}
+
+	/* Baseline-align the chip text so the chip's baseline comes from its label,
+	   not from the leading icon (whose baseline is its bottom edge, which lifted
+	   the chip above the surrounding text). The icon stays vertically centred. */
+	.bio a.intro-chip svg,
+	.bio a.so-chip svg {
+		align-self: center;
+	}
+
+	.so-unit {
+		font-weight: 500;
+	}
+
+	/* Project names in the intro get their logo, like the Qantas and Finances App links. */
+	.bio-term {
+		white-space: nowrap;
+	}
+
+	.bio-icon {
+		width: 1em;
+		height: 1em;
+		margin-right: 0.25em;
+		vertical-align: -0.12em;
+	}
+
+	.bio-link img {
+		width: 1.15em;
+		height: 1.15em;
+		margin-right: 0.25em;
+		vertical-align: -0.2em;
+		border-radius: 4px;
+	}
+
+	.bio-link img.bio-link-icon-qantas {
+		margin-right: 1px;
+	}
+
+	.bio-link img.bio-link-icon-finances {
+		margin-right: 4px;
 	}
 
 	/* Section headers */
@@ -301,7 +1201,7 @@ const projects = [
 
 	.section-header h2 {
 		font-size: 1.4em;
-		font-weight: 700;
+		font-weight: 500;
 		margin: 0;
 		border: none;
 		padding: 0;
@@ -314,32 +1214,29 @@ const projects = [
 		gap: 0.4em;
 		font-size: 0.9em;
 		font-weight: 500;
-		color: rgb(var(--grey));
+		color: #6e6e73;
 		text-decoration: none;
-		transition: color 0.2s ease;
+		transition: color 150ms ease, transform 160ms var(--ease-out);
 		white-space: nowrap;
 		flex-shrink: 0;
 	}
 
-	.view-all:hover {
-		color: rgb(var(--accent));
-	}
-
 	.view-all svg {
-		transition: transform 0.2s ease;
+		transition: transform 200ms var(--ease-out);
 	}
 
-	.view-all:hover svg {
-		transform: translateX(2px);
+	@media (hover: hover) and (pointer: fine) {
+		.view-all:hover {
+			color: #1d1d1f;
+		}
+
+		.view-all:hover svg {
+			transform: translateX(2px);
+		}
 	}
 
-	/* Lists row (Articles + Videos side by side) */
-	.lists-row {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 2.5em;
-		margin-bottom: 3em;
-		overflow: hidden;
+	.view-all:active {
+		transform: scale(0.97);
 	}
 
 	/* List sections (Articles / Videos) */
@@ -354,12 +1251,21 @@ const projects = [
 		margin: 0;
 	}
 
-	.item-list li {
-		border-bottom: 1px solid rgb(var(--grey-light));
+	/* Hacker News / X badges sit under the post's link (not inside it, since it's a
+	   link of its own), lined up with the text rather than the icon. */
+	.item-list li.has-badge {
+		padding-bottom: 0.85em;
 	}
 
-	.item-list li:last-child {
-		border-bottom: none;
+	.item-list li.has-badge > a {
+		padding-bottom: 0.4em;
+	}
+
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+		margin-left: calc(21px + 1.5em);
 	}
 
 	.item-list a {
@@ -369,17 +1275,25 @@ const projects = [
 		padding: 0.85em 0.5em;
 		text-decoration: none;
 		color: inherit;
-		transition: background 0.15s ease;
+		transition: background-color 150ms ease;
 		border-radius: 6px;
 	}
 
-	.item-list a:hover {
-		background: rgba(var(--grey-light), 0.4);
+	/* A soft tint on hover, a touch darker while pressed. Rows are too wide to
+	   scale on press without looking like they're jumping. */
+	@media (hover: hover) and (pointer: fine) {
+		.item-list a:hover {
+			background: rgb(0 0 0 / 0.04);
+		}
+	}
+
+	.item-list a:active {
+		background: rgb(0 0 0 / 0.06);
 	}
 
 	.item-icon {
 		flex-shrink: 0;
-		color: rgb(var(--grey));
+		color: #86868b;
 	}
 
 	.video-thumb {
@@ -388,6 +1302,13 @@ const projects = [
 		height: 40px;
 		object-fit: cover;
 		border-radius: 4px;
+		/* Layered "plate" shadow after glenn.me, scaled down for a small thumbnail. */
+		box-shadow:
+			0 0 1px rgba(20, 20, 20, 0.15),
+			0 1px 2px rgba(20, 20, 20, 0.1),
+			0 3px 6px -1px rgba(20, 20, 20, 0.1),
+			0 6px 12px -4px rgba(20, 20, 20, 0.12),
+			0 12px 20px -8px rgba(20, 20, 20, 0.14);
 	}
 
 	.item-content {
@@ -407,7 +1328,7 @@ const projects = [
 
 	.item-description {
 		font-size: 0.82em;
-		color: rgb(var(--grey));
+		color: #6e6e73;
 		margin-top: 0.2em;
 		line-height: 1.4;
 		display: -webkit-box;
@@ -419,7 +1340,7 @@ const projects = [
 	.item-title {
 		font-weight: 500;
 		font-size: 0.95em;
-		color: rgb(var(--grey));
+		color: #1d1d1f;
 		min-width: 0;
 		word-wrap: break-word;
 		overflow-wrap: anywhere;
@@ -427,65 +1348,1105 @@ const projects = [
 
 	.item-date {
 		font-size: 0.82em;
-		color: rgb(var(--grey));
+		color: #6e6e73;
+		font-variant-numeric: tabular-nums;
 		flex-shrink: 0;
 		margin-left: 1em;
 	}
 
-	/* Card sections (Projects / Work) */
-	.card-section {
-		margin-bottom: 3em;
+	/* A hand-scrawled aside under the React diff, its arrow pointing back up at it. */
+	.cheeky-note {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.2em;
+		margin: 0.25em 0 0 1.5em;
+		color: #d1342f;
+		font-family: 'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', cursive;
+		font-size: 1.1em;
+		transform: rotate(-2deg);
+		transform-origin: left center;
 	}
 
-	.card-grid {
+	.cheeky-note svg {
+		flex-shrink: 0;
+		margin-top: -0.3em;
+	}
+
+	/* Before/after screenshots and repro clips, indented under the PR's text. */
+	.pr-media {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+		margin: 1.25em 0;
+	}
+
+	.pr-media figure {
+		margin: 0;
+	}
+
+	.pr-media img,
+	.pr-media video {
+		display: block;
+		height: 120px;
+		width: auto;
+		max-width: 100%;
+		border-radius: 6px;
+		box-shadow:
+			0 0 1px rgba(20, 20, 20, 0.2),
+			0 1px 2px rgba(20, 20, 20, 0.1),
+			0 4px 8px -2px rgba(20, 20, 20, 0.12);
+	}
+
+	/* "Before", "After" and "Repro" as plain labels under each screenshot. */
+	.pr-media figcaption {
+		margin-top: 0.4em;
+		color: var(--grey);
+		font-size: 0.8em;
+		font-weight: 500;
+	}
+
+	/* Open source: a small heading per project, with its contributions as cards. */
+	.oss-group + .oss-group {
+		margin-top: 1.5em;
+	}
+
+	/* Two cards per row; a project's only contribution takes the full width. */
+	.oss-list {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5em;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.9em;
 	}
 
-	.card {
+	.oss-list > li.card {
+		margin: 0;
+		transition: transform 0.25s var(--ease-out, ease), box-shadow 0.25s ease;
+	}
+
+	/* Cards lift with a deeper shadow on hover, rather than tinting the row. */
+	@media (hover: hover) and (pointer: fine) {
+		.oss-list > li.card:hover {
+			transform: translateY(-2px);
+			box-shadow:
+				0 0 0 1px rgba(20, 20, 20, 0.06),
+				0 2px 4px rgba(20, 20, 20, 0.07),
+				0 14px 30px -10px rgba(20, 20, 20, 0.26);
+		}
+
+		.oss-list > li.card > a:hover {
+			background: none;
+		}
+	}
+
+	.oss-list > li.card > a:active {
+		background: none;
+	}
+
+	.oss-list > li:only-child {
+		grid-column: 1 / -1;
+	}
+
+	/* Keyboard focus rings the whole card along its rounded edge, not the link inset
+	   inside it. */
+	.item-list > li.card:has(> a:focus-visible) {
+		outline: 2px solid var(--focus-ring);
+		outline-offset: 2px;
+	}
+
+	.item-list > li.card > a:focus-visible {
+		outline: none;
+	}
+
+	@media (max-width: 760px) {
+		.oss-list {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	.oss-heading {
+		display: flex;
+		align-items: center;
+		gap: 0.45em;
+		margin: 0 0 0.5em 0.25em;
+		color: #6e6e73;
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+	}
+
+	.oss-heading img {
+		width: 15px;
+		height: 15px;
+	}
+
+	/* Top Stack Overflow posts as chips under the Stack Overflow entry, lined up with its text. */
+	.so-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45em;
+		margin: -0.25em 0.5em 0.9em;
+		padding: 0;
+		list-style: none;
+	}
+
+	.item-list .so-chips li {
+		max-width: 100%;
+		border: none;
+	}
+
+	.item-list .so-chips a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		max-width: 100%;
+		padding: 0.25em 0.75em 0.25em 0.3em;
+		border: 1px solid #ececee;
+		border-radius: 999px;
+		background: #fff;
+		color: #1d1d1f;
+		font-size: 0.78em;
 		text-decoration: none;
-		color: inherit;
-		border: 1px solid rgb(var(--grey-light));
-		border-radius: 10px;
+		transition: border-color 0.15s ease, background 0.15s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.item-list .so-chips a:hover {
+			border-color: #fbd9b8;
+			background: #fffaf5;
+		}
+	}
+
+	.so-chip-score {
+		flex-shrink: 0;
+		padding: 0.1em 0.55em;
+		border-radius: 999px;
+		background: #fff1e3;
+		color: #b85b00;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.so-chip-title {
+		min-width: 0;
 		overflow: hidden;
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-weight: 500;
 	}
 
-	.card:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 6px 20px rgba(var(--black), 0.08);
+	.so-chip-date {
+		flex-shrink: 0;
+		font-size: inherit;
+		color: #86868b;
+		font-variant-numeric: tabular-nums;
 	}
 
-	.card-image {
-		width: 100%;
-		aspect-ratio: 16 / 10;
-		overflow: hidden;
-	}
-
-	.card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+	/* Recorded talks show their video thumbnail with a small YouTube play badge. */
+	.talk-recording {
+		position: relative;
+		flex-shrink: 0;
 		display: block;
 	}
 
-	.card-body {
-		padding: 1em;
+	.talk-recording .video-thumb {
+		display: block;
 	}
 
-	.card-body h3 {
+	/* Talks without a picture get a tile the same size as a thumbnail, so titles line up. */
+	.talk-tile {
+		flex-shrink: 0;
+		display: grid;
+		place-items: center;
+		width: 72px;
+		height: 40px;
+		border-radius: 4px;
+		background: #f5f5f7;
+		color: #86868b;
+	}
+
+	.play-badge {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+	}
+
+	/* A talk without a link gets the same layout as the linked rows. */
+	.item-static {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		padding: 0.85em 0.5em;
+	}
+
+	/* Apps: a springboard of app icons. */
+	.apps-section {
+		margin-bottom: 3em;
+	}
+
+	.app-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+		gap: 1em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.app-tile {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.3em;
+		width: 100%;
+		padding: 1em 0.5em;
+		border: none;
+		border-radius: 18px;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-align: center;
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.app-icon {
+		width: 72px;
+		height: 72px;
+		margin-bottom: 0.35em;
+		/* Each project's own icon, as drawn: no added tile, corners or shadow. */
+		object-fit: contain;
+		transition: transform 0.25s var(--ease-out, ease);
+	}
+
+	/* Follows the icon's own shape, so rounded and irregular icons get a natural shadow. */
+	.app-icon.has-shadow {
+		filter:
+			drop-shadow(0 1px 1px rgba(20, 20, 20, 0.18))
+			drop-shadow(0 6px 10px rgba(20, 20, 20, 0.2));
+	}
+
+	.app-name {
+		font-size: 0.9em;
+		font-weight: 600;
+		color: #1d1d1f;
+	}
+
+	.app-years {
+		font-size: 0.75em;
+		color: #86868b;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.app-tile:hover {
+			background: rgba(0, 0, 0, 0.035);
+		}
+
+		.app-tile:hover .app-icon {
+			transform: translateY(-3px) scale(1.04);
+		}
+	}
+
+	.app-tile:active .app-icon {
+		transform: scale(0.96);
+	}
+
+	.home-section {
+		margin-bottom: 3.5em;
+	}
+
+	/* Videos and talks: cards with a 16:9 picture on top. */
+	.media-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+		gap: 1.5em 1.25em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.media-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3em;
+		width: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-align: left;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.media-thumb {
+		position: relative;
+		display: grid;
+		place-items: center;
+		aspect-ratio: 16 / 9;
+		margin-bottom: 0.5em;
+		border-radius: 14px;
+		overflow: hidden;
+		background: #f5f5f7;
+		color: #a1a1a6;
+		box-shadow:
+			0 0 2px rgba(20, 20, 20, 0.15),
+			0 1px 2px rgba(20, 20, 20, 0.1),
+			0 4px 8px -2px rgba(20, 20, 20, 0.1),
+			0 10px 18px -6px rgba(20, 20, 20, 0.12);
+		transition: transform 0.25s var(--ease-out, ease);
+	}
+
+	/* A talk or design's card is its rounded thumbnail, so keyboard focus rings that. */
+	.media-card:focus-visible {
+		outline: none;
+	}
+
+	.media-card:focus-visible .media-thumb {
+		outline: 2px solid var(--focus-ring);
+		outline-offset: 2px;
+	}
+
+	.media-thumb img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* Talks without a photo: the event name on a soft gradient. */
+	.media-thumb-empty {
+		background: linear-gradient(150deg, #f5f5f7, #e8e8ed);
+	}
+
+	.talk-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5em;
+		color: #86868b;
+	}
+
+	.talk-placeholder span {
+		color: #424245;
+		font-size: 1.15em;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.media-thumb .play-badge {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.media-card:hover .media-thumb {
+			transform: translateY(-2px) scale(1.01);
+		}
+	}
+
+	.media-title {
+		font-weight: 600;
+		line-height: 1.3;
+		color: #1d1d1f;
+	}
+
+	.media-meta {
+		color: #86868b;
+		font-size: 0.82em;
+	}
+
+	/* Career: the current and featured roles in full on the timeline, the rest compact. */
+	.current-role {
+		padding: 1.75em 2em 1.5em;
+		border-radius: 20px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.06),
+			0 1px 2px rgba(20, 20, 20, 0.06),
+			0 8px 22px -8px rgba(20, 20, 20, 0.16);
+	}
+
+	/* Type matches the compact cards: name at body size, terms small and grey, and the
+	   summary and highlights at the same size as a compact card's summary. */
+	.current-role .lb-meta {
+		margin: 0.1em 0 0;
+		color: #6e6e73;
+		font-size: 0.85em;
+	}
+
+	.current-role h3 {
+		margin: 0;
 		font-size: 1em;
 		font-weight: 600;
-		margin: 0 0 0.4em 0;
-		color: rgb(var(--grey));
+		line-height: 1.3;
 	}
 
-	.card-body p {
-		font-size: 0.85em;
-		color: rgb(var(--grey));
+	.current-role .logo-large {
+		width: 40px;
+		height: 40px;
+		border-radius: 10px;
+		font-size: 1em;
+	}
+
+	.current-role .lb-heading {
+		gap: 0.75em;
+	}
+
+	.current-role p,
+	.current-role .lb-highlights {
+		color: #424245;
+		font-size: 0.88em;
+		line-height: 1.55;
+	}
+
+	/* Open source contributions sit on white cards. */
+	.item-list > li.card {
+		margin: 0.6em 0;
+		padding: 0.15em 0.35em;
+		border: 4px solid #fff;
+		border-radius: 14px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.06),
+			0 1px 2px rgba(20, 20, 20, 0.06),
+			0 6px 16px -6px rgba(20, 20, 20, 0.14);
+	}
+
+	/* Career timeline: the start years on a timescale down the left, and a rail with a
+	   dot beside each role's card. */
+	.timeline {
+		--tl-year: 3.25rem;
+		--tl-rail: 2.25rem;
+		--tl-x: calc(var(--tl-year) + var(--tl-rail) / 2);
+		--tl-dot: 12px;
+		--tl-top: 2px;
+		position: relative;
 		margin: 0;
-		line-height: 1.5;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* The rail: a segment from each role's dot down to the next one's, so it starts at
+	   the newest role and stops cleanly at the earliest. */
+	.tl-item:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: calc(var(--tl-top) + var(--tl-dot) / 2);
+		bottom: calc(-1 * (var(--tl-top) + var(--tl-dot) / 2));
+		left: calc(var(--tl-x) - 1px);
+		width: 2px;
+		background: #d2d2d7;
+	}
+
+	.tl-item {
+		position: relative;
+		display: grid;
+		grid-template-columns: var(--tl-year) var(--tl-rail) minmax(0, 1fr);
+		padding-bottom: 1.25em;
+	}
+
+	.tl-item:last-child {
+		padding-bottom: 2em;
+	}
+
+	/* The dot on the rail. */
+	.tl-item::before {
+		content: '';
+		position: absolute;
+		top: var(--tl-top);
+		left: calc(var(--tl-x) - var(--tl-dot) / 2);
+		box-sizing: border-box;
+		width: var(--tl-dot);
+		height: var(--tl-dot);
+		z-index: 1;
+		border: 2px solid #aeaeb2;
+		border-radius: 50%;
+		background: #fff;
+	}
+
+	/* The current role's dot is lit. */
+	.tl-item.is-current::before {
+		border-color: #34c759;
+		background: #34c759;
+		box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.18);
+	}
+
+	.tl-year {
+		grid-column: 1;
+		padding-top: var(--tl-top);
+		color: #1d1d1f;
+		font-size: 0.85em;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		line-height: var(--tl-dot);
+		text-align: right;
+	}
+
+	.tl-card {
+		grid-column: 3;
+		min-width: 0;
+	}
+
+	/* On the timeline, compact cards with media show it as a thumbnail beside the text,
+	   so they stay compact next to the full roles. */
+	@media (min-width: 601px) {
+		.tl-card .role-card.has-header {
+			flex-direction: row-reverse;
+			gap: 0;
+		}
+
+		.tl-card .role-header {
+			flex: 0 0 min(40%, 300px);
+			aspect-ratio: 16 / 10;
+		}
+
+		.tl-card .has-header .role-body {
+			justify-content: center;
+		}
+	}
+
+	.role-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6em;
+		width: 100%;
+		padding: 1em 1.15em 1.1em;
+		border: none;
+		border-radius: 16px;
+		background: #fff;
+		color: inherit;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.06),
+			0 1px 2px rgba(20, 20, 20, 0.06),
+			0 6px 16px -6px rgba(20, 20, 20, 0.14);
+		transition: transform 0.25s var(--ease-out, ease), box-shadow 0.25s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.role-card:hover {
+			transform: translateY(-2px);
+			box-shadow:
+				0 0 0 1px rgba(20, 20, 20, 0.06),
+				0 2px 4px rgba(20, 20, 20, 0.06),
+				0 12px 26px -10px rgba(20, 20, 20, 0.2);
+		}
+	}
+
+	/* A plus badge centred on the top-right corner of cards that open in the lightbox. */
+	.role-expand {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 1;
+		display: grid;
+		place-items: center;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		background: #fff;
+		color: #6e6e73;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.1),
+			0 2px 6px -1px rgba(20, 20, 20, 0.18);
+		transform: translate(40%, -40%);
+		transition: transform 0.25s var(--ease-out, ease), color 0.2s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.role-card:hover .role-expand {
+			color: #1d1d1f;
+			transform: translate(40%, -40%) rotate(90deg);
+		}
+	}
+
+	.role-card.is-static {
+		cursor: default;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.role-card.is-static:hover {
+			transform: none;
+			box-shadow:
+				0 0 0 1px rgba(20, 20, 20, 0.06),
+				0 1px 2px rgba(20, 20, 20, 0.06),
+				0 6px 16px -6px rgba(20, 20, 20, 0.14);
+		}
+	}
+
+	/* Cards with media lead with it, inset on its own card within the card. */
+	.role-card.has-header {
+		padding: 0.6em;
+	}
+
+	.role-header {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+		border-radius: 10px;
+		background: #f5f5f7;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.08),
+			0 1px 3px rgba(20, 20, 20, 0.08);
+	}
+
+	.role-header img,
+	.role-header video {
+		position: absolute;
+		inset: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+
+	.role-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6em;
+		width: 100%;
+	}
+
+	.has-header .role-body {
+		padding: 0.3em 0.55em 0.5em;
+	}
+
+	.role-detail,
+	.role-highlights {
+		margin: 0;
+		color: #424245;
+		font-size: 0.88em;
+		line-height: 1.55;
+	}
+
+	.role-highlights {
+		padding-left: 1.1em;
+	}
+
+	/* Inline roles: small screenshots, each zooming open on its own. */
+	.role-thumbs {
+		margin: 0.2em 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* A masonry of tiny thumbnails. */
+	.role-thumbs.is-masonry {
+		column-width: 72px;
+		column-gap: 6px;
+	}
+
+	.role-thumbs.is-masonry li {
+		break-inside: avoid;
+		margin-bottom: 6px;
+	}
+
+	/* A row: a few screenshots side by side, upright, as rounded cards with a shadow. */
+	.role-thumbs.is-row {
+		display: flex;
+		gap: 0.75em;
+		padding-bottom: 0.25em;
+	}
+
+	/* Every thumbnail in a row is the same height (a 220px-wide 16:10 shot's), so a
+	   portrait phone screen sits beside a landscape one at matching height. Widths
+	   shrink in proportion, so they stay level on narrow screens too. */
+	.role-thumbs.is-row li {
+		flex: 0 1 calc(var(--ar, 1.6) * 137.5px);
+		min-width: 0;
+	}
+
+	.role-thumbs.is-row button {
+		border-radius: 8px;
+		box-shadow:
+			0 0 0 1px rgba(20, 20, 20, 0.08),
+			0 6px 16px -6px rgba(20, 20, 20, 0.3);
+	}
+
+	.role-thumbs button {
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: none;
+		border-radius: 5px;
+		background: none;
+		cursor: zoom-in;
+		overflow: hidden;
+		box-shadow: 0 0 0 1px rgba(20, 20, 20, 0.08);
+		transition: transform 0.15s ease;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.role-thumbs button:hover {
+			transform: scale(1.04);
+		}
+	}
+
+	.role-thumbs button {
+		position: relative;
+	}
+
+	.thumb-play {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		display: grid;
+		place-items: center;
+		width: 32px;
+		height: 32px;
+		padding-left: 2px;
+		box-sizing: border-box;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.55);
+		color: #fff;
+		transform: translate(-50%, -50%);
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+
+	.role-thumbs img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.lb-shot {
+		margin: 0;
+	}
+
+	.lb-shot img,
+	.lb-shot video {
+		display: block;
+		width: 100%;
+		max-height: 75dvh;
+		object-fit: contain;
+		border-radius: 10px;
+	}
+
+	.lb-shot figcaption {
+		margin-top: 0.75em;
+		color: #6e6e73;
+		font-size: 0.9em;
+	}
+
+	.role-head {
+		display: flex;
+		align-items: center;
+		gap: 0.75em;
+	}
+
+	.logo-row {
+		flex-shrink: 0;
+		width: 40px;
+		height: 40px;
+		border-radius: 10px;
+	}
+
+	.role-name {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		min-width: 0;
+		gap: 0.1em;
+	}
+
+	.role-company {
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.role-title {
+		color: #6e6e73;
+		font-size: 0.85em;
+	}
+
+	.role-tech {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+	}
+
+	.role-tech img {
+		box-sizing: content-box;
+		width: 16px;
+		height: 16px;
+		padding: 4px;
+		border-radius: 6px;
+		background: #f5f5f7;
+	}
+
+	/* Talks without a link are buttons that look like the linked rows. */
+	.row-button {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		width: 100%;
+		padding: 0.85em 0.5em;
+		border: none;
+		border-radius: 6px;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.row-button:hover {
+			background: rgba(0, 0, 0, 0.035);
+		}
+	}
+
+	.logo {
+		width: 28px;
+		height: 28px;
+		border-radius: 7px;
+		object-fit: contain;
+		background: #fff;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+	}
+
+	.logo-initials {
+		display: grid;
+		place-items: center;
+		background: #f5f5f7;
+		color: #6e6e73;
+		font-size: 0.8em;
+		font-weight: 700;
+	}
+
+	.career-company {
+		min-width: 0;
+		font-size: 0.92em;
+		font-weight: 500;
+		line-height: 1.3;
+	}
+
+	.career-years {
+		color: #86868b;
+		font-size: 0.8em;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+	}
+
+	.favourites {
+		margin-bottom: 3em;
+	}
+
+	/* Lightbox content */
+	.lb h2 {
+		margin: 0;
+		font-size: 1.9em;
+		font-weight: 600;
+		letter-spacing: -0.015em;
+		line-height: 1.15;
+		text-wrap: balance;
+	}
+
+	.lb p {
+		line-height: 1.6;
+	}
+
+	.lb-eyebrow {
+		margin: 0 0 0.3em;
+		color: #86868b;
+		font-size: 0.8em;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.lb-project {
+		display: flex;
+		align-items: center;
+		gap: 0.45em;
+		margin: 0 0 0.35em;
+		color: #424245;
+		font-size: 0.95em;
+		font-weight: 600;
+	}
+
+	.lb .lb-meta {
+		margin: 0.3em 0 1em;
+		color: #6e6e73;
+		font-size: 0.9em;
+	}
+
+	.lb-heading {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		margin-bottom: 0.5em;
+	}
+
+	.lb-heading .lb-meta {
+		margin-bottom: 0;
+	}
+
+	.logo-large {
+		width: 56px;
+		height: 56px;
+		border-radius: 14px;
+		font-size: 1.4em;
+	}
+
+	.lb-embed {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		margin: 1.25em 0;
+		border-radius: 12px;
+		overflow: hidden;
+		background: #000;
+	}
+
+	.lb-embed iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.lb-image {
+		display: block;
+		width: 100%;
+		margin: 1.25em 0;
+		border-radius: 12px;
+	}
+
+	.lb-highlights {
+		padding-left: 1.2em;
+		line-height: 1.6;
+	}
+
+	.lb-tech {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+		margin: 1.25em 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.lb-tech span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		padding: 0.3em 0.75em;
+		border-radius: 999px;
+		background: #f5f5f7;
+		font-size: 0.82em;
+		font-weight: 500;
+	}
+
+	.lb-media {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+		gap: 1.5em;
+		margin: 1.5em 0 0.5em;
+	}
+
+	.lb-media figure {
+		margin: 0;
+	}
+
+	.lb-media img,
+	.lb-media video {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		border-radius: 10px;
+		background: #f5f5f7;
+		box-shadow:
+			0 0 1px rgba(20, 20, 20, 0.2),
+			0 4px 12px -4px rgba(20, 20, 20, 0.18);
+	}
+
+	/* Same as the project galleries: 'top' keeps the top of a tall screenshot in view,
+	   and 'contain' shows a whole phone shot or mockup on a blue backdrop. */
+	.lb-media .fit-top img {
+		object-position: top;
+	}
+
+	.lb-media .fit-contain img {
+		object-fit: contain;
+		padding: 6%;
+		box-sizing: border-box;
+		background: linear-gradient(160deg, #6aa6d8, #2c5f8a);
+	}
+
+	.lb-media figcaption {
+		margin-top: 0.5em;
+		color: #6e6e73;
+		font-size: 0.82em;
+		line-height: 1.4;
+	}
+
+	/* Design work: images stacked full width, as on Behance. */
+	.lb-stack {
+		display: grid;
+		gap: 1.25em;
+		margin: 1.5em 0;
+	}
+
+	.lb-stack img {
+		display: block;
+		max-width: 100%;
+		margin: 0 auto;
+		border-radius: 10px;
+		box-shadow: 0 0 0 1px rgba(20, 20, 20, 0.06);
+	}
+
+	/* Design covers are posters, menus and full-page sites: show their tops. */
+	.design-thumb img {
+		object-position: top;
+	}
+
+	.design-thumb.fit-contain img {
+		inset: 12%;
+		width: 76%;
+		height: 76%;
+		object-fit: contain;
+		object-position: center;
+	}
+
+	.lb-diff {
+		margin: 1.25em 0;
+		font-size: 0.85em;
+	}
+
+	/* The diffs are for reading, not copying. */
+	.lb-diff :global(.expressive-code .copy) {
+		display: none;
+	}
+
+	.lb-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em 1.5em;
+		margin-bottom: 0;
+		font-weight: 600;
+	}
+
+	.lb-links a {
+		color: #0066cc;
+		text-decoration: none;
+	}
+
+	.lb-links a:hover {
+		text-decoration: underline;
 	}
 
 	/* Responsive */
@@ -496,32 +2457,65 @@ const projects = [
 
 		.hero {
 			flex-direction: column;
+			align-items: center;
 			text-align: center;
 			gap: 1.2em;
 			padding: 1.5em 0;
 		}
 
 		.hero-avatar {
-			width: 80px;
-			height: 80px;
+			width: 110px;
+			height: 110px;
 		}
 
 		.hero-text h1 {
-			font-size: 1.5em;
+			font-size: 32px;
 		}
 
 		.bio {
-			font-size: 0.9em;
+			font-size: 15px;
 		}
 
-		.lists-row {
-			grid-template-columns: 1fr;
-			gap: 2em;
+		.bio-lead {
+			font-size: 18px;
 		}
 
-		.card-grid {
-			grid-template-columns: 1fr;
-			max-width: 320px;
+		/* Too narrow for one-line chips: let titles wrap inside a rounded card instead. */
+		.item-list .so-chips a {
+			align-items: flex-start;
+			border-radius: 14px;
+		}
+
+		.so-chip-title {
+			white-space: normal;
+		}
+
+		.current-role {
+			padding: 1.25em 1.1em;
+		}
+
+		.timeline {
+			--tl-year: 2.4rem;
+			--tl-rail: 1.5rem;
+			--tl-dot: 10px;
+		}
+
+		.tl-year {
+			font-size: 0.75em;
+		}
+
+		.app-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 0.25em;
+		}
+
+		.app-icon {
+			width: 60px;
+			height: 60px;
+		}
+
+		.app-name {
+			font-size: 0.8em;
 		}
 
 		.item-list a {
@@ -548,33 +2542,18 @@ const projects = [
 			font-size: 0.82em;
 		}
 
-		.card-body h3 {
-			font-size: 0.9em;
-		}
+	}
 
-		.card-body p {
-			font-size: 0.8em;
+	@media (max-width: 860px) {
+		.columns {
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
 	@media (min-width: 601px) and (max-width: 768px) {
 		.hero-text h1 {
-			font-size: 1.8em;
+			font-size: 40px;
 		}
 
-		.lists-row {
-			grid-template-columns: 1fr;
-			gap: 2em;
-		}
-
-		.card-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (min-width: 769px) and (max-width: 960px) {
-		.card-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 </style>
