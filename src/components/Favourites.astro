@@ -50,6 +50,9 @@ const apps: App[] = [
 <section class="group">
 	<div class="group-header">
 		<h2>Favourite Books</h2>
+		<p class="credit">
+			Bookshelf inspired by <a href="https://x.com/ilyamiskov/status/2056897155252555868" target="_blank" rel="noopener noreferrer">Ilya Miskov</a>
+		</p>
 	</div>
 	<ul class="shelf">
 		{books.map((book) => (
@@ -97,8 +100,25 @@ const apps: App[] = [
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1em;
+		flex-wrap: wrap;
+		gap: 0.25em 1em;
 		margin-bottom: 1em;
+	}
+
+	.credit {
+		margin: 0;
+		font-size: 0.8em;
+		color: var(--grey);
+	}
+
+	.credit a {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.credit a:hover {
+		color: var(--accent);
 	}
 
 	.group-header h2 {
