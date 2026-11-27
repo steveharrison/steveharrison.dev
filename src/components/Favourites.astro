@@ -18,6 +18,30 @@ const books: Book[] = [
 	{ title: 'Elon Musk', author: 'Walter Isaacson', isbn: '1982181281', href: 'https://www.amazon.com/Elon-Musk-Walter-Isaacson/dp/1982181281' },
 ];
 
+// The two ends of a shelf plank, drawn to line up with the gradient in `.shelf` that paints
+// the middle: the top surface narrows towards the back, the front edge has rounded corners
+// and the shadow underneath fades out before the end. 22 x 34 is the cap's size in px; the
+// image is stretched to a full shelf row, and `YMax meet` keeps it unscaled at the bottom.
+const plankCap = (side: 'left' | 'right') => {
+	const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 34' preserveAspectRatio='${side === 'left' ? 'xMin' : 'xMax'}YMax meet'>
+		<defs>
+			<linearGradient id='t' x1='0' y1='0' x2='0' y2='10' gradientUnits='userSpaceOnUse'><stop stop-color='#dedee2'/><stop offset='1' stop-color='#ececef'/></linearGradient>
+			<linearGradient id='f' x1='0' y1='10' x2='0' y2='21' gradientUnits='userSpaceOnUse'><stop stop-color='#f7f7f9'/><stop offset='1' stop-color='#e2e2e6'/></linearGradient>
+			<linearGradient id='s' x1='0' y1='22' x2='0' y2='34' gradientUnits='userSpaceOnUse'><stop stop-opacity='.1'/><stop offset='1' stop-opacity='0'/></linearGradient>
+			<linearGradient id='m' x1='4' y1='0' x2='21' y2='0' gradientUnits='userSpaceOnUse'><stop stop-color='#fff' stop-opacity='0'/><stop offset='1' stop-color='#fff'/></linearGradient>
+			<mask id='k'><rect width='21' height='34' fill='url(#m)'/></mask>
+		</defs>
+		<g${side === 'right' ? " transform='matrix(-1 0 0 1 22 0)'" : ''}>
+			<path d='M14 0H22V10H1Z' fill='url(#t)'/>
+			<path d='M3 10H22V22H3a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3Z' fill='#d6d6db'/>
+			<path d='M3 10H22V21H3a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3Z' fill='url(#f)'/>
+			<rect y='22' width='21' height='12' fill='url(#s)' mask='url(#k)'/>
+		</g>
+	</svg>`;
+	return `url("data:image/svg+xml,${encodeURIComponent(svg.replace(/\s+/g, ' '))}")`;
+};
+const shelfStyle = `--cap-left: ${plankCap('left')}; --cap-right: ${plankCap('right')};`;
+
 // Icons live in /content/images/recommendations/apps/<slug>.png.
 const apps: App[] = [
 	{ name: 'Tower', slug: 'tower', href: 'https://www.git-tower.com/mac', note: 'Best Git GUI' },
@@ -54,7 +78,7 @@ const apps: App[] = [
 			Bookshelf inspired by <a href="https://x.com/ilyamiskov/status/2056897155252555868" target="_blank" rel="noopener noreferrer">Ilya Miskov</a>
 		</p>
 	</div>
-	<ul class="shelf">
+	<ul class="shelf" style={shelfStyle}>
 		{books.map((book) => (
 			<li>
 				<a class="book" href={book.href} target="_blank" rel="noopener noreferrer">
@@ -132,16 +156,26 @@ const apps: App[] = [
 
 	/* Bookshelf: every grid row is one shelf. Each plank is painted at the bottom of
 	   its --row-height band, measured up from the bottom: a 12px shadow, a 12px front
-	   edge, then a 10px top surface that the books stand on. */
+	   edge, then a 10px top surface that the books stand on. The gradient paints the
+	   middle of each plank and the two SVG caps (see plankCap) finish its ends; the
+	   middle runs 1px under each cap so no seam can show between them. */
 	.shelf {
 		--row-height: 245px;
+		--cap: 22px;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 		grid-auto-rows: var(--row-height);
 		list-style: none;
 		margin: 0;
-		padding: 0;
-		background-image: linear-gradient(
+		/* Insets the books from the ends of the planks. */
+		padding: 0 1.25em;
+		background-repeat: repeat-y;
+		background-position: left top, right top, center top;
+		background-size:
+			var(--cap) var(--row-height),
+			var(--cap) var(--row-height),
+			calc(100% - 2 * var(--cap) + 2px) var(--row-height);
+		background-image: var(--cap-left), var(--cap-right), linear-gradient(
 			to bottom,
 			transparent calc(100% - 34px),
 			#dedee2 calc(100% - 34px),
@@ -153,7 +187,6 @@ const apps: App[] = [
 			rgba(0, 0, 0, 0.1) calc(100% - 12px),
 			transparent 100%
 		);
-		background-size: 100% var(--row-height);
 	}
 
 	.shelf li {
@@ -318,6 +351,7 @@ const apps: App[] = [
 		.shelf {
 			--row-height: 190px;
 			grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+			padding: 0 0.5em;
 		}
 
 		.cover {
